@@ -2,7 +2,33 @@ let cart = [];
 let currentCategory = 'all';
 let discountRate = 0;
 
-// Özel Toast Bildirim Sistemi (alert yerine şık bildirimler)
+window.addEventListener('DOMContentLoaded', () => {
+    checkServerStatus();
+});
+
+// Aternos sunucu IP'si üzerinden canlı durum sorgulama
+async function checkServerStatus() {
+    const serverIP = "XynovSmp.aternos.me";
+    const countEl = document.getElementById("onlinePlayerCount");
+    const dotEl = document.getElementById("statusDot");
+
+    try {
+        const response = await fetch(`https://api.mcstatus.io/v2/status/java/${serverIP}`);
+        const data = await response.json();
+
+        if (data.online) {
+            countEl.innerText = `${data.players.online} / ${data.players.max}`;
+            dotEl.className = "status-dot"; // Yeşil (Aktif)
+        } else {
+            countEl.innerText = "Sunucu Kapalı (Açılması Bekleniyor)";
+            dotEl.className = "status-dot offline";
+        }
+    } catch (error) {
+        countEl.innerText = "Çevrimdışı / Bağlantı Bekleniyor";
+        dotEl.className = "status-dot offline";
+    }
+}
+
 function showToast(message, type = 'success') {
     const container = document.getElementById("toastContainer");
     const toast = document.createElement("div");
@@ -41,7 +67,7 @@ function saveUser() {
     if(user.trim()) {
         document.getElementById("userBtnText").innerText = user;
         toggleModal();
-        showToast("Başarıyla giriş yapıldı: " + user, 'success');
+        showToast(`Hoş geldin, ${user}! Giriş yapıldı.`, 'success');
     } else {
         showToast("Lütfen geçerli bir kullanıcı adı girin.", 'info');
     }
@@ -105,7 +131,7 @@ function applyCoupon() {
     if(code === "XYNOV" || code === "XYNOV20") {
         discountRate = 0.20;
         updateCartUI();
-        showToast("İndirim kodu uygulandı! (%20 İndirim)", 'success');
+        showToast("İndirim kodu başarıyla uygulandı! (%20 İndirim)", 'success');
     } else {
         showToast("Geçersiz veya süresi dolmuş kupon kodu.", 'info');
     }
@@ -137,14 +163,14 @@ function checkout() {
         showToast("Sepetiniz boş!", 'info');
         return;
     }
-    showToast("Ödeme geçidine yönlendiriliyorsunuz...", 'success');
+    showToast("Güvenli ödeme ağ geçidine bağlanılıyor...", 'success');
     setTimeout(() => {
-        alert("Ödeme simülasyonu başarılı! Ürünler hesabınıza tanımlandı.");
+        alert("Ödeme simülasyonu başarılı! Ürünler oyun içi hesabınıza otomatik olarak tanımlandı.");
         cart = [];
         discountRate = 0;
         updateCartUI();
         toggleCart();
-    }, 1000);
+    }, 1200);
 }
 
 function sendTicket() {
@@ -153,11 +179,11 @@ function sendTicket() {
     const msg = document.getElementById("supMsg").value;
 
     if(name.trim() && subject.trim() && msg.trim()) {
-        showToast("Destek talebiniz başarıyla oluşturuldu!", 'success');
+        showToast("Destek talebiniz başarıyla oluşturuldu! Yetkililer dönecektir.", 'success');
         document.getElementById("supName").value = '';
         document.getElementById("supSubject").value = '';
         document.getElementById("supMsg").value = '';
     } else {
-        showToast("Lütfen tüm alanları eksiksiz doldurun.", 'info');
+        showToast("Lütfen tüm destek alanlarını eksiksiz doldurun.", 'info');
     }
 }
