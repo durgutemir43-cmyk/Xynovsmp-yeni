@@ -3,87 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XynovSMP - Premium Nether Portal</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>XYNOV SMP - 1.20.x Hibrit Survival Sunucusu</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Arka Plan Parçacık Canvas'ı -->
-    <canvas id="nether-particles"></canvas>
-    
-    <!-- Parlama Efektleri -->
-    <div class="glow-orb orb-1"></div>
-    <div class="glow-orb orb-2"></div>
 
-    <main class="container">
-        <!-- Hero Header -->
-        <header class="hero-section">
-            <div class="badge">🔥 1.20.x METANIN EN İYİ HİBRİT SURVIVAL'I</div>
-            <h1 class="glow-title">XYNOV<span>SMP</span></h1>
-            <p class="subtitle">Nether'ın derinliklerinde geçen eşsiz bir Minecraft deneyimi. Ekibini topla, krallığını kur ve hükmet!</p>
-            
-            <!-- IP Kopyalama Kutusu -->
-            <div class="ip-card" id="copy-ip-btn">
-                <div class="ip-info">
-                    <span class="ip-label">SUNUCU IP ADRESİ</span>
-                    <span class="ip-address">play.xynovsmp.com</span>
-                </div>
-                <button class="btn-copy">
-                    <span class="copy-text">KOPYALA</span>
-                </button>
-            </div>
-            
-            <div class="online-status">
-                <span class="status-dot"></span>
-                <span>Şu an <strong id="online-count">128</strong> oyuncu aktif!</span>
-            </div>
-        </header>
+    <!-- HERO SECTION (GİRİŞ KISMI) -->
+    <header class="hero">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <span class="badge"><i class="fa-solid =>-fire"></i> 1.20.X METANIN EN İYİ HİBRİT SURVIVAL'I</span>
+            <h1>XYNOV<span>SMP</span></h1>
+            <p>Nether'ın derinliklerinde geçen eşsiz bir Minecraft deneyimi. Ekibini topla, klanını kur ve krallığını hükmet!</p>
 
-        <!-- Hızlı Bağlantı / Özellik Kartları -->
-        <section class="features-grid">
-            <div class="card">
-                <div class="card-icon">⚔️</div>
-                <h3>Özel Savaş Sistemleri</h3>
-                <p>Gelişmiş klan savaşları, özel yetenekler ve haftalık turnuvalar ile gücünü kanıtla.</p>
+            <div class="ip-box">
+                <span class="ip-text" id="serverIP">play.xynovsmp.com</span>
+                <button class="copy-btn" onclick="copyIP()"><i class="fa-regular fa-copy"></i> KOPYALA</button>
             </div>
-            
-            <div class="card">
-                <div class="card-icon">🌋</div>
-                <h3>Nether Etkinlikleri</h3>
-                <p>Saatlik Nether boss savaşları, gizemli hazine sandıkları ve nadir eşyalar.</p>
-            </div>
-
-            <div class="card clickable" id="open-wheel-btn">
-                <div class="card-icon">🎰</div>
-                <h3>Günlük Şans Çarkı</h3>
-                <p>Her gün giriş yap, çarkı çevir ve ücretsiz spawner veya VIP ödüllerini kazan!</p>
-            </div>
-        </section>
-
-        <!-- Şans Çarkı Modalı -->
-        <div class="modal" id="wheel-modal">
-            <div class="modal-content">
-                <button class="modal-close" id="close-modal">&times;</button>
-                <h2>🔥 Nether Şans Çarkı</h2>
-                <p>Ödülünü kazanmak için aşağıdaki butona tıkla!</p>
-                <div class="wheel-container">
-                    <div class="wheel-pointer">▼</div>
-                    <div class="wheel" id="wheel">
-                        <div class="wheel-section" style="--i:1; --clr:#d9381e;"><span>100K Dinar</span></div>
-                        <div class="wheel-section" style="--i:2; --clr:#2a0808;"><span>Netherite Set</span></div>
-                        <div class="wheel-section" style="--i:3; --clr:#ff6b35;"><span>VIP 3 Gün</span></div>
-                        <div class="wheel-section" style="--i:4; --clr:#1a0505;"><span>1x Anahtar</span></div>
-                        <div class="wheel-section" style="--i:5; --clr:#d9381e;"><span>50K Dinar</span></div>
-                        <div class="wheel-section" style="--i:6; --clr:#2a0808;"><span>Spawner</span></div>
-                    </div>
-                </div>
-                <button class="btn-spin" id="spin-btn">ÇARKI ÇEVİR</button>
-                <div id="wheel-result" class="wheel-result"></div>
+            <div class="status">
+                <span class="dot"></span> Şu an <strong id="playerCount">128</strong> oyuncu aktif!
             </div>
         </div>
-    </main>
+    </header>
+
+    <!-- OYUNCU KARŞILAMA BANNERI -->
+    <section class="welcome-banner">
+        <div class="container">
+            <div class="welcome-card">
+                <i class="fa-solid fa-gamepad welcome-icon"></i>
+                <div class="welcome-text">
+                    <h2>Aramıza Hoş Geldin, Savaşçı!</h2>
+                    <p>Sıradan Survival oyunlarından sıkıldın mı? XYNOV SMP'de özel Nether boss savaşları, klan turnuvaları ve gelişmiş ekonomi seni bekliyor. Hemen başlatıcını (launcher) hazırla ve savaşa katıl!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SUNUCU ÖZELLİKLERİ -->
+    <section class="features container">
+        <div class="feature-card">
+            <i class="fa-solid fa-swords"></i>
+            <h3>Özel Savaş Sistemleri</h3>
+            <p>Gelişmiş klan savaşları, özel yetenekler ve haftalık turnuvalar ile gücünü kanıtla.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fa-solid fa-volcano"></i>
+            <h3>Nether Etkinlikleri</h3>
+            <p>Saatlik Nether boss savaşları, gizemli hazine sandıkları ve nadir eşyalar.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fa-solid fa-cubes"></i>
+            <h3>Günlük Şans Çarkı</h3>
+            <p>Her gün giriş yap, çarkı çevir ve ücretsiz spawner veya VIP ödüllerini kazan!</p>
+        </div>
+    </section>
+
+    <!-- LAUNCHER VE KATILIM REHBERİ -->
+    <section class="launcher-guide container">
+        <h2 class="section-title"><i class="fa-solid fa-rocket"></i> Sunucuya Nasıl Katılırsın?</h2>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-num">1</div>
+                <h4>Launcher Hazırla</h4>
+                <p>Minecraft Java Edition destekleyen (TLauncher, LegacyLauncher vb.) herhangi bir başlatıcıyı aç.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">2</div>
+                <h4>Sürüm Seçimi</h4>
+                <p>Oyun sürümünü <strong>1.20.1</strong> veya daha üstü (1.20.x) bir sürüme ayarla ve oyunu başlat.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-num">3</div>
+                <h4>IP Adresini Ekle</h4>
+                <p>Çok Oyunculu > Sunucu Ekle kısmına gip IP adresimizi yapıştır: <code>play.xynovsmp.com</code></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIP MAĞAZA VİTRİNİ -->
+    <section class="vip-store container">
+        <h2 class="section-title"><i class="fa-solid fa-gem"></i> VIP Paketleri</h2>
+        <div class="vip-grid">
+            <div class="vip-card vip-bronze">
+                <h3>VIP</h3>
+                <div class="price">50 ₺ <span>/Aylık</span></div>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Özel VIP Unvanı</li>
+                    <li><i class="fa-solid fa-check"></i> /fly Komutu (Lobi)</li>
+                    <li><i class="fa-solid fa-check"></i> +3 Sanal Sandık (/pv 3)</li>
+                    <li><i class="fa-solid fa-check"></i> 1x Özel Kit</li>
+                </ul>
+                <a href="#" class="vip-btn">Satın Al</a>
+            </div>
+            <div class="vip-card vip-gold featured">
+                <div class="popular-tag">EN POPÜLER</div>
+                <h3>XYNOV VIP</h3>
+                <div class="price">120 ₺ <span>/Aylık</span></div>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Özel XYNOV Efektleri</li>
+                    <li><i class="fa-solid fa-check"></i> /fly Komutu (Tüm Harita)</li>
+                    <li><i class="fa-solid fa-check"></i> +7 Sanal Sandık (/pv 7)</li>
+                    <li><i class="fa-solid fa-check"></i> Özel Boss Anahtarları</li>
+                    <li><i class="fa-solid fa-check"></i> Anında Spawner Hediyesi</li>
+                </ul>
+                <a href="#" class="vip-btn">Satın Al</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER & DISCORD -->
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2026 XYNOV SMP. Tüm hakları saklıdır. Minecraft Mojang AB'ye bağlı değildir.</p>
+            <div class="socials">
+                <a href="https://discord.gg" target="_blank"><i class="fa-brands fa-discord"></i> Discord Topluluğuna Katıl</a>
+            </div>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
