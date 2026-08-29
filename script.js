@@ -1,9 +1,31 @@
 let cart = [];
 let currentCategory = 'all';
+let discountRate = 0;
+
+// Özel Toast Bildirim Sistemi (alert yerine şık bildirimler)
+function showToast(message, type = 'success') {
+    const container = document.getElementById("toastContainer");
+    const toast = document.createElement("div");
+    toast.className = `toast ${type}`;
+    
+    let icon = 'fa-circle-check';
+    if(type === 'info') icon = 'fa-circle-info';
+    
+    toast.innerHTML = `<i class="fa-solid ${icon}"></i> <span>${message}</span>`;
+    container.appendChild(toast);
+
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(120%)';
+        setTimeout(() => toast.remove(), 300);
+    }, 3500);
+}
 
 function copyIP() {
     const ip = document.getElementById("serverIP").innerText;
-    navigator.clipboard.writeText(ip).then(() => alert("Sunucu IP kopyalandı: " + ip));
+    navigator.clipboard.writeText(ip).then(() => {
+        showToast("Sunucu IP adresi panoya kopyalandı: " + ip, 'success');
+    });
 }
 
 function toggleCart() {
@@ -19,9 +41,9 @@ function saveUser() {
     if(user.trim()) {
         document.getElementById("userBtnText").innerText = user;
         toggleModal();
-        alert("Başarıyla giriş yapıldı: " + user);
+        showToast("Başarıyla giriş yapıldı: " + user, 'success');
     } else {
-        alert("Lütfen geçerli bir kullanıcı adı girin.");
+        showToast("Lütfen geçerli bir kullanıcı adı girin.", 'info');
     }
 }
 
@@ -34,6 +56,7 @@ function addToCart(name, price) {
     }
     updateCartUI();
     toggleCart();
+    showToast(`${name} sepete eklendi!`, 'success');
 }
 
 function updateCartUI() {
@@ -46,30 +69,46 @@ function updateCartUI() {
     if(cart.length === 0) {
         list.innerHTML = `<p class="empty-cart">Sepetiniz şu an boş.</p>`;
         totalEl.innerText = "0.00 ₺";
+        discountRate = 0;
         return;
     }
 
     let html = "";
-    let total = 0;
+    let subtotal = 0;
     cart.forEach((item, index) => {
-        total += item.price * item.qty;
+        subtotal += item.price * item.qty;
         html += `
             <div class="cart-row">
                 <div>
                     <strong style="font-size:0.85rem; color:#fff; display:block;">${item.name}</strong>
                     <small style="color:var(--primary); font-size:0.75rem;">${item.price} ₺ x ${item.qty}</small>
                 </div>
-                <button onclick="removeItem(${index})" style="background:none; border:none; color:#ef4444; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+                <button onclick="removeItem(${index})" style="background:none; border:none; color:#ef4444; cursor:pointer; font-size:0.9rem;"><i class="fa-solid fa-trash"></i></button>
             </div>
         `;
     });
     list.innerHTML = html;
-    totalEl.innerText = total.toFixed(2) + " ₺";
+    
+    let finalTotal = subtotal * (1 - discountRate);
+    totalEl.innerText = finalTotal.toFixed(2) + " ₺";
 }
 
 function removeItem(index) {
+    const removedName = cart[index].name;
     cart.splice(index, 1);
     updateCartUI();
+    showToast(`${removedName} sepetten çıkarıldı.`, 'info');
+}
+
+function applyCoupon() {
+    const code = document.getElementById("couponInput").value.trim().toUpperCase();
+    if(code === "XYNOV" || code === "XYNOV20") {
+        discountRate = 0.20;
+        updateCartUI();
+        showToast("İndirim kodu uygulandı! (%20 İndirim)", 'success');
+    } else {
+        showToast("Geçersiz veya süresi dolmuş kupon kodu.", 'info');
+    }
 }
 
 function switchCategory(cat, el) {
@@ -95,13 +134,17 @@ function filterProducts() {
 
 function checkout() {
     if(cart.length === 0) {
-        alert("Sepetiniz boş!");
+        showToast("Sepetiniz boş!", 'info');
         return;
     }
-    alert("Ödeme simülasyonu başarılı! Ürünler hesabınıza eklenecektir.");
-    cart = [];
-    updateCartUI();
-    toggleCart();
+    showToast("Ödeme geçidine yönlendiriliyorsunuz...", 'success');
+    setTimeout(() => {
+        alert("Ödeme simülasyonu başarılı! Ürünler hesabınıza tanımlandı.");
+        cart = [];
+        discountRate = 0;
+        updateCartUI();
+        toggleCart();
+    }, 1000);
 }
 
 function sendTicket() {
@@ -110,11 +153,11 @@ function sendTicket() {
     const msg = document.getElementById("supMsg").value;
 
     if(name.trim() && subject.trim() && msg.trim()) {
-        alert("Destek talebiniz başarıyla oluşturuldu! En kısa sürede Discord üzerinden dönüş yapılacaktır.");
+        showToast("Destek talebiniz başarıyla oluşturuldu!", 'success');
         document.getElementById("supName").value = '';
         document.getElementById("supSubject").value = '';
         document.getElementById("supMsg").value = '';
     } else {
-        alert("Lütfen tüm alanları eksiksiz doldurun.");
+        showToast("Lütfen tüm alanları eksiksiz doldurun.", 'info');
     }
 }
