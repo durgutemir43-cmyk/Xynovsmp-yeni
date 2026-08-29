@@ -3,13 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XYNOV SMP - Profesyonel Mağaza & Portal</title>
-    <link rel="stylesheet" href="style.css">
+    <title>XYNOV SMP - Ultimate Minecraft Portal & Mağaza</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #f97316;
+            --primary-hover: #ea580c;
+            --bg-dark: #09090b;
+            --bg-card: #121216;
+            --border-color: #27272a;
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; scroll-behavior: smooth; }
+        body { background: var(--bg-dark); color: var(--text-main); line-height: 1.6; }
+        .container { max-width: 1350px; margin: 0 auto; padding: 0 20px; }
+
+        /* ÜST BİLGİ & DUYURU BAR */
+        .announcement-bar { background: linear-gradient(90deg, #c2410c, #f97316); color: #fff; text-align: center; padding: 6px; font-size: 0.8rem; font-weight: 700; }
+        .top-bar { background: #050507; border-bottom: 1px solid var(--border-color); font-size: 0.85rem; padding: 8px 0; color: var(--text-muted); }
+        .top-container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .server-ip span { color: #fff; font-weight: 700; background: #18181b; padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border-color); }
+        .copy-btn { background: none; border: none; color: var(--primary); cursor: pointer; margin-left: 6px; font-weight: 600; }
+        .user-menu { display: flex; gap: 12px; align-items: center; }
+        .action-btn { background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; transition: 0.2s; display: flex; align-items: center; gap: 6px; }
+        .action-btn:hover { border-color: var(--primary); }
+        .action-btn span { background: var(--primary); padding: 1px 6px; border-radius: 10px; font-weight: 700; color: #fff; }
+
+        /* NAVBAR */
+        .navbar { background: rgba(9, 9, 11, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); position: sticky; top: 0; z-index: 900; }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; height: 75px; }
+        .logo { font-size: 1.6rem; font-weight: 900; color: #fff; text-decoration: none; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; }
+        .logo span { color: var(--primary); }
+        .nav-links { display: flex; list-style: none; gap: 20px; align-items: center; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; transition: 0.2s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+        .discord-badge { background: #5865F2; color: #fff !important; padding: 7px 16px; border-radius: 6px; display: flex; align-items: center; gap: 6px; }
+
+        /* HERO / HEADER BÖLÜMÜ */
+        .hero-banner { background: linear-gradient(180deg, rgba(249,115,22,0.1) 0%, rgba(9,9,11,0) 100%), var(--bg-dark); padding: 50px 0 30px; text-align: center; border-bottom: 1px solid var(--border-color); }
+        .hero-banner h1 { font-size: 2.5rem; font-weight: 900; color: #fff; margin-bottom: 10px; }
+        .hero-banner p { color: var(--text-muted); font-size: 1rem; max-width: 600px; margin: 0 auto; }
+
+        /* ANA YERLEŞİM (GRID) */
+        .portal-grid { display: grid; grid-template-columns: 1fr 380px; gap: 30px; padding: 40px 0; }
+        @media(max-width: 1024px) { .portal-grid { grid-template-columns: 1fr; } }
+
+        .card-box { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .box-title { font-size: 1.2rem; color: #fff; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+
+        /* MAĞAZA ALANI */
+        .store-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
+        .search-box { position: relative; }
+        .search-box input { background: var(--bg-dark); border: 1px solid var(--border-color); padding: 9px 12px 9px 38px; border-radius: 6px; color: #fff; font-size: 0.9rem; outline: none; width: 240px; }
+        .search-box input:focus { border-color: var(--primary); }
+        .search-box i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+
+        .category-tabs { display: flex; gap: 8px; margin-bottom: 25px; flex-wrap: wrap; }
+        .tab-chip { background: #18181b; border: 1px solid var(--border-color); color: var(--text-muted); padding: 7px 16px; border-radius: 20px; font-size: 0.85rem; cursor: pointer; font-weight: 600; transition: 0.2s; }
+        .tab-chip.active, .tab-chip:hover { background: rgba(249, 115, 22, 0.15); border-color: var(--primary); color: var(--primary); }
+
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
+        .product-card { background: var(--bg-dark); border: 1px solid var(--border-color); border-radius: 10px; padding: 20px; position: relative; display: flex; flex-direction: column; transition: 0.2s; }
+        .product-card:hover { border-color: #3f3f46; transform: translateY(-4px); }
+        .product-card.featured { border-color: rgba(249, 115, 22, 0.6); background: linear-gradient(180deg, #18110f 0%, var(--bg-dark) 100%); }
+        .badge { position: absolute; top: 12px; right: 12px; background: #27272a; color: #fff; font-size: 0.6rem; font-weight: 800; padding: 3px 7px; border-radius: 4px; }
+        .badge.gold { background: var(--primary); }
+        .product-card i.icon { font-size: 2.2rem; color: var(--primary); margin-bottom: 12px; }
+        .product-card h3 { font-size: 1.1rem; color: #fff; margin-bottom: 5px; font-weight: 700; }
+        .price { font-size: 1.25rem; font-weight: 800; color: #fff; margin-bottom: 15px; }
+        .feat-list { list-style: none; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 20px; flex-grow: 1; }
+        .feat-list li { margin-bottom: 5px; display: flex; align-items: center; gap: 6px; }
+        .feat-list li::before { content: "✓"; color: var(--primary); font-weight: bold; }
+        .buy-btn { width: 100%; background: #18181b; border: 1px solid var(--border-color); color: #fff; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: 0.2s; }
+        .buy-btn:hover { background: #27272a; border-color: #3f3f46; }
+        .buy-btn.orange { background: var(--primary); border-color: var(--primary); }
+        .buy-btn.orange:hover { background: var(--primary-hover); }
+
+        /* YAN PANEL: LİDERLİK TABLOSU */
+        .lb-section-title { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 12px; margin-top: 15px; font-weight: 600; }
+        .lb-list { list-style: none; }
+        .lb-item { display: flex; align-items: center; background: var(--bg-dark); border: 1px solid var(--border-color); padding: 10px 14px; border-radius: 8px; margin-bottom: 8px; gap: 12px; }
+        .rank-badge { width: 26px; height: 26px; background: #27272a; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 800; color: #fff; }
+        .rank-badge.gold { background: #f59e0b; color: #000; }
+        .rank-badge.silver { background: #94a3b8; color: #000; }
+        .rank-badge.bronze { background: #b45309; }
+        .lb-info { flex-grow: 1; display: flex; flex-direction: column; }
+        .lb-info strong { color: #fff; font-size: 0.9rem; }
+        .lb-info small { color: var(--text-muted); font-size: 0.75rem; }
+        .lb-stat { font-weight: 700; color: var(--primary); font-size: 0.9rem; }
+        .lb-stat.coin { color: #eab308; }
+
+        /* EKSTRA MEGA BÖLÜMLER (Kurallar & Destek) */
+        .extra-sections { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        @media(max-width: 900px) { .extra-sections { grid-template-columns: 1fr; } }
+        
+        .rules-list { list-style: none; font-size: 0.9rem; color: var(--text-muted); }
+        .rules-list li { margin-bottom: 12px; background: var(--bg-dark); padding: 12px; border-radius: 6px; border: 1px solid var(--border-color); }
+        .rules-list li strong { color: #fff; display: block; margin-bottom: 3px; }
+
+        .support-form input, .support-form textarea { width: 100%; background: var(--bg-dark); border: 1px solid var(--border-color); padding: 10px; border-radius: 6px; color: #fff; margin-bottom: 12px; outline: none; font-size: 0.9rem; }
+        .support-form textarea { resize: vertical; height: 100px; }
+        .support-form button { background: var(--primary); border: none; color: #fff; padding: 10px 20px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+
+        /* SEPET ÇEKMECESİ */
+        .cart-drawer { position: fixed; top: 0; right: -420px; width: 400px; height: 100%; background: var(--bg-card); border-left: 1px solid var(--border-color); z-index: 1000; transition: 0.3s ease-in-out; display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.5); }
+        .cart-drawer.open { right: 0; }
+        .cart-header { padding: 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .cart-header h3 { color: #fff; font-size: 1.2rem; }
+        .close-cart { background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; }
+        .cart-body { padding: 20px; flex-grow: 1; overflow-y: auto; }
+        .empty-cart { color: var(--text-muted); text-align: center; margin-top: 60px; }
+        .cart-row { display: flex; justify-content: space-between; align-items: center; background: var(--bg-dark); padding: 12px; border-radius: 6px; margin-bottom: 10px; border: 1px solid var(--border-color); }
+        .cart-footer { padding: 20px; border-top: 1px solid var(--border-color); background: #050507; }
+        .cart-total { font-weight: 700; color: #fff; margin-bottom: 15px; display: flex; justify-content: space-between; font-size: 1.15rem; }
+        .checkout-btn { width: 100%; background: #22c55e; border: none; color: #fff; padding: 12px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 1rem; }
+        .checkout-btn:hover { background: #16a34a; }
+
+        /* GİRİŞ MODALI */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1100; justify-content: center; align-items: center; }
+        .modal.active { display: flex; }
+        .modal-box { background: var(--bg-card); border: 1px solid var(--border-color); padding: 35px; border-radius: 12px; width: 360px; text-align: center; position: relative; }
+        .close-modal { position: absolute; top: 15px; right: 20px; cursor: pointer; color: var(--text-muted); font-size: 1.3rem; }
+        .modal-box h3 { color: #fff; margin-bottom: 10px; font-size: 1.3rem; }
+        .modal-box p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px; }
+        .modal-box input { width: 100%; padding: 11px; background: var(--bg-dark); border: 1px solid var(--border-color); border-radius: 6px; color: #fff; margin-bottom: 15px; outline: none; }
+        .modal-btn { width: 100%; background: var(--primary); border: none; color: #fff; padding: 11px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+
+        footer { background: #050507; border-top: 1px solid var(--border-color); text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.85rem; margin-top: 50px; }
+    </style>
 </head>
 <body>
 
-    <!-- ÜST BİLGİ & KULLANICI BAR -->
+    <div class="announcement-bar">
+        🔥 XYNOV SMP v2.2 Güncellemesi Aktif! Haftalık Klan Turnuvaları Başladı!
+    </div>
+
     <header class="top-bar">
         <div class="container top-container">
             <div class="server-ip">
@@ -17,40 +147,44 @@
                 <button onclick="copyIP()" class="copy-btn"><i class="fa-regular fa-copy"></i> Kopyala</button>
             </div>
             <div class="user-menu">
-                <button class="action-btn" onclick="toggleModal()"><i class="fa-solid fa-user"></i> Giriş Yap</button>
+                <button class="action-btn" onclick="toggleModal()"><i class="fa-solid fa-user"></i> <span id="userBtnText">Giriş Yap</span></button>
                 <button class="action-btn" onclick="toggleCart()"><i class="fa-solid fa-cart-shopping"></i> Sepet <span id="cartBadge">0</span></button>
             </div>
         </div>
     </header>
 
-    <!-- NAVİGASYON -->
     <nav class="navbar">
         <div class="container nav-content">
-            <a href="#" class="logo">XYNOV<span>SMP</span></a>
+            <a href="#" class="logo"><i class="fa-solid fa-cube" style="color:var(--primary)"></i> XYNOV<span>SMP</span></a>
             <ul class="nav-links">
-                <li><a href="#storeArea">Mağaza</a></li>
-                <li><a href="#rankingsArea">Sıralamalar</a></li>
-                <li><a href="#launcherArea">Launcher</a></li>
+                <li><a href="#storeArea" class="active">Mağaza</a></li>
+                <li><a href="#rankingsArea">Liderlik</a></li>
+                <li><a href="#rulesArea">Kurallar</a></li>
+                <li><a href="#supportArea">Destek</a></li>
                 <li><a href="https://discord.gg" target="_blank" class="discord-badge"><i class="fa-brands fa-discord"></i> Discord</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- ANA İÇERİK -->
+    <section class="hero-banner">
+        <div class="container">
+            <h1>Profesyonel Hayatta Kalma Deneyimi</h1>
+            <p>Eşsiz klan savaşları, özel yetenekler, kasa sistemleri ve adil ticaret ekonomisiyle hemen maceraya atıl!</p>
+        </div>
+    </section>
+
     <div class="container portal-grid">
         
-        <!-- SOL TARAF: MAĞAZA -->
         <div class="main-store">
             <div class="card-box" id="storeArea">
                 <div class="store-header">
-                    <div class="box-title" style="margin-bottom:0;"><i class="fa-solid fa-store"></i> Sunucu Mağazası</div>
+                    <div class="box-title" style="margin-bottom:0; border:none; padding:0;"><i class="fa-solid fa-store" style="color:var(--primary)"></i> Sunucu Mağazası</div>
                     <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="Ürün ara..." onkeyup="filterProducts()">
+                        <input type="text" id="searchInput" placeholder="Ürün veya rütbe ara..." onkeyup="filterProducts()">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
                 </div>
 
-                <!-- Kategoriler -->
                 <div class="category-tabs">
                     <div class="tab-chip active" onclick="switchCategory('all', this)">Tüm Ürünler</div>
                     <div class="tab-chip" onclick="switchCategory('rank', this)">VIP Rütbeler</div>
@@ -58,7 +192,6 @@
                     <div class="tab-chip" onclick="switchCategory('key', this)">Kasa Anahtarı</div>
                 </div>
 
-                <!-- Ürün Kartları -->
                 <div class="products-grid" id="productGrid">
                     
                     <div class="product-card" data-category="rank" data-name="Bronze VIP">
@@ -114,14 +247,10 @@
             </div>
         </div>
 
-        <!-- SAĞ TARAF: LİDERLİK & LAUNCHER -->
         <div class="sidebar-panels">
-            
-            <!-- SIRALAMALAR -->
             <div class="card-box" id="rankingsArea">
                 <div class="box-title"><i class="fa-solid fa-trophy" style="color: #f59e0b;"></i> Liderlik Tablosu</div>
                 
-                <!-- Klanlar -->
                 <div class="lb-section-title">En Güçlü Klanlar</div>
                 <ul class="lb-list">
                     <li class="lb-item">
@@ -139,15 +268,9 @@
                         <div class="lb-info"><strong>Ottoman</strong> <small>Lider: Mehteran</small></div>
                         <span class="lb-stat">9,450 P</span>
                     </li>
-                    <li class="lb-item">
-                        <span class="rank-badge">4</span>
-                        <div class="lb-info"><strong>Anatolia</strong> <small>Lider: Bozkurt</small></div>
-                        <span class="lb-stat">8,120 P</span>
-                    </li>
                 </ul>
 
-                <!-- Zenginler -->
-                <div class="lb-section-title" style="margin-top: 20px;">En Zengin Oyuncular</div>
+                <div class="lb-section-title" style="margin-top: 25px;">En Zengin Oyuncular</div>
                 <ul class="lb-list">
                     <li class="lb-item">
                         <span class="rank-badge gold">1</span>
@@ -164,36 +287,46 @@
                         <div class="lb-info"><strong>ShadowKing</strong></div>
                         <span class="lb-stat coin">280.1M 🪙</span>
                     </li>
-                    <li class="lb-item">
-                        <span class="rank-badge">4</span>
-                        <div class="lb-info"><strong>Creeper Slayer</strong></div>
-                        <span class="lb-stat coin">195M 🪙</span>
-                    </li>
                 </ul>
             </div>
-
-            <!-- LAUNCHER PANELİ -->
-            <div class="card-box" id="launcherArea">
-                <div class="box-title"><i class="fa-solid fa-rocket" style="color: #f97316;"></i> İstemci Portalı</div>
-                <div class="launcher-grid">
-                    <div class="l-box">
-                        <i class="fa-solid fa-desktop"></i>
-                        <h4>LegacyLauncher</h4>
-                        <a href="https://tlauncher.org/" target="_blank">İndir</a>
-                    </div>
-                    <div class="l-box highlight">
-                        <i class="fa-solid fa-gamepad"></i>
-                        <h4>Orijinal Launcher</h4>
-                        <a href="https://www.minecraft.net/" target="_blank">Git</a>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
     </div>
 
-    <!-- SEPET ÇEKMECESİ -->
+    <div class="container">
+        <div class="extra-sections">
+            
+            <div class="card-box" id="rulesArea">
+                <div class="box-title"><i class="fa-solid fa-book-open" style="color: var(--primary);"></i> Sunucu Kuralları</div>
+                <ul class="rules-list">
+                    <li>
+                        <strong>1. Hile ve 3. Parti Yazılım Kesinlikle Yasaktır</strong>
+                        X-Ray, KillAura, Fly hileleri kullanan hesaplar kalıcı olarak banlanır.
+                    </li>
+                    <li>
+                        <strong>2. Küfür, Hakaret ve Argo Yasaktır</strong>
+                        Diğer oyunculara saygılı olmak zorundasınız. Sohbet süzgecini aşmak cezalandırılır.
+                    </li>
+                    <li>
+                        <strong>3. Tuzak (Trap) ve Dolandırıcılık Sınırları</strong>
+                        Oyuncuları haksız yere kandırmak yasaktır, pvp alanları dışı yasaktır.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card-box" id="supportArea">
+                <div class="box-title"><i class="fa-solid fa-headset" style="color: var(--primary);"></i> Oyuncu Destek Merkezi</div>
+                <div class="support-form">
+                    <input type="text" id="supName" placeholder="Minecraft Kullanıcı Adınız">
+                    <input type="text" id="supSubject" placeholder="Sorun Konusu (Örn: Ödeme / Bug)">
+                    <textarea id="supMsg" placeholder="Detaylı açıklama yazın..."></textarea>
+                    <button onclick="sendTicket()"><i class="fa-solid fa-paper-plane"></i> Destek Talebi Gönder</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <div id="cartDrawer" class="cart-drawer">
         <div class="cart-header">
             <h3>Alışveriş Sepeti</h3>
@@ -208,7 +341,6 @@
         </div>
     </div>
 
-    <!-- GİRİŞ YAP MODALI -->
     <div id="loginModal" class="modal">
         <div class="modal-box">
             <span class="close-modal" onclick="toggleModal()">&times;</span>
@@ -219,11 +351,131 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer>
         <p>&copy; 2026 XYNOV SMP. Tüm hakları saklıdır. Mojang AB ile resmi bir bağı yoktur.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        let cart = [];
+        let currentCategory = 'all';
+
+        function copyIP() {
+            const ip = document.getElementById("serverIP").innerText;
+            navigator.clipboard.writeText(ip).then(() => alert("Sunucu IP kopyalandı: " + ip));
+        }
+
+        function toggleCart() {
+            document.getElementById("cartDrawer").classList.toggle("open");
+        }
+
+        function toggleModal() {
+            document.getElementById("loginModal").classList.toggle("active");
+        }
+
+        function saveUser() {
+            const user = document.getElementById("mcUser").value;
+            if(user.trim()) {
+                document.getElementById("userBtnText").innerText = user;
+                toggleModal();
+                alert("Başarıyla giriş yapıldı: " + user);
+            } else {
+                alert("Lütfen geçerli bir kullanıcı adı girin.");
+            }
+        }
+
+        function addToCart(name, price) {
+            const item = cart.find(i => i.name === name);
+            if(item) {
+                item.qty++;
+            } else {
+                cart.push({ name, price, qty: 1 });
+            }
+            updateCartUI();
+            toggleCart();
+        }
+
+        function updateCartUI() {
+            const list = document.getElementById("cartItemsList");
+            const badge = document.getElementById("cartBadge");
+            const totalEl = document.getElementById("cartTotalPrice");
+
+            badge.innerText = cart.reduce((sum, i) => sum + i.qty, 0);
+
+            if(cart.length === 0) {
+                list.innerHTML = `<p class="empty-cart">Sepetiniz şu an boş.</p>`;
+                totalEl.innerText = "0.00 ₺";
+                return;
+            }
+
+            let html = "";
+            let total = 0;
+            cart.forEach((item, index) => {
+                total += item.price * item.qty;
+                html += `
+                    <div class="cart-row">
+                        <div>
+                            <strong style="font-size:0.85rem; color:#fff; display:block;">${item.name}</strong>
+                            <small style="color:var(--primary); font-size:0.75rem;">${item.price} ₺ x ${item.qty}</small>
+                        </div>
+                        <button onclick="removeItem(${index})" style="background:none; border:none; color:#ef4444; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                `;
+            });
+            list.innerHTML = html;
+            totalEl.innerText = total.toFixed(2) + " ₺";
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function switchCategory(cat, el) {
+            currentCategory = cat;
+            document.querySelectorAll(".tab-chip").forEach(c => c.classList.remove("active"));
+            el.classList.add("active");
+            filterProducts();
+        }
+
+        function filterProducts() {
+            const query = document.getElementById("searchInput").value.toLowerCase();
+            const cards = document.querySelectorAll(".product-card");
+
+            cards.forEach(card => {
+                const cat = card.getAttribute("data-category");
+                const name = card.getAttribute("data-name").toLowerCase();
+                const matchesCat = (currentCategory === 'all' || cat === currentCategory);
+                const matchesQuery = name.includes(query);
+
+                card.style.display = (matchesCat && matchesQuery) ? "flex" : "none";
+            });
+        }
+
+        function checkout() {
+            if(cart.length === 0) {
+                alert("Sepetiniz boş!");
+                return;
+            }
+            alert("Ödeme sistemine yönlendiriliyorsunuz (Tebex Simülasyonu Başarılı). Ürünler hesabınıza eklenecektir.");
+            cart = [];
+            updateCartUI();
+            toggleCart();
+        }
+
+        function sendTicket() {
+            const name = document.getElementById("supName").value;
+            const subject = document.getElementById("supSubject").value;
+            const msg = document.getElementById("supMsg").value;
+
+            if(name.trim() && subject.trim() && msg.trim()) {
+                alert("Destek talebiniz başarıyla oluşturuldu! En kısa sürede Discord / Sunucu üzerinden dönüş yapılacaktır.");
+                document.getElementById("supName").value = '';
+                document.getElementById("supSubject").value = '';
+                document.getElementById("supMsg").value = '';
+            } else {
+                alert("Lütfen tüm alanları doldurun.");
+            }
+        }
+    </script>
 </body>
 </html>
