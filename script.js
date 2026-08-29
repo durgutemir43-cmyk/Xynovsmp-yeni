@@ -6,7 +6,7 @@ window.addEventListener('DOMContentLoaded', () => {
     checkServerStatus();
 });
 
-// Aternos IP (XynovSmp.aternos.me) üzerinden anlık oyuncu ve durum takibi
+// Aternos sunucu IP'si üzerinden canlı durum ve oyuncu sayısı sorgulama
 async function checkServerStatus() {
     const serverIP = "XynovSmp.aternos.me";
     const countEl = document.getElementById("onlinePlayerCount");
@@ -18,18 +18,17 @@ async function checkServerStatus() {
 
         if (data.online) {
             countEl.innerText = `${data.players.online} / ${data.players.max}`;
-            dotEl.className = "status-dot"; // Yeşil ışık
+            dotEl.className = "status-dot";
         } else {
             countEl.innerText = "Sunucu Kapalı (Açılması Bekleniyor)";
             dotEl.className = "status-dot offline";
         }
     } catch (error) {
-        countEl.innerText = "Çevrimdışı / API Bekleniyor";
+        countEl.innerText = "Çevrimdışı / Bağlantı Bekleniyor";
         dotEl.className = "status-dot offline";
     }
 }
 
-// Toast Bildirim Sistemi
 function showToast(message, type = 'success') {
     const container = document.getElementById("toastContainer");
     const toast = document.createElement("div");
@@ -49,9 +48,9 @@ function showToast(message, type = 'success') {
 }
 
 function copyIP() {
-    const ip = document.getElementById("serverIP").innerText;
+    const ip = "XynovSmp.aternos.me";
     navigator.clipboard.writeText(ip).then(() => {
-        showToast("Sunucu IP adresi kopyalandı: " + ip, 'success');
+        showToast("Sunucu IP adresi panoya kopyalandı: " + ip, 'success');
     });
 }
 
@@ -68,7 +67,7 @@ function saveUser() {
     if(user.trim()) {
         document.getElementById("userBtnText").innerText = user;
         toggleModal();
-        showToast(`Hoş geldin, ${user}! Hesap bağlandı.`, 'success');
+        showToast(`Hoş geldin, ${user}! Giriş yapıldı.`, 'success');
     } else {
         showToast("Lütfen geçerli bir kullanıcı adı girin.", 'info');
     }
@@ -132,9 +131,9 @@ function applyCoupon() {
     if(code === "XYNOV" || code === "XYNOV20") {
         discountRate = 0.20;
         updateCartUI();
-        showToast("İndirim kodu uygulandı! (%20 İndirim)", 'success');
+        showToast("İndirim kodu başarıyla uygulandı! (%20 İndirim)", 'success');
     } else {
-        showToast("Geçersiz veya süresi dolmuş kupon.", 'info');
+        showToast("Geçersiz veya süresi dolmuş kupon kodu.", 'info');
     }
 }
 
