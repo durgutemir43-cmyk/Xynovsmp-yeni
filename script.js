@@ -6,7 +6,7 @@ window.addEventListener('DOMContentLoaded', () => {
     checkServerStatus();
 });
 
-// Aternos sunucu IP'si üzerinden canlı durum sorgulama
+// Aternos IP (XynovSmp.aternos.me) üzerinden anlık oyuncu ve durum takibi
 async function checkServerStatus() {
     const serverIP = "XynovSmp.aternos.me";
     const countEl = document.getElementById("onlinePlayerCount");
@@ -18,17 +18,18 @@ async function checkServerStatus() {
 
         if (data.online) {
             countEl.innerText = `${data.players.online} / ${data.players.max}`;
-            dotEl.className = "status-dot"; // Yeşil (Aktif)
+            dotEl.className = "status-dot"; // Yeşil ışık
         } else {
             countEl.innerText = "Sunucu Kapalı (Açılması Bekleniyor)";
             dotEl.className = "status-dot offline";
         }
     } catch (error) {
-        countEl.innerText = "Çevrimdışı / Bağlantı Bekleniyor";
+        countEl.innerText = "Çevrimdışı / API Bekleniyor";
         dotEl.className = "status-dot offline";
     }
 }
 
+// Toast Bildirim Sistemi
 function showToast(message, type = 'success') {
     const container = document.getElementById("toastContainer");
     const toast = document.createElement("div");
@@ -50,7 +51,7 @@ function showToast(message, type = 'success') {
 function copyIP() {
     const ip = document.getElementById("serverIP").innerText;
     navigator.clipboard.writeText(ip).then(() => {
-        showToast("Sunucu IP adresi panoya kopyalandı: " + ip, 'success');
+        showToast("Sunucu IP adresi kopyalandı: " + ip, 'success');
     });
 }
 
@@ -67,7 +68,7 @@ function saveUser() {
     if(user.trim()) {
         document.getElementById("userBtnText").innerText = user;
         toggleModal();
-        showToast(`Hoş geldin, ${user}! Giriş yapıldı.`, 'success');
+        showToast(`Hoş geldin, ${user}! Hesap bağlandı.`, 'success');
     } else {
         showToast("Lütfen geçerli bir kullanıcı adı girin.", 'info');
     }
@@ -131,9 +132,9 @@ function applyCoupon() {
     if(code === "XYNOV" || code === "XYNOV20") {
         discountRate = 0.20;
         updateCartUI();
-        showToast("İndirim kodu başarıyla uygulandı! (%20 İndirim)", 'success');
+        showToast("İndirim kodu uygulandı! (%20 İndirim)", 'success');
     } else {
-        showToast("Geçersiz veya süresi dolmuş kupon kodu.", 'info');
+        showToast("Geçersiz veya süresi dolmuş kupon.", 'info');
     }
 }
 
@@ -165,7 +166,7 @@ function checkout() {
     }
     showToast("Güvenli ödeme ağ geçidine bağlanılıyor...", 'success');
     setTimeout(() => {
-        alert("Ödeme simülasyonu başarılı! Ürünler oyun içi hesabınıza otomatik olarak tanımlandı.");
+        alert("Ödeme simülasyonu başarılı! Ürünler XynovSmp.aternos.me sunucusundaki hesabınıza tanımlandı.");
         cart = [];
         discountRate = 0;
         updateCartUI();
@@ -179,11 +180,11 @@ function sendTicket() {
     const msg = document.getElementById("supMsg").value;
 
     if(name.trim() && subject.trim() && msg.trim()) {
-        showToast("Destek talebiniz başarıyla oluşturuldu! Yetkililer dönecektir.", 'success');
+        showToast("Destek talebiniz başarıyla iletildi!", 'success');
         document.getElementById("supName").value = '';
         document.getElementById("supSubject").value = '';
         document.getElementById("supMsg").value = '';
     } else {
-        showToast("Lütfen tüm destek alanlarını eksiksiz doldurun.", 'info');
+        showToast("Lütfen tüm alanları doldurun.", 'info');
     }
 }
