@@ -4,9 +4,14 @@ let discountRate = 0;
 
 window.addEventListener('DOMContentLoaded', () => {
     checkServerStatus();
+    initParticles();
+    
+    // Kayıtlı tema varsa yükle
+    const savedTheme = localStorage.getItem('xynov_theme') || 'orange';
+    setTheme(savedTheme, false);
 });
 
-// Aternos sunucu IP adresinden canlı oyuncu ve durum takibi
+// Aternos sunucu IP adresinden canlı durum takibi
 async function checkServerStatus() {
     const serverIP = "XynovSmp.aternos.me";
     const countEl = document.getElementById("onlinePlayerCount");
@@ -27,6 +32,64 @@ async function checkServerStatus() {
         countEl.innerText = "Çevrimdışı / Bağlantı Bekleniyor";
         dotEl.className = "pulse-dot offline";
     }
+}
+
+// Tema Değiştirici
+function setTheme(themeName, save = true) {
+    document.body.setAttribute('data-theme', themeName);
+    if(save) {
+        localStorage.setItem('xynov_theme', themeName);
+        showToast(`Tema değiştirildi: ${themeName.toUpperCase()}`, 'info');
+    }
+}
+
+// Dinamik Canvas Parçacık Efekti (Arka Plan Yıldız/Toz Efekti)
+function initParticles() {
+    const canvas = document.getElementById("particleCanvas");
+    const ctx = canvas.getContext("2d");
+
+    function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const particles = [];
+    const count = 45;
+
+    for(let i = 0; i < count; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 1.8 + 0.5,
+            vx: (Math.random() - 0.5) * 0.3,
+            vy: (Math.random() - 0.5) * 0.3,
+            alpha: Math.random() * 0.6 + 0.2
+        });
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+
+            if(p.x < 0) p.x = canvas.width;
+            if(p.x > canvas.width) p.x = 0;
+            if(p.y < 0) p.y = canvas.height;
+            if(p.y > canvas.height) p.y = 0;
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(249, 115, 22, ${p.alpha})`;
+            ctx.fill();
+        });
+
+        requestAnimationFrame(animate);
+    }
+    animate();
 }
 
 function showToast(message, type = 'success') {
@@ -62,10 +125,20 @@ function toggleModal() {
     document.getElementById("loginModal").classList.toggle("active");
 }
 
+function toggleMobileMenu() {
+    document.getElementById("navMenu").classList.toggle("active");
+}
+
+// Oyuncu Adı Kaydetme ve Crafatar API ile Gerçek Kafa (Skin) Görseli Çekme
 function saveUser() {
-    const user = document.getElementById("mcUser").value;
-    if(user.trim()) {
+    const user = document.getElementById("mcUser").value.trim();
+    if(user) {
         document.getElementById("userBtnText").innerText = user;
+        
+        // Crafatar API ile 3D/2D kafa avatarını modal ikonuna ve header'a yansıt
+        const iconContainer = document.getElementById("modalIconContainer");
+        iconContainer.innerHTML = `<img src="https://crafatar.com/avatars/${user}?size=64&helm" alt="${user}" onerror="this.onerror=null;this.src='https://crafatar.com/avatars/Notch?size=64&helm';">`;
+
         toggleModal();
         showToast(`Hoş geldin, ${user}! Hesap bağlandı.`, 'success');
     } else {
