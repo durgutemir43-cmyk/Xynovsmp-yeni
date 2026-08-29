@@ -6,7 +6,7 @@ window.addEventListener('DOMContentLoaded', () => {
     checkServerStatus();
 });
 
-// Aternos sunucu IP'si üzerinden canlı durum ve oyuncu sayısı sorgulama
+// Aternos sunucu IP adresinden canlı oyuncu ve durum takibi
 async function checkServerStatus() {
     const serverIP = "XynovSmp.aternos.me";
     const countEl = document.getElementById("onlinePlayerCount");
@@ -18,31 +18,31 @@ async function checkServerStatus() {
 
         if (data.online) {
             countEl.innerText = `${data.players.online} / ${data.players.max}`;
-            dotEl.className = "status-dot";
+            dotEl.className = "pulse-dot";
         } else {
-            countEl.innerText = "Sunucu Kapalı (Açılması Bekleniyor)";
-            dotEl.className = "status-dot offline";
+            countEl.innerText = "Sunucu Kapalı (Bekleniyor)";
+            dotEl.className = "pulse-dot offline";
         }
     } catch (error) {
         countEl.innerText = "Çevrimdışı / Bağlantı Bekleniyor";
-        dotEl.className = "status-dot offline";
+        dotEl.className = "pulse-dot offline";
     }
 }
 
 function showToast(message, type = 'success') {
     const container = document.getElementById("toastContainer");
     const toast = document.createElement("div");
-    toast.className = `toast ${type}`;
+    toast.className = `toast`;
     
     let icon = 'fa-circle-check';
     if(type === 'info') icon = 'fa-circle-info';
     
-    toast.innerHTML = `<i class="fa-solid ${icon}"></i> <span>${message}</span>`;
+    toast.innerHTML = `<i class="fa-solid ${icon}" style="color:var(--accent)"></i> <span>${message}</span>`;
     container.appendChild(toast);
 
     setTimeout(() => {
         toast.style.opacity = '0';
-        toast.style.transform = 'translateX(120%)';
+        toast.style.transform = 'translateX(110%)';
         setTimeout(() => toast.remove(), 300);
     }, 3500);
 }
@@ -67,7 +67,7 @@ function saveUser() {
     if(user.trim()) {
         document.getElementById("userBtnText").innerText = user;
         toggleModal();
-        showToast(`Hoş geldin, ${user}! Giriş yapıldı.`, 'success');
+        showToast(`Hoş geldin, ${user}! Hesap bağlandı.`, 'success');
     } else {
         showToast("Lütfen geçerli bir kullanıcı adı girin.", 'info');
     }
@@ -93,7 +93,7 @@ function updateCartUI() {
     badge.innerText = cart.reduce((sum, i) => sum + i.qty, 0);
 
     if(cart.length === 0) {
-        list.innerHTML = `<p class="empty-cart">Sepetiniz şu an boş.</p>`;
+        list.innerHTML = `<p class="empty-msg">Sepetinizde ürün bulunmuyor.</p>`;
         totalEl.innerText = "0.00 ₺";
         discountRate = 0;
         return;
@@ -104,12 +104,12 @@ function updateCartUI() {
     cart.forEach((item, index) => {
         subtotal += item.price * item.qty;
         html += `
-            <div class="cart-row">
+            <div class="cart-item-row">
                 <div>
                     <strong style="font-size:0.85rem; color:#fff; display:block;">${item.name}</strong>
-                    <small style="color:var(--primary); font-size:0.75rem;">${item.price} ₺ x ${item.qty}</small>
+                    <small style="color:var(--accent); font-size:0.75rem;">${item.price} ₺ x ${item.qty}</small>
                 </div>
-                <button onclick="removeItem(${index})" style="background:none; border:none; color:#ef4444; cursor:pointer; font-size:0.9rem;"><i class="fa-solid fa-trash"></i></button>
+                <button onclick="removeItem(${index})" style="background:none; border:none; color:#ef4444; cursor:pointer; font-size:0.85rem;"><i class="fa-solid fa-trash"></i></button>
             </div>
         `;
     });
@@ -131,7 +131,7 @@ function applyCoupon() {
     if(code === "XYNOV" || code === "XYNOV20") {
         discountRate = 0.20;
         updateCartUI();
-        showToast("İndirim kodu başarıyla uygulandı! (%20 İndirim)", 'success');
+        showToast("İndirim kuponu uygulandı! (%20 İndirim)", 'success');
     } else {
         showToast("Geçersiz veya süresi dolmuş kupon kodu.", 'info');
     }
@@ -139,22 +139,22 @@ function applyCoupon() {
 
 function switchCategory(cat, el) {
     currentCategory = cat;
-    document.querySelectorAll(".tab-chip").forEach(c => c.classList.remove("active"));
+    document.querySelectorAll(".chip").forEach(c => c.classList.remove("active"));
     el.classList.add("active");
     filterProducts();
 }
 
 function filterProducts() {
     const query = document.getElementById("searchInput").value.toLowerCase();
-    const cards = document.querySelectorAll(".product-card");
+    const items = document.querySelectorAll(".product-item");
 
-    cards.forEach(card => {
-        const cat = card.getAttribute("data-category");
-        const name = card.getAttribute("data-name").toLowerCase();
+    items.forEach(item => {
+        const cat = item.getAttribute("data-category");
+        const name = item.getAttribute("data-name").toLowerCase();
         const matchesCat = (currentCategory === 'all' || cat === currentCategory);
         const matchesQuery = name.includes(query);
 
-        card.style.display = (matchesCat && matchesQuery) ? "flex" : "none";
+        item.style.display = (matchesCat && matchesQuery) ? "flex" : "none";
     });
 }
 
@@ -165,25 +165,10 @@ function checkout() {
     }
     showToast("Güvenli ödeme ağ geçidine bağlanılıyor...", 'success');
     setTimeout(() => {
-        alert("Ödeme simülasyonu başarılı! Ürünler XynovSmp.aternos.me sunucusundaki hesabınıza tanımlandı.");
+        alert("Ödeme simülasyonu başarılı! Ürünler XynovSmp.aternos.me sunucusundaki hesabınıza başarıyla tanımlandı.");
         cart = [];
         discountRate = 0;
         updateCartUI();
         toggleCart();
     }, 1200);
-}
-
-function sendTicket() {
-    const name = document.getElementById("supName").value;
-    const subject = document.getElementById("supSubject").value;
-    const msg = document.getElementById("supMsg").value;
-
-    if(name.trim() && subject.trim() && msg.trim()) {
-        showToast("Destek talebiniz başarıyla iletildi!", 'success');
-        document.getElementById("supName").value = '';
-        document.getElementById("supSubject").value = '';
-        document.getElementById("supMsg").value = '';
-    } else {
-        showToast("Lütfen tüm alanları doldurun.", 'info');
-    }
 }
