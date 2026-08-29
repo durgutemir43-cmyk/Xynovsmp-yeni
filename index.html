@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XynovSMP | Nether'ın Karanlığında Kendi Hikâyeni Yaz</title>
+    <title>XynovSMP | Modern Survival & BoxPvP Deneyimi</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -12,119 +12,120 @@
             theme: {
                 extend: {
                     colors: {
-                        dark: '#070709',
-                        card: '#101015',
-                        cardhover: '#16161e',
-                        netherred: '#ff2a2a',
-                        lava: '#ff5e00',
-                        neonred: '#ff003c',
+                        dark: '#0c0d14',
+                        card: '#141620',
+                        cardhover: '#1b1e2b',
+                        accent: '#f43f5e',
+                        accenthover: '#e11d48',
+                        softblue: '#38bdf8',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        heading: ['Cinzel', 'serif']
+                        heading: ['Outfit', 'sans-serif']
                     }
                 }
             }
         }
     </script>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Canvas Confetti -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         *, *::before, *::after { box-sizing: border-box; }
-        body { background-color: #070709; color: #e2e8f0; font-family: 'Inter', sans-serif; overflow-x: hidden; position: relative; }
-        h1, h2, h3, .font-heading { font-family: 'Cinzel', serif; }
+        body { background-color: #0c0d14; color: #cbd5e1; font-family: 'Inter', sans-serif; overflow-x: hidden; position: relative; }
+        h1, h2, h3, .font-heading { font-family: 'Outfit', sans-serif; }
         
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #070709; }
-        ::-webkit-scrollbar-thumb { background: #ff2a2a; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #ff5e00; }
+        ::-webkit-scrollbar-track { background: #0c0d14; }
+        ::-webkit-scrollbar-thumb { background: #f43f5e55; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #f43f5e; }
 
-        /* Mouse Spotlight Effect */
+        /* Mouse Soft Spotlight Effect */
         #spotlight {
             pointer-events: none;
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(800px circle at var(--x) var(--y), rgba(255, 42, 42, 0.08), transparent 40%);
+            background: radial-gradient(700px circle at var(--x) var(--y), rgba(244, 63, 94, 0.04), transparent 50%);
             z-index: 99;
         }
 
-        /* Vignette & Grain */
+        /* Subtle Vignette */
         .vignette {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            box-shadow: inset 0 0 140px rgba(0,0,0,0.95);
+            box-shadow: inset 0 0 120px rgba(0,0,0,0.8);
             pointer-events: none; z-index: 98;
         }
 
-        /* Ember Particles CSS */
+        /* Soft Floating Particles CSS */
         .ember {
             position: absolute;
-            background: #ff5e00;
+            background: #f43f5e;
             border-radius: 50%;
             pointer-events: none;
+            opacity: 0.3;
             animation: floatEmber linear infinite;
         }
         @keyframes floatEmber {
             0% { transform: translateY(100vh) translateX(0); opacity: 0; }
-            50% { opacity: 0.8; }
-            100% { transform: translateY(-10vh) translateX(100px); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-10vh) translateX(50px); opacity: 0; }
         }
 
-        /* Glow effects */
-        .glow-red { text-shadow: 0 0 25px rgba(255, 42, 42, 0.85); }
-        .glow-box { box-shadow: 0 0 35px rgba(255, 42, 42, 0.15); }
-        .glow-box:hover { box-shadow: 0 0 45px rgba(255, 94, 0, 0.3); }
+        /* Soft Glow effects */
+        .glow-accent { text-shadow: 0 0 20px rgba(244, 63, 94, 0.4); }
+        .glow-box { box-shadow: 0 10px 30px -10px rgba(244, 63, 94, 0.1); }
+        .glow-box:hover { box-shadow: 0 15px 35px -10px rgba(244, 63, 94, 0.2); }
 
         /* Loading Screen */
         #loading-screen {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #040406; z-index: 9999;
+            background: #0c0d14; z-index: 9999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
         }
         .spinner {
-            width: 60px; height: 60px; border: 4px solid rgba(255,42,42,0.1);
-            border-top-color: #ff2a2a; border-radius: 50%;
-            animation: spin 1s linear infinite;
+            width: 50px; height: 50px; border: 3px solid rgba(244,63,94,0.1);
+            border-top-color: #f43f5e; border-radius: 50%;
+            animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Wheel of Fortune - FIXED SVG / Slices */
+        /* Wheel of Fortune */
         .wheel-container {
-            position: relative; width: 300px; height: 300px; margin: 0 auto;
+            position: relative; width: 280px; height: 280px; margin: 0 auto;
         }
         #wheel {
-            width: 100%; height: 100%; border-radius: 50%; border: 6px solid #ff2a2a;
+            width: 100%; height: 100%; border-radius: 50%; border: 4px solid #f43f5e33;
             position: relative; overflow: hidden; transition: transform 4s cubic-bezier(0.15, 0.9, 0.2, 1);
-            box-shadow: 0 0 35px rgba(255,42,42,0.6);
-            background: #101015;
+            box-shadow: 0 0 25px rgba(244,63,94,0.15);
+            background: #141620;
         }
         .wheel-slice {
             position: absolute; width: 50%; height: 50%; top: 0; left: 50%;
             transform-origin: 0% 100%; display: flex; align-items: center; justify-content: center;
-            font-size: 10px; font-weight: bold; color: #fff; text-shadow: 0 1px 2px #000;
+            font-size: 10px; font-weight: 600; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
         .wheel-pointer {
-            position: absolute; top: -18px; left: calc(50% - 14px); width: 28px; height: 38px;
-            background: #ff5e00; clip-path: polygon(50% 100%, 0 0, 100% 0); z-index: 10;
-            filter: drop-shadow(0 0 10px #ff2a2a);
+            position: absolute; top: -14px; left: calc(50% - 12px); width: 24px; height: 32px;
+            background: #f43f5e; clip-path: polygon(50% 100%, 0 0, 100% 0); z-index: 10;
+            filter: drop-shadow(0 0 8px rgba(244,63,94,0.5));
         }
 
         /* Toast */
         #toast {
-            visibility: hidden; min-width: 250px; background-color: #101015; color: #fff;
-            text-align: center; border-radius: 8px; padding: 16px; position: fixed; z-index: 1000;
-            left: 50%; bottom: 30px; transform: translateX(-50%); border: 1px solid #ff2a2a;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8); font-weight: 600; opacity: 0; transition: opacity 0.3s, visibility 0.3s;
+            visibility: hidden; min-width: 220px; background-color: #141620; color: #fff;
+            text-align: center; border-radius: 10px; padding: 14px 20px; position: fixed; z-index: 1000;
+            left: 50%; bottom: 30px; transform: translateX(-50%); border: 1px solid rgba(244,63,94,0.3);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5); font-weight: 500; font-size: 14px; opacity: 0; transition: opacity 0.3s, visibility 0.3s;
         }
         #toast.show { visibility: visible; opacity: 1; }
     </style>
 </head>
-<body class="bg-dark text-slate-100">
+<body class="bg-dark text-slate-300">
 
     <!-- CONFIG & SCRIPTS DATA -->
     <script>
@@ -136,9 +137,9 @@
 
     <!-- Loading Screen -->
     <div id="loading-screen">
-        <div class="spinner mb-6"></div>
-        <h2 class="text-2xl font-heading font-bold text-red-500 tracking-wider">XYNOVSMP YÜKLENİYOR</h2>
-        <p class="text-slate-400 text-sm mt-2">Nether kapıları açılıyor...</p>
+        <div class="spinner mb-4"></div>
+        <h2 class="text-xl font-heading font-semibold text-slate-100 tracking-wide">XynovSMP Yükleniyor</h2>
+        <p class="text-slate-400 text-xs mt-1">Deneyim hazırlanıyor...</p>
     </div>
 
     <!-- Mouse Spotlight & Vignette -->
@@ -146,95 +147,94 @@
     <div class="vignette"></div>
 
     <!-- Toast Notification -->
-    <div id="toast">KOPYALANDI ✓</div>
+    <div id="toast">IP Kopyalandı ✓</div>
 
     <!-- NAVBAR -->
-    <header class="fixed top-0 left-0 w-full z-50 bg-dark/90 backdrop-blur-md border-b border-red-900/30">
+    <header class="fixed top-0 left-0 w-full z-50 bg-dark/80 backdrop-blur-md border-b border-slate-800/60">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <a href="#" class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-red-600 to-orange-600 flex items-center justify-center shadow-lg shadow-red-600/30">
-                    <i class="fa-solid fa-fire text-white text-xl"></i>
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-rose-500/20 to-orange-500/20 border border-rose-500/30 flex items-center justify-center text-rose-500 shadow-sm">
+                    <i class="fa-solid fa-cube text-lg"></i>
                 </div>
-                <span class="text-2xl font-heading font-black tracking-wider text-white">XYNOV<span class="text-red-500">SMP</span></span>
+                <span class="text-xl font-heading font-bold tracking-wider text-slate-100">XYNOV<span class="text-rose-500">SMP</span></span>
             </a>
 
             <!-- Desktop Nav -->
-            <nav class="hidden lg:flex items-center space-x-4 text-xs font-medium text-slate-300">
-                <a href="#anasayfa" class="hover:text-red-500 transition">ANA SAYFA</a>
-                <a href="#sunucu" class="hover:text-red-500 transition">SUNUCU</a>
-                <a href="#ozellikler" class="hover:text-red-500 transition">ÖZELLİKLER</a>
-                <a href="#oyunmodlari" class="hover:text-red-500 transition">OYUN MODLARI</a>
-                <a href="#rutbeler" class="hover:text-red-500 transition">RÜTBELER</a>
-                <a href="#magaza" class="hover:text-red-500 transition">MAĞAZA</a>
-                <a href="#siralama" class="hover:text-red-500 transition">SIRALAMA</a>
-                <a href="#haberler" class="hover:text-red-500 transition">HABERLER</a>
-                <a href="#kurallar" class="hover:text-red-500 transition">KURALLAR</a>
-                <a href="#cark" class="hover:text-red-500 transition">ÇARK</a>
+            <nav class="hidden lg:flex items-center space-x-3 text-xs font-medium text-slate-400">
+                <a href="#anasayfa" class="hover:text-rose-400 transition px-2 py-1">ANA SAYFA</a>
+                <a href="#sunucu" class="hover:text-rose-400 transition px-2 py-1">SUNUCU</a>
+                <a href="#ozellikler" class="hover:text-rose-400 transition px-2 py-1">ÖZELLİKLER</a>
+                <a href="#oyunmodlari" class="hover:text-rose-400 transition px-2 py-1">MODLAR</a>
+                <a href="#rutbeler" class="hover:text-rose-400 transition px-2 py-1">RÜTBELER</a>
+                <a href="#magaza" class="hover:text-rose-400 transition px-2 py-1">MAĞAZA</a>
+                <a href="#siralama" class="hover:text-rose-400 transition px-2 py-1">SIRALAMA</a>
+                <a href="#haberler" class="hover:text-rose-400 transition px-2 py-1">HABERLER</a>
+                <a href="#kurallar" class="hover:text-rose-400 transition px-2 py-1">KURALLAR</a>
+                <a href="#cark" class="hover:text-rose-400 transition px-2 py-1">ÇARK</a>
             </nav>
 
             <div class="hidden lg:flex items-center space-x-4">
-                <button onclick="copyIP()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-sm transition shadow-lg shadow-red-600/30 flex items-center space-x-2">
+                <button onclick="copyIP()" class="px-4 py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-medium rounded-xl text-xs transition shadow-sm flex items-center space-x-2">
                     <i class="fa-solid fa-server"></i>
                     <span>IP KOPYALA</span>
                 </button>
             </div>
 
             <!-- Mobile Hamburger Button -->
-            <button id="mobile-menu-btn" class="lg:hidden text-slate-300 hover:text-white focus:outline-none text-2xl">
+            <button id="mobile-menu-btn" class="lg:hidden text-slate-300 hover:text-white focus:outline-none text-xl">
                 <i class="fa-solid fa-bars"></i>
             </button>
         </div>
 
         <!-- Mobile Menu Drawer -->
-        <div id="mobile-menu" class="hidden lg:hidden bg-card border-b border-red-900/40 px-6 py-4 space-y-3">
-            <a href="#anasayfa" class="block text-slate-300 hover:text-red-500 py-1">ANA SAYFA</a>
-            <a href="#sunucu" class="block text-slate-300 hover:text-red-500 py-1">SUNUCU</a>
-            <a href="#ozellikler" class="block text-slate-300 hover:text-red-500 py-1">ÖZELLİKLER</a>
-            <a href="#oyunmodlari" class="block text-slate-300 hover:text-red-500 py-1">OYUN MODLARI</a>
-            <a href="#rutbeler" class="block text-slate-300 hover:text-red-500 py-1">RÜTBELER</a>
-            <a href="#magaza" class="block text-slate-300 hover:text-red-500 py-1">MAĞAZA</a>
-            <a href="#siralama" class="block text-slate-300 hover:text-red-500 py-1">SIRALAMA</a>
-            <a href="#haberler" class="block text-slate-300 hover:text-red-500 py-1">HABERLER</a>
-            <a href="#kurallar" class="block text-slate-300 hover:text-red-500 py-1">KURALLAR</a>
-            <a href="#cark" class="block text-slate-300 hover:text-red-500 py-1">ÇARK</a>
-            <div class="pt-2">
-                <button onclick="copyIP()" class="w-full py-2 bg-red-600 text-white font-bold rounded-lg text-center">IP KOPYALA</button>
+        <div id="mobile-menu" class="hidden lg:hidden bg-card border-b border-slate-800 px-6 py-4 space-y-2">
+            <a href="#anasayfa" class="block text-slate-300 hover:text-rose-400 py-1.5 text-sm">ANA SAYFA</a>
+            <a href="#sunucu" class="block text-slate-300 hover:text-rose-400 py-1.5 text-sm">SUNUCU</a>
+            <a href="#ozellikler" class="block text-slate-300 hover:text-rose-400 py-1.5 text-sm">ÖZELLİKLER</a>
+            <a href="#oyunmodlari" class="block text-slate-300 hover:text-rose-400 py-1.5 text-sm">OYUN MODLARI</a>
+            <a href="#rutbeler" class="block text-slate-300 hover:text-rose-400 py-1.5 text-sm">RÜTBELER</a>
+            <a href="#magaza" class="block text-slate-300 hover:text-rose-400 py-1.5 text-sm">MAĞAZA</a>
+            <a href="#siralama" class="block text-slate-300 hover:text-rose-400 py-1.5 text-sm">SIRALAMA</a>
+            <a href="#haberler" class="block text-slate-300 hover:text-rose-400 py-1.5 text-sm">HABERLER</a>
+            <a href="#kurallar" class="block text-slate-300 hover:text-rose-400 py-1.5 text-sm">KURALLAR</a>
+            <a href="#cark" class="block text-slate-300 hover:text-rose-400 py-1.5 text-sm">ÇARK</a>
+            <div class="pt-3">
+                <button onclick="copyIP()" class="w-full py-2.5 bg-rose-500 text-white font-medium rounded-xl text-center text-sm shadow-sm">IP KOPYALA</button>
             </div>
         </div>
     </header>
 
     <!-- HERO SECTION -->
     <section id="anasayfa" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <!-- Background Nether Atmosphere -->
-        <div class="absolute inset-0 z-0 bg-cover bg-center opacity-40" style="background-image: url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=2000&auto=format&fit=crop');"></div>
-        <div class="absolute inset-0 z-0 bg-gradient-to-t from-dark via-dark/60 to-transparent"></div>
+        <!-- Soft Background Atmosphere -->
+        <div class="absolute inset-0 z-0 bg-cover bg-center opacity-20 filter saturate-50" style="background-image: url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2000&auto=format&fit=crop');"></div>
+        <div class="absolute inset-0 z-0 bg-gradient-to-t from-dark via-dark/80 to-transparent"></div>
         
         <!-- Embers Container -->
         <div id="embers-container" class="absolute inset-0 z-1 pointer-events-none"></div>
 
-        <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
-            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-red-950/60 border border-red-600/40 text-red-400 text-xs sm:text-sm font-semibold mb-6 animate-pulse">
-                <i class="fa-solid fa-shield-halved"></i>
+        <div class="relative z-10 max-w-4xl mx-auto px-4 text-center">
+            <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-medium mb-6">
+                <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
                 <span>SEZON 1 AKTİF • BOXPVP & SURVIVAL</span>
             </div>
             
-            <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black tracking-wider text-white font-heading mb-6 glow-red">
-                XYNOVSMP
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-white font-heading mb-6">
+                Sınırları <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-orange-400">Yeniden Tanımla</span>
             </h1>
             
-            <p class="text-lg sm:text-2xl text-slate-300 max-w-2xl mx-auto mb-10 font-light">
-                Nether'ın karanlığında kendi hikâyeni yaz.
+            <p class="text-base sm:text-lg text-slate-400 max-w-xl mx-auto mb-10 font-light leading-relaxed">
+                Kesintisiz performans, özel mekanikler ve seçkin topluluk ile XynovSMP dünyasında yerini al.
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button onclick="copyIP()" class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white font-bold rounded-xl shadow-xl shadow-red-600/30 transition transform hover:-translate-y-1 text-lg">
-                    <i class="fa-solid fa-gamepad mr-2"></i> OYNA (IP KOPYALA)
+                <button onclick="copyIP()" class="w-full sm:w-auto px-7 py-3.5 bg-rose-500 hover:bg-rose-600 text-white font-medium rounded-xl shadow-lg shadow-rose-500/20 transition transform hover:-translate-y-0.5 text-sm flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-gamepad"></i>
+                    <span>SUNUCUYA BAĞLAN (IP KOPYALA)</span>
                 </button>
-                <a href="#launcher" class="w-full sm:w-auto px-8 py-4 bg-card hover:bg-cardhover border border-red-900/50 text-white font-bold rounded-xl shadow-lg transition transform hover:-translate-y-1 text-lg text-center">
-                    <i class="fa-solid fa-rocket mr-2 text-red-500"></i> LAUNCHER'I İNDİR
-                </a>
-                <a href="https://discord.gg/xynovsmp" id="discord-hero-btn" target="_blank" class="w-full sm:w-auto px-8 py-4 bg-[#5865F2]/20 hover:bg-[#5865F2]/30 border border-[#5865F2]/50 text-white font-bold rounded-xl shadow-lg transition transform hover:-translate-y-1 text-lg text-center">
-                    <i class="fa-brands fa-discord mr-2 text-[#5865F2]"></i> DISCORD
+                <a href="#launcher" class="w-full sm:w-auto px-7 py-3.5 bg-card hover:bg-cardhover border border-slate-800 text-slate-200 font-medium rounded-xl shadow-sm transition transform hover:-translate-y-0.5 text-sm text-center flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-rocket text-rose-400"></i>
+                    <span>LAUNCHER'I İNDİR</span>
                 </a>
             </div>
         </div>
@@ -244,39 +244,38 @@
     <section id="sunucu" class="py-20 bg-dark relative">
         <div class="max-w-4xl mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-3">SUNUCU BİLGİLERİ</h2>
-                <div class="w-24 h-1 bg-red-600 mx-auto rounded-full"></div>
+                <h2 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-2">Sunucu Durumu</h2>
+                <div class="w-16 h-0.5 bg-rose-500 mx-auto rounded-full"></div>
             </div>
 
-            <div class="bg-card border border-red-900/40 rounded-2xl p-6 sm:p-10 glow-box relative overflow-hidden">
-                <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
-
+            <div class="bg-card border border-slate-800/80 rounded-2xl p-6 sm:p-8 glow-box relative overflow-hidden">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-                    <div class="md:col-span-2 space-y-4">
-                        <div class="inline-block px-3 py-1 rounded bg-green-950/80 border border-green-600/50 text-green-400 text-xs font-bold">
-                            ● ONLINE
+                    <div class="md:col-span-2 space-y-3">
+                        <div class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                            <span>Aktif ve Stabil</span>
                         </div>
-                        <h3 class="text-3xl font-heading font-bold text-white">XynovSMP</h3>
-                        <p class="text-slate-400 text-sm">Java Edition 1.16.x - 1.20.x sürümleriyle tam uyumlu, lagsız ve kesintisiz PvP & Survival deneyimi.</p>
+                        <h3 class="text-2xl font-heading font-bold text-white">XynovSMP Network</h3>
+                        <p class="text-slate-400 text-xs sm:text-sm leading-relaxed">Java Edition 1.16.x - 1.20.x sürümleriyle tam uyumlu, optimize edilmiş altyapı.</p>
                         
-                        <div class="flex flex-wrap items-center gap-4 pt-2">
-                            <div class="bg-dark/60 border border-red-900/30 rounded-xl px-4 py-2">
-                                <span class="block text-xs text-slate-500">IP Adresi</span>
-                                <span class="font-mono font-bold text-red-400 text-sm sm:text-base">XynovSmp.aternos.me</span>
+                        <div class="flex flex-wrap items-center gap-3 pt-2">
+                            <div class="bg-dark/50 border border-slate-800 rounded-xl px-3.5 py-2">
+                                <span class="block text-[10px] text-slate-500 uppercase tracking-wide">IP Adresi</span>
+                                <span class="font-mono font-medium text-slate-200 text-xs sm:text-sm">XynovSmp.aternos.me</span>
                             </div>
-                            <div class="bg-dark/60 border border-red-900/30 rounded-xl px-4 py-2">
-                                <span class="block text-xs text-slate-500">Durum</span>
-                                <span class="font-bold text-green-400 text-sm sm:text-base">Aktif</span>
+                            <div class="bg-dark/50 border border-slate-800 rounded-xl px-3.5 py-2">
+                                <span class="block text-[10px] text-slate-500 uppercase tracking-wide">Sürüm</span>
+                                <span class="font-medium text-slate-200 text-xs sm:text-sm">1.16 - 1.20+</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex flex-col items-center justify-center bg-dark/40 border border-red-900/20 rounded-xl p-6 text-center space-y-4">
+                    <div class="flex flex-col items-center justify-center bg-dark/40 border border-slate-800/60 rounded-xl p-6 text-center space-y-3">
                         <div>
-                            <span class="block text-xs text-slate-400 uppercase tracking-wider mb-1">Çevrimiçi Oyuncu</span>
-                            <span id="player-count" class="text-3xl font-black text-red-500 font-heading">42 / 100</span>
+                            <span class="block text-[10px] text-slate-400 uppercase tracking-wider mb-1">Çevrimiçi Oyuncu</span>
+                            <span id="player-count" class="text-3xl font-bold text-rose-500 font-heading">42 / 100</span>
                         </div>
-                        <button onclick="copyIP()" class="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition shadow-md text-sm">
+                        <button onclick="copyIP()" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium rounded-lg transition text-xs">
                             IP'Yİ KOPYALA
                         </button>
                     </div>
@@ -286,93 +285,48 @@
     </section>
 
     <!-- ÖZELLİKLER -->
-    <section id="ozellikler" class="py-20 bg-card/40 border-y border-red-900/20">
+    <section id="ozellikler" class="py-20 bg-card/30 border-y border-slate-800/50">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-3">SUNUCU ÖZELLİKLERİ</h2>
-                <div class="w-24 h-1 bg-red-600 mx-auto rounded-full"></div>
+                <h2 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-2">Sunucu Özellikleri</h2>
+                <div class="w-16 h-0.5 bg-rose-500 mx-auto rounded-full"></div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-                <!-- Feature 1 -->
-                <div class="bg-card border border-red-900/30 rounded-xl p-6 text-center hover:border-red-600 transition group">
-                    <div class="w-12 h-12 bg-red-600/20 text-red-500 rounded-lg mx-auto flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white transition">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                <div class="bg-card border border-slate-800/60 rounded-xl p-5 text-center hover:border-rose-500/40 transition group">
+                    <div class="w-10 h-10 bg-rose-500/10 text-rose-400 rounded-lg mx-auto flex items-center justify-center text-base mb-3 group-hover:bg-rose-500 group-hover:text-white transition">
                         <i class="fa-solid fa-sword"></i>
                     </div>
-                    <h3 class="font-heading font-bold text-lg text-white mb-2">PvP</h3>
-                    <p class="text-slate-400 text-xs">Gelişmiş savaş mekanikleri ve özel kitler.</p>
+                    <h3 class="font-heading font-semibold text-sm text-white mb-1">Gelişmiş PvP</h3>
+                    <p class="text-slate-400 text-[11px]">Özel mekanikler ve optimize edilmiş vuruşlar.</p>
                 </div>
-                <!-- Feature 2 -->
-                <div class="bg-card border border-red-900/30 rounded-xl p-6 text-center hover:border-red-600 transition group">
-                    <div class="w-12 h-12 bg-red-600/20 text-red-500 rounded-lg mx-auto flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white transition">
+                <div class="bg-card border border-slate-800/60 rounded-xl p-5 text-center hover:border-rose-500/40 transition group">
+                    <div class="w-10 h-10 bg-rose-500/10 text-rose-400 rounded-lg mx-auto flex items-center justify-center text-base mb-3 group-hover:bg-rose-500 group-hover:text-white transition">
                         <i class="fa-solid fa-boxes-stacked"></i>
                     </div>
-                    <h3 class="font-heading font-bold text-lg text-white mb-2">BoxPvP</h3>
-                    <p class="text-slate-400 text-xs">Hızlı tempolu kutu savaşları ve üstün ödüller.</p>
+                    <h3 class="font-heading font-semibold text-sm text-white mb-1">BoxPvP</h3>
+                    <p class="text-slate-400 text-[11px]">Hızlı tempolu kutu savaşları ve ödüller.</p>
                 </div>
-                <!-- Feature 3 -->
-                <div class="bg-card border border-red-900/30 rounded-xl p-6 text-center hover:border-red-600 transition group">
-                    <div class="w-12 h-12 bg-red-600/20 text-red-500 rounded-lg mx-auto flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white transition">
+                <div class="bg-card border border-slate-800/60 rounded-xl p-5 text-center hover:border-rose-500/40 transition group">
+                    <div class="w-10 h-10 bg-rose-500/10 text-rose-400 rounded-lg mx-auto flex items-center justify-center text-base mb-3 group-hover:bg-rose-500 group-hover:text-white transition">
                         <i class="fa-solid fa-tree"></i>
                     </div>
-                    <h3 class="font-heading font-bold text-lg text-white mb-2">Survival</h3>
-                    <p class="text-slate-400 text-xs">Klan savaşları, claim ve hayatta kalma mücadelesi.</p>
+                    <h3 class="font-heading font-semibold text-sm text-white mb-1">Survival</h3>
+                    <p class="text-slate-400 text-[11px]">Klan savaşları, claim ve hayatta kalma.</p>
                 </div>
-                <!-- Feature 4 -->
-                <div class="bg-card border border-red-900/30 rounded-xl p-6 text-center hover:border-red-600 transition group">
-                    <div class="w-12 h-12 bg-red-600/20 text-red-500 rounded-lg mx-auto flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white transition">
+                <div class="bg-card border border-slate-800/60 rounded-xl p-5 text-center hover:border-rose-500/40 transition group">
+                    <div class="w-10 h-10 bg-rose-500/10 text-rose-400 rounded-lg mx-auto flex items-center justify-center text-base mb-3 group-hover:bg-rose-500 group-hover:text-white transition">
                         <i class="fa-solid fa-coins"></i>
                     </div>
-                    <h3 class="font-heading font-bold text-lg text-white mb-2">Economy</h3>
-                    <p class="text-slate-400 text-xs">Dinamik oyuncu pazarı, açık artırma ve ticaret.</p>
+                    <h3 class="font-heading font-semibold text-sm text-white mb-1">Ekonomi</h3>
+                    <p class="text-slate-400 text-[11px]">Dinamik oyuncu pazarı ve açık artırma.</p>
                 </div>
-                <!-- Feature 5 -->
-                <div class="bg-card border border-red-900/30 rounded-xl p-6 text-center hover:border-red-600 transition group">
-                    <div class="w-12 h-12 bg-red-600/20 text-red-500 rounded-lg mx-auto flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white transition">
+                <div class="bg-card border border-slate-800/60 rounded-xl p-5 text-center hover:border-rose-500/40 transition group">
+                    <div class="w-10 h-10 bg-rose-500/10 text-rose-400 rounded-lg mx-auto flex items-center justify-center text-base mb-3 group-hover:bg-rose-500 group-hover:text-white transition">
                         <i class="fa-solid fa-crown"></i>
                     </div>
-                    <h3 class="font-heading font-bold text-lg text-white mb-2">Ranks</h3>
-                    <p class="text-slate-400 text-xs">LuckPerms destekli özel kadim rütbeler.</p>
-                </div>
-                <!-- Feature 6 -->
-                <div class="bg-card border border-red-900/30 rounded-xl p-6 text-center hover:border-red-600 transition group">
-                    <div class="w-12 h-12 bg-red-600/20 text-red-500 rounded-lg mx-auto flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white transition">
-                        <i class="fa-solid fa-calendar-days"></i>
-                    </div>
-                    <h3 class="font-heading font-bold text-lg text-white mb-2">Events</h3>
-                    <p class="text-slate-400 text-xs">Her hafta sonu devasa ödüllü etkinlikler.</p>
-                </div>
-                <!-- Feature 7 -->
-                <div class="bg-card border border-red-900/30 rounded-xl p-6 text-center hover:border-red-600 transition group">
-                    <div class="w-12 h-12 bg-red-600/20 text-red-500 rounded-lg mx-auto flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white transition">
-                        <i class="fa-solid fa-fire-flame-curved"></i>
-                    </div>
-                    <h3 class="font-heading font-bold text-lg text-white mb-2">Nether</h3>
-                    <p class="text-slate-400 text-xs">Özel Nether bossları ve tehlikeli bölgeler.</p>
-                </div>
-                <!-- Feature 8 -->
-                <div class="bg-card border border-red-900/30 rounded-xl p-6 text-center hover:border-red-600 transition group">
-                    <div class="w-12 h-12 bg-red-600/20 text-red-500 rounded-lg mx-auto flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white transition">
-                        <i class="fa-solid fa-key"></i>
-                    </div>
-                    <h3 class="font-heading font-bold text-lg text-white mb-2">Crates</h3>
-                    <p class="text-slate-400 text-xs">Şans kasaları ve özel anahtar sistemleri.</p>
-                </div>
-                <!-- Feature 9 -->
-                <div class="bg-card border border-red-900/30 rounded-xl p-6 text-center hover:border-red-600 transition group">
-                    <div class="w-12 h-12 bg-red-600/20 text-red-500 rounded-lg mx-auto flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white transition">
-                        <i class="fa-solid fa-handshake"></i>
-                    </div>
-                    <h3 class="font-heading font-bold text-lg text-white mb-2">Trading</h3>
-                    <p class="text-slate-400 text-xs">Güvenli takas sistemi ile dolandırıcılığa son.</p>
-                </div>
-                <!-- Feature 10 -->
-                <div class="bg-card border border-red-900/30 rounded-xl p-6 text-center hover:border-red-600 transition group">
-                    <div class="w-12 h-12 bg-red-600/20 text-red-500 rounded-lg mx-auto flex items-center justify-center text-xl mb-4 group-hover:bg-red-600 group-hover:text-white transition">
-                        <i class="fa-solid fa-users"></i>
-                    </div>
-                    <h3 class="font-heading font-bold text-lg text-white mb-2">Community</h3>
-                    <p class="text-slate-400 text-xs">Saygılı, ilgili yönetim ve aktif topluluk.</p>
+                    <h3 class="font-heading font-semibold text-sm text-white mb-1">Özel Rütbeler</h3>
+                    <p class="text-slate-400 text-[11px]">LuckPerms destekli kadim rütbe sistemi.</p>
                 </div>
             </div>
         </div>
@@ -382,124 +336,65 @@
     <section id="oyunmodlari" class="py-20 bg-dark">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-3">OYUN MODLARI</h2>
-                <div class="w-24 h-1 bg-red-600 mx-auto rounded-full"></div>
+                <h2 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-2">Oyun Modları</h2>
+                <div class="w-16 h-0.5 bg-rose-500 mx-auto rounded-full"></div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-card border border-red-900/40 rounded-2xl p-8 relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-48 h-48 bg-red-600/10 rounded-full blur-2xl group-hover:bg-red-600/20 transition"></div>
-                    <div class="w-14 h-14 bg-red-600 text-white rounded-xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-red-600/30">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-card border border-slate-800/80 rounded-2xl p-8 relative overflow-hidden group">
+                    <div class="w-12 h-12 bg-rose-500/10 text-rose-400 rounded-xl flex items-center justify-center text-xl mb-6">
                         <i class="fa-solid fa-boxes-stacked"></i>
                     </div>
-                    <h3 class="text-2xl font-heading font-bold text-white mb-4">XynovSMP BoxPvP</h3>
-                    <p class="text-slate-400 mb-6 leading-relaxed">Kutu savaşlarının en üst düzey deneyimi! Küçücük bir alanda başlayan devasa kapışmalar, özel kitler, rütbe atlama mekanikleri ve sınırsız aksiyon seni bekliyor.</p>
-                    <button onclick="copyIP()" class="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-sm transition">HEMEN BAŞLA</button>
+                    <h3 class="text-xl font-heading font-bold text-white mb-3">XynovSMP BoxPvP</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm mb-6 leading-relaxed">Küçük bir alanda başlayan devasa kapışmalar, özel kitler ve rütbe atlama mekanikleriyle sınırsız rekabet.</p>
+                    <button onclick="copyIP()" class="px-5 py-2.5 bg-rose-500/10 hover:bg-rose-500 text-rose-400 hover:text-white font-medium rounded-xl text-xs transition border border-rose-500/30">Hemen Başla</button>
                 </div>
 
-                <div class="bg-card border border-red-900/40 rounded-2xl p-8 relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-48 h-48 bg-orange-600/10 rounded-full blur-2xl group-hover:bg-orange-600/20 transition"></div>
-                    <div class="w-14 h-14 bg-orange-600 text-white rounded-xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-orange-600/30">
+                <div class="bg-card border border-slate-800/80 rounded-2xl p-8 relative overflow-hidden group">
+                    <div class="w-12 h-12 bg-amber-500/10 text-amber-400 rounded-xl flex items-center justify-center text-xl mb-6">
                         <i class="fa-solid fa-tree"></i>
                     </div>
-                    <h3 class="text-2xl font-heading font-bold text-white mb-4">XynovSMP Survival</h3>
-                    <p class="text-slate-400 mb-6 leading-relaxed">Klasik hayatta kalma deneyimini modern eklentilerle buluşturduk. Klanını kur, toprağını claimle, ekonomide zirveye tırman ve Nether'ın efendisi ol.</p>
-                    <button onclick="copyIP()" class="px-6 py-2.5 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg text-sm transition">HEMEN BAŞLA</button>
+                    <h3 class="text-xl font-heading font-bold text-white mb-3">XynovSMP Survival</h3>
+                    <p class="text-slate-400 text-xs sm:text-sm mb-6 leading-relaxed">Klasik hayatta kalma deneyimini modern eklentilerle buluşturduk. Klanını kur ve ekonomide zirveye tırman.</p>
+                    <button onclick="copyIP()" class="px-5 py-2.5 bg-amber-500/10 hover:bg-amber-500 text-amber-400 hover:text-white font-medium rounded-xl text-xs transition border border-amber-500/30">Hemen Başla</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- RÜTBELER (LuckPerms) -->
-    <section id="rutbeler" class="py-20 bg-card/40 border-t border-red-900/20">
+    <!-- RÜTBELER -->
+    <section id="rutbeler" class="py-20 bg-card/30 border-t border-slate-800/50">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-3">LUCKPERMS RÜTBELERİ</h2>
-                <p class="text-slate-400 text-sm mt-2">Sunucumuzda geçerli resmi yetki ve rütbe ağırlıkları (Weight)</p>
-                <div class="w-24 h-1 bg-red-600 mx-auto rounded-full mt-3"></div>
+                <h2 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-2">LuckPerms Rütbeleri</h2>
+                <p class="text-slate-400 text-xs mt-1">Sunucumuzda geçerli resmi yetki ve kademe ağırlıkları</p>
+                <div class="w-16 h-0.5 bg-rose-500 mx-auto rounded-full mt-3"></div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Rank 1 -->
-                <div class="bg-card border border-red-900/40 rounded-xl p-6 relative overflow-hidden">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="px-3 py-1 bg-red-950 border border-red-600/50 text-red-400 rounded text-xs font-mono font-bold">Weight: 1000</span>
-                        <i class="fa-solid fa-crown text-red-500 text-xl"></i>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="bg-card border border-slate-800/60 rounded-xl p-5">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="px-2 py-0.5 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded text-[10px] font-mono font-medium">Weight: 1000</span>
+                        <i class="fa-solid fa-crown text-rose-400 text-sm"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-white mb-2">network_sahibi</h3>
-                    <p class="text-slate-400 text-xs">Sunucu kurucusu ve baş yönetici yetkileri.</p>
+                    <h3 class="text-base font-heading font-semibold text-white mb-1">network_sahibi</h3>
+                    <p class="text-slate-400 text-[11px]">Sunucu kurucusu ve baş yönetici.</p>
                 </div>
-                <!-- Rank 2 -->
-                <div class="bg-card border border-red-900/40 rounded-xl p-6 relative overflow-hidden">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="px-3 py-1 bg-red-950 border border-red-600/50 text-red-400 rounded text-xs font-mono font-bold">Weight: 909</span>
-                        <i class="fa-solid fa-shield text-orange-500 text-xl"></i>
+                <div class="bg-card border border-slate-800/60 rounded-xl p-5">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded text-[10px] font-mono font-medium">Weight: 909</span>
+                        <i class="fa-solid fa-shield text-amber-400 text-sm"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-white mb-2">Kadim Taç Muhafızı</h3>
-                    <p class="text-slate-400 text-xs">Yüksek düzey üst düzey yetkili kadrosu.</p>
+                    <h3 class="text-base font-heading font-semibold text-white mb-1">Kadim Taç Muhafızı</h3>
+                    <p class="text-slate-400 text-[11px]">Üst düzey yetkili kadrosu.</p>
                 </div>
-                <!-- Rank 3 -->
-                <div class="bg-card border border-red-900/40 rounded-xl p-6 relative overflow-hidden">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="px-3 py-1 bg-red-950 border border-red-600/50 text-red-400 rounded text-xs font-mono font-bold">Weight: 908</span>
-                        <i class="fa-solid fa-shield-halved text-orange-500 text-xl"></i>
+                <div class="bg-card border border-slate-800/60 rounded-xl p-5">
+                    <div class="flex justify-between items-start mb-3">
+                        <span class="px-2 py-0.5 bg-slate-800 text-slate-300 rounded text-[10px] font-mono font-medium">Weight: 905</span>
+                        <i class="fa-solid fa-star text-yellow-400 text-sm"></i>
                     </div>
-                    <h3 class="text-xl font-heading font-bold text-white mb-2">Kadim Saray Muhafızı</h3>
-                    <p class="text-slate-400 text-xs">Saray güvenliği ve moderasyon lideri.</p>
-                </div>
-                <!-- Rank 4 -->
-                <div class="bg-card border border-red-900/40 rounded-xl p-6 relative overflow-hidden">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="px-3 py-1 bg-red-950 border border-red-600/50 text-red-400 rounded text-xs font-mono font-bold">Weight: 907</span>
-                        <i class="fa-solid fa-chess-rook text-amber-500 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-heading font-bold text-white mb-2">Kadim Kraliyet Muhafızı</h3>
-                    <p class="text-slate-400 text-xs">Kraliyet denetmeni ve rehber denetim.</p>
-                </div>
-                <!-- Rank 5 -->
-                <div class="bg-card border border-red-900/40 rounded-xl p-6 relative overflow-hidden">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="px-3 py-1 bg-red-950 border border-red-600/50 text-red-400 rounded text-xs font-mono font-bold">Weight: 906</span>
-                        <i class="fa-solid fa-chess-knight text-amber-500 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-heading font-bold text-white mb-2">Kadim İmparatorluk Muhafızı</h3>
-                    <p class="text-slate-400 text-xs">Kıdemli moderatör ve güvenlik sorumlusu.</p>
-                </div>
-                <!-- Rank 6 -->
-                <div class="bg-card border border-red-900/40 rounded-xl p-6 relative overflow-hidden">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="px-3 py-1 bg-red-950 border border-red-600/50 text-red-400 rounded text-xs font-mono font-bold">Weight: 905</span>
-                        <i class="fa-solid fa-star text-yellow-500 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-heading font-bold text-white mb-2">Kadim Taht Generali</h3>
-                    <p class="text-slate-400 text-xs">Moderatör kadrosu ve etkinlik yöneticisi.</p>
-                </div>
-                <!-- Rank 7 -->
-                <div class="bg-card border border-red-900/40 rounded-xl p-6 relative overflow-hidden">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="px-3 py-1 bg-red-950 border border-red-600/50 text-red-400 rounded text-xs font-mono font-bold">Weight: 904</span>
-                        <i class="fa-solid fa-fire text-yellow-500 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-heading font-bold text-white mb-2">Kadim Savaş Generali</h3>
-                    <p class="text-slate-400 text-xs">Deneme moderatör ve asistan kadro.</p>
-                </div>
-                <!-- Rank 8 -->
-                <div class="bg-card border border-red-900/40 rounded-xl p-6 relative overflow-hidden">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="px-3 py-1 bg-red-950 border border-red-600/50 text-red-400 rounded text-xs font-mono font-bold">Weight: 903</span>
-                        <i class="fa-solid fa-user-shield text-slate-400 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-heading font-bold text-white mb-2">Kadim Başkomutan</h3>
-                    <p class="text-slate-400 text-xs">Destek ekibi ve rehber lideri.</p>
-                </div>
-                <!-- Rank 9 -->
-                <div class="bg-card border border-red-900/40 rounded-xl p-6 relative overflow-hidden">
-                    <div class="flex justify-between items-start mb-4">
-                        <span class="px-3 py-1 bg-slate-800 border border-slate-600/50 text-slate-300 rounded text-xs font-mono font-bold">Weight: 0</span>
-                        <i class="fa-solid fa-user text-slate-400 text-xl"></i>
-                    </div>
-                    <h3 class="text-xl font-heading font-bold text-white mb-2">default</h3>
-                    <p class="text-slate-400 text-xs">Sunucuya katılan tüm oyuncuların başlangıç rütbesi.</p>
+                    <h3 class="text-base font-heading font-semibold text-white mb-1">Kadim Taht Generali</h3>
+                    <p class="text-slate-400 text-[11px]">Moderatör ve etkinlik yöneticisi.</p>
                 </div>
             </div>
         </div>
@@ -509,163 +404,103 @@
     <section id="magaza" class="py-20 bg-dark">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-3">MAĞAZA</h2>
-                <p class="text-slate-400 text-sm mt-2">Sunucumuzu destekle ve özel ayrıcalıkların sahibi ol</p>
-                <div class="w-24 h-1 bg-red-600 mx-auto rounded-full mt-3"></div>
+                <h2 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-2">Mağaza</h2>
+                <p class="text-slate-400 text-xs mt-1">Sunucumuzu destekle ve özel ayrıcalıklar kazan</p>
+                <div class="w-16 h-0.5 bg-rose-500 mx-auto rounded-full mt-3"></div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- VIP -->
-                <div class="bg-card border border-red-900/40 rounded-2xl p-6 relative flex flex-col justify-between hover:border-red-600 transition">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-card border border-slate-800/80 rounded-2xl p-6 flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 bg-red-600/20 text-red-500 rounded-xl flex items-center justify-center text-xl mb-4 font-bold">VIP</div>
-                        <h3 class="text-xl font-heading font-bold text-white mb-2">VIP Rütbesi</h3>
-                        <p class="text-slate-400 text-xs mb-6">Temel avantajlar, özel kitler ve uçuş yetkisi ile oyuna 1-0 önde başla.</p>
+                        <div class="w-10 h-10 bg-rose-500/10 text-rose-400 rounded-xl flex items-center justify-center text-sm font-bold mb-4">VIP</div>
+                        <h3 class="text-lg font-heading font-bold text-white mb-2">VIP Rütbesi</h3>
+                        <p class="text-slate-400 text-xs mb-6 leading-relaxed">Temel avantajlar, özel kitler ve uçuş yetkisi ile oyuna önde başla.</p>
                         <ul class="text-xs text-slate-300 space-y-2 mb-6">
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> /fly Komutu</li>
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> VIP Kitleri</li>
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Renkli Sohbet</li>
+                            <li><i class="fa-solid fa-check text-rose-400 mr-2"></i> /fly Komutu</li>
+                            <li><i class="fa-solid fa-check text-rose-400 mr-2"></i> Özel VIP Kitleri</li>
                         </ul>
                     </div>
-                    <a href="#" id="store-btn-1" class="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-center text-sm transition">MAĞAZAYA GİT</a>
+                    <a href="#" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium rounded-xl text-center text-xs transition">Mağazaya Git</a>
                 </div>
-                <!-- VIP+ -->
-                <div class="bg-card border border-red-900/40 rounded-2xl p-6 relative flex flex-col justify-between hover:border-red-600 transition">
+                <div class="bg-card border border-slate-800/80 rounded-2xl p-6 flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 bg-red-600/20 text-red-500 rounded-xl flex items-center justify-center text-xl mb-4 font-bold">VIP+</div>
-                        <h3 class="text-xl font-heading font-bold text-white mb-2">VIP+ Rütbesi</h3>
-                        <p class="text-slate-400 text-xs mb-6">Gelişmiş avantajlar, ekstra ev hakkı ve özel kasa anahtarları.</p>
+                        <div class="w-10 h-10 bg-rose-500/10 text-rose-400 rounded-xl flex items-center justify-center text-sm font-bold mb-4">VIP+</div>
+                        <h3 class="text-lg font-heading font-bold text-white mb-2">VIP+ Rütbesi</h3>
+                        <p class="text-slate-400 text-xs mb-6 leading-relaxed">Gelişmiş avantajlar, ekstra haklar ve kasa anahtarları.</p>
                         <ul class="text-xs text-slate-300 space-y-2 mb-6">
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Tüm VIP Özellikleri</li>
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> 5x Kasa Anahtarı</li>
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Özel /feed Komutu</li>
+                            <li><i class="fa-solid fa-check text-rose-400 mr-2"></i> Tüm VIP Özellikleri</li>
+                            <li><i class="fa-solid fa-check text-rose-400 mr-2"></i> 5x Kasa Anahtarı</li>
                         </ul>
                     </div>
-                    <a href="#" id="store-btn-2" class="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-center text-sm transition">MAĞAZAYA GİT</a>
+                    <a href="#" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium rounded-xl text-center text-xs transition">Mağazaya Git</a>
                 </div>
-                <!-- MVP -->
-                <div class="bg-card border border-red-900/40 rounded-2xl p-6 relative flex flex-col justify-between hover:border-red-600 transition">
+                <div class="bg-card border border-slate-800/80 rounded-2xl p-6 flex flex-col justify-between">
                     <div>
-                        <div class="w-12 h-12 bg-red-600/20 text-red-500 rounded-xl flex items-center justify-center text-xl mb-4 font-bold">MVP</div>
-                        <h3 class="text-xl font-heading font-bold text-white mb-2">MVP Rütbesi</h3>
-                        <p class="text-slate-400 text-xs mb-6">En üst düzey oyuncu ayrıcalıkları ve sınırsız eğlence.</p>
+                        <div class="w-10 h-10 bg-rose-500/10 text-rose-400 rounded-xl flex items-center justify-center text-sm font-bold mb-4">MVP</div>
+                        <h3 class="text-lg font-heading font-bold text-white mb-2">MVP Rütbesi</h3>
+                        <p class="text-slate-400 text-xs mb-6 leading-relaxed">En üst düzey oyuncu ayrıcalıkları ve özel renkli sohbet.</p>
                         <ul class="text-xs text-slate-300 space-y-2 mb-6">
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> MVP Kitleri & Prefix</li>
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> 15x Kasa Anahtarı</li>
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Özel Efektler</li>
+                            <li><i class="fa-solid fa-check text-rose-400 mr-2"></i> MVP Kitleri & Prefix</li>
+                            <li><i class="fa-solid fa-check text-rose-400 mr-2"></i> 15x Kasa Anahtarı</li>
                         </ul>
                     </div>
-                    <a href="#" id="store-btn-3" class="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-center text-sm transition">MAĞAZAYA GİT</a>
-                </div>
-                <!-- COIN -->
-                <div class="bg-card border border-red-900/40 rounded-2xl p-6 relative flex flex-col justify-between hover:border-red-600 transition">
-                    <div>
-                        <div class="w-12 h-12 bg-orange-600/20 text-orange-500 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-coins"></i></div>
-                        <h3 class="text-xl font-heading font-bold text-white mb-2">COIN Paketi</h3>
-                        <p class="text-slate-400 text-xs mb-6">Sunucu içi markette harcayabileceğiniz yüksek miktarda coin.</p>
-                        <ul class="text-xs text-slate-300 space-y-2 mb-6">
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> 100,000 In-game Coin</li>
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Anında Teslimat</li>
-                        </ul>
-                    </div>
-                    <a href="#" id="store-btn-4" class="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-center text-sm transition">MAĞAZAYA GİT</a>
-                </div>
-                <!-- CRATE KEY -->
-                <div class="bg-card border border-red-900/40 rounded-2xl p-6 relative flex flex-col justify-between hover:border-red-600 transition">
-                    <div>
-                        <div class="w-12 h-12 bg-orange-600/20 text-orange-500 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-key"></i></div>
-                        <h3 class="text-xl font-heading font-bold text-white mb-2">CRATE KEY Paketi</h3>
-                        <p class="text-slate-400 text-xs mb-6">Nether ve Ejderha kasalarını açmak için özel anahtar demeti.</p>
-                        <ul class="text-xs text-slate-300 space-y-2 mb-6">
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> 10x Nether Anahtarı</li>
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> 5x Ejderha Anahtarı</li>
-                        </ul>
-                    </div>
-                    <a href="#" id="store-btn-5" class="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-center text-sm transition">MAĞAZAYA GİT</a>
-                </div>
-                <!-- SPECIAL PACKAGE -->
-                <div class="bg-card border border-red-900/40 rounded-2xl p-6 relative flex flex-col justify-between hover:border-red-600 transition">
-                    <div>
-                        <div class="w-12 h-12 bg-orange-600/20 text-orange-500 rounded-xl flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-box-open"></i></div>
-                        <h3 class="text-xl font-heading font-bold text-white mb-2">SPECIAL PACKAGE</h3>
-                        <p class="text-slate-400 text-xs mb-6">En güçlü eşyalar, özel kılıçlar ve zırh setleri tek pakette.</p>
-                        <ul class="text-xs text-slate-300 space-y-2 mb-6">
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Kadim Zırh Seti</li>
-                            <li><i class="fa-solid fa-check text-green-500 mr-2"></i> Özel Efsunlu Kılıç</li>
-                        </ul>
-                    </div>
-                    <a href="#" id="store-btn-6" class="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg text-center text-sm transition">MAĞAZAYA GİT</a>
+                    <a href="#" class="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium rounded-xl text-center text-xs transition">Mağazaya Git</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- SIRALAMA -->
-    <section id="siralama" class="py-20 bg-card/40 border-t border-red-900/20">
+    <section id="siralama" class="py-20 bg-card/30 border-t border-slate-800/50">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-3">LİDERLİK TABLOSU</h2>
-                <div class="w-24 h-1 bg-red-600 mx-auto rounded-full mt-3"></div>
+                <h2 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-2">Liderlik Tablosu</h2>
+                <div class="w-16 h-0.5 bg-rose-500 mx-auto rounded-full"></div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- TOP KILLS -->
-                <div class="bg-card border border-red-900/40 rounded-2xl p-6">
-                    <h3 class="text-xl font-heading font-bold text-white mb-4 flex items-center">
-                        <i class="fa-solid fa-skull text-red-500 mr-2"></i> TOP KILLS
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-card border border-slate-800/60 rounded-2xl p-6">
+                    <h3 class="text-base font-heading font-bold text-white mb-4 flex items-center">
+                        <i class="fa-solid fa-skull text-rose-400 mr-2"></i> Top Kills
                     </h3>
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center bg-dark/40 p-3 rounded-lg border border-red-900/20">
-                            <span class="text-sm font-bold text-slate-200">1. XynovWarrior</span>
-                            <span class="text-sm font-mono text-red-500 font-bold">1,420 Kills</span>
+                    <div class="space-y-2.5">
+                        <div class="flex justify-between items-center bg-dark/40 p-2.5 rounded-lg border border-slate-800/50">
+                            <span class="text-xs font-medium text-slate-300">1. XynovWarrior</span>
+                            <span class="text-xs font-mono text-rose-400 font-semibold">1,420 Kills</span>
                         </div>
-                        <div class="flex justify-between items-center bg-dark/40 p-3 rounded-lg border border-red-900/20">
-                            <span class="text-sm font-bold text-slate-200">2. NetherKing</span>
-                            <span class="text-sm font-mono text-red-500 font-bold">1,185 Kills</span>
-                        </div>
-                        <div class="flex justify-between items-center bg-dark/40 p-3 rounded-lg border border-red-900/20">
-                            <span class="text-sm font-bold text-slate-200">3. ShadowSlayer</span>
-                            <span class="text-sm font-mono text-red-500 font-bold">940 Kills</span>
+                        <div class="flex justify-between items-center bg-dark/40 p-2.5 rounded-lg border border-slate-800/50">
+                            <span class="text-xs font-medium text-slate-300">2. NetherKing</span>
+                            <span class="text-xs font-mono text-rose-400 font-semibold">1,185 Kills</span>
                         </div>
                     </div>
                 </div>
-                <!-- TOP MONEY -->
-                <div class="bg-card border border-red-900/40 rounded-2xl p-6">
-                    <h3 class="text-xl font-heading font-bold text-white mb-4 flex items-center">
-                        <i class="fa-solid fa-coins text-orange-500 mr-2"></i> TOP MONEY
+                <div class="bg-card border border-slate-800/60 rounded-2xl p-6">
+                    <h3 class="text-base font-heading font-bold text-white mb-4 flex items-center">
+                        <i class="fa-solid fa-coins text-amber-400 mr-2"></i> Top Money
                     </h3>
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center bg-dark/40 p-3 rounded-lg border border-red-900/20">
-                            <span class="text-sm font-bold text-slate-200">1. RichMiner</span>
-                            <span class="text-sm font-mono text-orange-500 font-bold">$12,450,000</span>
+                    <div class="space-y-2.5">
+                        <div class="flex justify-between items-center bg-dark/40 p-2.5 rounded-lg border border-slate-800/50">
+                            <span class="text-xs font-medium text-slate-300">1. RichMiner</span>
+                            <span class="text-xs font-mono text-amber-400 font-semibold">$12.4M</span>
                         </div>
-                        <div class="flex justify-between items-center bg-dark/40 p-3 rounded-lg border border-red-900/20">
-                            <span class="text-sm font-bold text-slate-200">2. GoldBaron</span>
-                            <span class="text-sm font-mono text-orange-500 font-bold">$9,800,000</span>
-                        </div>
-                        <div class="flex justify-between items-center bg-dark/40 p-3 rounded-lg border border-red-900/20">
-                            <span class="text-sm font-bold text-slate-200">3. EconomyMaster</span>
-                            <span class="text-sm font-mono text-orange-500 font-bold">$7,210,000</span>
+                        <div class="flex justify-between items-center bg-dark/40 p-2.5 rounded-lg border border-slate-800/50">
+                            <span class="text-xs font-medium text-slate-300">2. GoldBaron</span>
+                            <span class="text-xs font-mono text-amber-400 font-semibold">$9.8M</span>
                         </div>
                     </div>
                 </div>
-                <!-- TOP PLAYTIME -->
-                <div class="bg-card border border-red-900/40 rounded-2xl p-6">
-                    <h3 class="text-xl font-heading font-bold text-white mb-4 flex items-center">
-                        <i class="fa-solid fa-clock text-amber-500 mr-2"></i> TOP PLAYTIME
+                <div class="bg-card border border-slate-800/60 rounded-2xl p-6">
+                    <h3 class="text-base font-heading font-bold text-white mb-4 flex items-center">
+                        <i class="fa-solid fa-clock text-sky-400 mr-2"></i> Top Playtime
                     </h3>
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center bg-dark/40 p-3 rounded-lg border border-red-900/20">
-                            <span class="text-sm font-bold text-slate-200">1. NoLifer07</span>
-                            <span class="text-sm font-mono text-amber-500 font-bold">342 Saat</span>
+                    <div class="space-y-2.5">
+                        <div class="flex justify-between items-center bg-dark/40 p-2.5 rounded-lg border border-slate-800/50">
+                            <span class="text-xs font-medium text-slate-300">1. NoLifer07</span>
+                            <span class="text-xs font-mono text-sky-400 font-semibold">342 Saat</span>
                         </div>
-                        <div class="flex justify-between items-center bg-dark/40 p-3 rounded-lg border border-red-900/20">
-                            <span class="text-sm font-bold text-slate-200">2. CraftMaster</span>
-                            <span class="text-sm font-mono text-amber-500 font-bold">285 Saat</span>
-                        </div>
-                        <div class="flex justify-between items-center bg-dark/40 p-3 rounded-lg border border-red-900/20">
-                            <span class="text-sm font-bold text-slate-200">3. ServerGhost</span>
-                            <span class="text-sm font-mono text-amber-500 font-bold">240 Saat</span>
+                        <div class="flex justify-between items-center bg-dark/40 p-2.5 rounded-lg border border-slate-800/50">
+                            <span class="text-xs font-medium text-slate-300">2. CraftMaster</span>
+                            <span class="text-xs font-mono text-sky-400 font-semibold">285 Saat</span>
                         </div>
                     </div>
                 </div>
@@ -677,169 +512,185 @@
     <section id="haberler" class="py-20 bg-dark">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-3">HABERLER & DUYURULAR</h2>
-                <div class="w-24 h-1 bg-red-600 mx-auto rounded-full mt-3"></div>
+                <h2 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-2">Haberler & Duyurular</h2>
+                <div class="w-16 h-0.5 bg-rose-500 mx-auto rounded-full"></div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="bg-card border border-red-900/30 rounded-xl p-6">
-                    <span class="text-xs text-red-500 font-bold">12 HAZİRAN</span>
-                    <h3 class="text-lg font-heading font-bold text-white my-2">Server Launch</h3>
-                    <p class="text-slate-400 text-xs">XynovSMP resmi olarak oyunculara kapılarını açtı! Sürpriz ödülleri kaçırma.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-card border border-slate-800/60 rounded-xl p-5">
+                    <span class="text-[10px] text-rose-400 font-medium">12 HAZİRAN</span>
+                    <h3 class="text-base font-heading font-semibold text-white my-1">Sunucu Aktif!</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">XynovSMP resmi olarak kapılarını açtı. Sürpriz ödülleri kaçırma.</p>
                 </div>
-                <div class="bg-card border border-red-900/30 rounded-xl p-6">
-                    <span class="text-xs text-red-500 font-bold">15 HAZİRAN</span>
-                    <h3 class="text-lg font-heading font-bold text-white my-2">PvP Update</h3>
-                    <p class="text-slate-400 text-xs">Savaş mekanikleri güncellendi, hitbox ve vuruş gecikmeleri optimize edildi.</p>
+                <div class="bg-card border border-slate-800/60 rounded-xl p-5">
+                    <span class="text-[10px] text-rose-400 font-medium">15 HAZİRAN</span>
+                    <h3 class="text-base font-heading font-semibold text-white my-1">PvP Güncellemesi</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">Savaş mekanikleri güncellendi ve vuruş gecikmeleri optimize edildi.</p>
                 </div>
-                <div class="bg-card border border-red-900/30 rounded-xl p-6">
-                    <span class="text-xs text-red-500 font-bold">20 HAZİRAN</span>
-                    <h3 class="text-lg font-heading font-bold text-white my-2">New Event</h3>
-                    <p class="text-slate-400 text-xs">Hafta sonu devasa Boss savaşı etkinliği ile sürpriz hediyeler dağıtılacak.</p>
+                <div class="bg-card border border-slate-800/60 rounded-xl p-5">
+                    <span class="text-[10px] text-rose-400 font-medium">20 HAZİRAN</span>
+                    <h3 class="text-base font-heading font-semibold text-white my-1">Hafta Sonu Etkinliği</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">Devasa Boss savaşı etkinliği ile özel hediyeler sahiplerini buluyor.</p>
                 </div>
-                <div class="bg-card border border-red-900/30 rounded-xl p-6">
-                    <span class="text-xs text-red-500 font-bold">25 HAZİRAN</span>
-                    <h3 class="text-lg font-heading font-bold text-white my-2">New Features</h3>
-                    <p class="text-slate-400 text-xs">Klan savaşları ve güvenli takas sistemi sisteme entegre edildi.</p>
+                <div class="bg-card border border-slate-800/60 rounded-xl p-5">
+                    <span class="text-[10px] text-rose-400 font-medium">25 HAZİRAN</span>
+                    <h3 class="text-base font-heading font-semibold text-white my-1">Klan Savaşları</h3>
+                    <p class="text-slate-400 text-xs leading-relaxed">Güvenli takas ve klan savaşları sisteme başarıyla entegre edildi.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- KURALLAR -->
-    <section id="kurallar" class="py-20 bg-card/40 border-t border-red-900/20">
-        <div class="max-w-4xl mx-auto px-4">
+    <section id="kurallar" class="py-20 bg-card/30 border-t border-slate-800/50">
+        <div class="max-w-3xl mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-3">SUNUCU KURALLARI</h2>
-                <p class="text-slate-400 text-sm mt-2">Sunucumuzdaki herkesin huzuru için bu kurallara uyması zorunludur.</p>
-                <div class="w-24 h-1 bg-red-600 mx-auto rounded-full mt-3"></div>
+                <h2 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-2">Sunucu Kuralları</h2>
+                <p class="text-slate-400 text-xs mt-1">Sunucumuzdaki herkesin huzuru için uyulması zorunlu kurallar</p>
+                <div class="w-16 h-0.5 bg-rose-500 mx-auto rounded-full mt-3"></div>
             </div>
 
-            <div class="space-y-4">
-                <div class="bg-card border border-red-900/30 rounded-xl p-4 flex items-center space-x-4">
-                    <span class="w-8 h-8 bg-red-600/20 text-red-500 font-bold rounded-lg flex items-center justify-center shrink-0">1</span>
-                    <p class="text-sm text-slate-300">Hile, macro, x-ray veya oyun dengesini bozacak hiçbir 3. parti yazılım kullanılamaz.</p>
+            <div class="space-y-3">
+                <div class="bg-card border border-slate-800/60 rounded-xl p-3.5 flex items-center space-x-3">
+                    <span class="w-6 h-6 bg-rose-500/10 text-rose-400 font-semibold rounded-lg flex items-center justify-center shrink-0 text-xs">1</span>
+                    <p class="text-xs text-slate-300">Hile, macro, x-ray veya oyun dengesini bozacak hiçbir 3. parti yazılım kullanılamaz.</p>
                 </div>
-                <div class="bg-card border border-red-900/30 rounded-xl p-4 flex items-center space-x-4">
-                    <span class="w-8 h-8 bg-red-600/20 text-red-500 font-bold rounded-lg flex items-center justify-center shrink-0">2</span>
-                    <p class="text-sm text-slate-300">Sohbette küfür, hakaret, argo, din/siyaset tartışması ve nefret söylemi kesinlikle yasaktır.</p>
+                <div class="bg-card border border-slate-800/60 rounded-xl p-3.5 flex items-center space-x-3">
+                    <span class="w-6 h-6 bg-rose-500/10 text-rose-400 font-semibold rounded-lg flex items-center justify-center shrink-0 text-xs">2</span>
+                    <p class="text-xs text-slate-300">Sohbette küfür, hakaret, argo, din/siyaset tartışması ve nefret söylemi kesinlikle yasaktır.</p>
                 </div>
-                <div class="bg-card border border-red-900/30 rounded-xl p-4 flex items-center space-x-4">
-                    <span class="w-8 h-8 bg-red-600/20 text-red-500 font-bold rounded-lg flex items-center justify-center shrink-0">3</span>
-                    <p class="text-sm text-slate-300">Oyuncu dolandırıcılığı, dolandırma amaçlı sahte takas ve dolandırıcılık girişimleri cezalandırılır.</p>
+                <div class="bg-card border border-slate-800/60 rounded-xl p-3.5 flex items-center space-x-3">
+                    <span class="w-6 h-6 bg-rose-500/10 text-rose-400 font-semibold rounded-lg flex items-center justify-center shrink-0 text-xs">3</span>
+                    <p class="text-xs text-slate-300">Oyuncu dolandırıcılığı, dolandırma amaçlı sahte takas ve girişimler cezalandırılır.</p>
                 </div>
-                <div class="bg-card border border-red-900/30 rounded-xl p-4 flex items-center space-x-4">
-                    <span class="w-8 h-8 bg-red-600/20 text-red-500 font-bold rounded-lg flex items-center justify-center shrink-0">4</span>
-                    <p class="text-sm text-slate-300">Yetkilileri taklit etmek, yetkili yetkilerini kullandığını iddia ederek oyuncuları kandırmak yasaktır.</p>
+                <div class="bg-card border border-slate-800/60 rounded-xl p-3.5 flex items-center space-x-3">
+                    <span class="w-6 h-6 bg-rose-500/10 text-rose-400 font-semibold rounded-lg flex items-center justify-center shrink-0 text-xs">4</span>
+                    <p class="text-xs text-slate-300">Sunucu reklamı yapmak, başka sunucuların discord veya ip adresini paylaşmak ban sebebidir.</p>
                 </div>
-                <div class="bg-card border border-red-900/30 rounded-xl p-4 flex items-center space-x-4">
-                    <span class="w-8 h-8 bg-red-600/20 text-red-500 font-bold rounded-lg flex items-center justify-center shrink-0">5</span>
-                    <p class="text-sm text-slate-300">Sunucu reklamı yapmak, başka sunucuların discord veya ip adresini paylaşmak kalıcı ban sebebidir.</p>
-                </div>
-                <div class="bg-card border border-red-900/30 rounded-xl p-4 flex items-center space-x-4">
-                    <span class="w-8 h-8 bg-red-600/20 text-red-500 font-bold rounded-lg flex items-center justify-center shrink-0">6</span>
-                    <p class="text-sm text-slate-300">Bug, glitch veya hata bulduğunuzda menfaat sağlamak yerine derhal yetkililere bildirmelisiniz.</p>
-                </div>
-                <div class="bg-card border border-red-900/30 rounded-xl p-4 flex items-center space-x-4">
-                    <span class="w-8 h-8 bg-red-600/20 text-red-500 font-bold rounded-lg flex items-center justify-center shrink-0">7</span>
-                    <p class="text-sm text-slate-300">Spawn veya güvenli bölgelerde tuzak kurmak, oyuncuları kasıtlı olarak öldürmek yasaktır.</p>
-                </div>
-                <div class="bg-card border border-red-900/30 rounded-xl p-4 flex items-center space-x-4">
-                    <span class="w-8 h-8 bg-red-600/20 text-red-500 font-bold rounded-lg flex items-center justify-center shrink-0">8</span>
-                    <p class="text-sm text-slate-300">Diğer oyuncuların yapılarına izinsiz zarar vermek, grief yapmak veya yağmalamak yasaktır.</p>
-                </div>
-                <div class="bg-card border border-red-900/30 rounded-xl p-4 flex items-center space-x-4">
-                    <span class="w-8 h-8 bg-red-600/20 text-red-500 font-bold rounded-lg flex items-center justify-center shrink-0">9</span>
-                    <p class="text-sm text-slate-300">Sohbette spam, flood, büyük harfle yazmak (capslock) ve rehin alma sohbetleri yasaktır.</p>
-                </div>
-                <div class="bg-card border border-red-900/30 rounded-xl p-4 flex items-center space-x-4">
-                    <span class="w-8 h-8 bg-red-600/20 text-red-500 font-bold rounded-lg flex items-center justify-center shrink-0">10</span>
-                    <p class="text-sm text-slate-300">Yetkililerin verdiği kararlara saygı duyulmalı ve cezalara itirazlar discord üzerinden yapılmalıdır.</p>
+                <div class="bg-card border border-slate-800/60 rounded-xl p-3.5 flex items-center space-x-3">
+                    <span class="w-6 h-6 bg-rose-500/10 text-rose-400 font-semibold rounded-lg flex items-center justify-center shrink-0 text-xs">5</span>
+                    <p class="text-xs text-slate-300">Bug veya glitch bulduğunuzda menfaat sağlamak yerine derhal yetkililere bildirmelisiniz.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ÇARK (WHEEL OF FORTUNE) -->
+    <!-- ÇARK -->
     <section id="cark" class="py-20 bg-dark">
-        <div class="max-w-xl mx-auto px-4 text-center">
-            <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-3">ŞANS ÇARKI</h2>
-            <p class="text-slate-400 text-sm mb-8">Günün şanslı ödülünü kazanmak için çarkı çevir!</p>
+        <div class="max-w-md mx-auto px-4 text-center">
+            <h2 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-2">Şans Çarkı</h2>
+            <p class="text-slate-400 text-xs mb-8">Günün şanslı ödülünü kazanmak için çarkı çevir!</p>
 
-            <div class="bg-card border border-red-900/40 rounded-2xl p-8 glow-box">
-                <div class="wheel-container mb-8">
+            <div class="bg-card border border-slate-800/80 rounded-2xl p-6 glow-box">
+                <div class="wheel-container mb-6">
                     <div class="wheel-pointer"></div>
                     <div id="wheel"></div>
                 </div>
 
-                <div id="cark-message" class="text-lg font-bold text-white mb-6"></div>
-                <button id="spin-btn" onclick="spinWheel()" class="w-full py-4 bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white font-bold rounded-xl shadow-lg transition text-lg">
-                    ÇEVİR
+                <div id="cark-message" class="text-sm font-medium text-white mb-4"></div>
+                <button id="spin-btn" onclick="spinWheel()" class="w-full py-3 bg-rose-500 hover:bg-rose-600 text-white font-medium rounded-xl shadow-md transition text-sm">
+                    ÇARKINI ÇEVİR
                 </button>
             </div>
         </div>
     </section>
 
-    <!-- LAUNCHER SECTION -->
-    <section id="launcher" class="py-20 bg-card/40 border-t border-red-900/20">
-        <div class="max-w-5xl mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-3">XynovSMP Launcher</h2>
-                <p class="text-slate-400 text-sm mt-2">Özel optimize edilmiş launcher ile kesintisiz oyun deneyimi</p>
-                <div class="w-24 h-1 bg-red-600 mx-auto rounded-full mt-3"></div>
+    <!-- LAUNCHER SECTION (FULLY CONFIGURED & INTERACTIVE) -->
+    <section id="launcher" class="py-20 bg-card/30 border-t border-slate-800/50">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-2">XynovSMP Launcher</h2>
+                <p class="text-slate-400 text-xs mt-1">Özel optimize edilmiş launcher ile kesintisiz ve hızlı oyun deneyimi</p>
+                <div class="w-16 h-0.5 bg-rose-500 mx-auto rounded-full mt-3"></div>
             </div>
 
-            <!-- Windows Launcher Mockup -->
-            <div class="bg-card border border-red-900/50 rounded-xl overflow-hidden shadow-2xl mb-10">
+            <!-- Launcher Mockup (Interactive Tabs) -->
+            <div class="bg-card border border-slate-800 rounded-2xl overflow-hidden shadow-2xl mb-8">
                 <!-- Titlebar -->
-                <div class="bg-dark/80 px-4 py-3 border-b border-red-900/30 flex items-center justify-between">
+                <div class="bg-dark/90 px-4 py-2.5 border-b border-slate-800 flex items-center justify-between">
                     <div class="flex items-center space-x-2">
-                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-orange-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                        <span class="text-xs text-slate-400 ml-2 font-mono">XynovSMP Client v1.0.4</span>
+                        <div class="w-2.5 h-2.5 rounded-full bg-rose-500/80"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></div>
+                        <div class="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></div>
+                        <span class="text-[11px] text-slate-400 ml-2 font-mono">XynovClient v1.2.0</span>
                     </div>
-                    <div class="flex items-center space-x-3 text-slate-400 text-sm">
-                        <i class="fa-solid fa-window-minimize"></i>
-                        <i class="fa-solid fa-window-maximize"></i>
-                        <i class="fa-solid fa-xmark"></i>
+                    <div class="flex items-center space-x-3 text-slate-500 text-xs">
+                        <i class="fa-solid fa-window-minimize hover:text-slate-300 cursor-pointer"></i>
+                        <i class="fa-solid fa-window-maximize hover:text-slate-300 cursor-pointer"></i>
+                        <i class="fa-solid fa-xmark hover:text-slate-300 cursor-pointer"></i>
                     </div>
                 </div>
 
                 <!-- Launcher Body -->
-                <div class="grid grid-cols-1 md:grid-cols-4 min-h-[350px]">
-                    <!-- Sidebar -->
-                    <div class="bg-dark/50 border-r border-red-900/20 p-4 flex flex-col justify-between">
-                        <div class="space-y-2">
-                            <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg bg-red-600/20 text-red-500 font-semibold text-sm"><i class="fa-solid fa-house w-5"></i><span>HOME</span></a>
-                            <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-400 hover:bg-cardhover hover:text-white text-sm"><i class="fa-solid fa-server w-5"></i><span>SERVERS</span></a>
-                            <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-400 hover:bg-cardhover hover:text-white text-sm"><i class="fa-solid fa-newspaper w-5"></i><span>NEWS</span></a>
-                            <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-400 hover:bg-cardhover hover:text-white text-sm"><i class="fa-solid fa-user w-5"></i><span>ACCOUNT</span></a>
-                            <a href="#" class="flex items-center space-x-3 px-3 py-2 rounded-lg text-slate-400 hover:bg-cardhover hover:text-white text-sm"><i class="fa-solid fa-gear w-5"></i><span>SETTINGS</span></a>
+                <div class="grid grid-cols-1 md:grid-cols-4 min-h-[320px]">
+                    <!-- Sidebar Tabs -->
+                    <div class="bg-dark/40 border-r border-slate-800/80 p-3 flex flex-col justify-between">
+                        <div class="space-y-1">
+                            <button onclick="switchTab('home')" id="tab-home" class="w-full flex items-center space-x-2.5 px-3 py-2 rounded-xl bg-rose-500/10 text-rose-400 font-medium text-xs transition">
+                                <i class="fa-solid fa-house w-4"></i><span>Ana Sayfa</span>
+                            </button>
+                            <button onclick="switchTab('servers')" id="tab-servers" class="w-full flex items-center space-x-2.5 px-3 py-2 rounded-xl text-slate-400 hover:bg-cardhover hover:text-slate-200 font-medium text-xs transition">
+                                <i class="fa-solid fa-server w-4"></i><span>Sunucular</span>
+                            </button>
+                            <button onclick="switchTab('news')" id="tab-news" class="w-full flex items-center space-x-2.5 px-3 py-2 rounded-xl text-slate-400 hover:bg-cardhover hover:text-slate-200 font-medium text-xs transition">
+                                <i class="fa-solid fa-newspaper w-4"></i><span>Haberler</span>
+                            </button>
+                            <button onclick="switchTab('settings')" id="tab-settings" class="w-full flex items-center space-x-2.5 px-3 py-2 rounded-xl text-slate-400 hover:bg-cardhover hover:text-slate-200 font-medium text-xs transition">
+                                <i class="fa-solid fa-gear w-4"></i><span>Ayarlar</span>
+                            </button>
                         </div>
-                        <div class="pt-4 border-t border-red-900/20 flex items-center space-x-3">
-                            <div class="w-8 h-8 rounded bg-red-600 flex items-center justify-center font-bold text-white text-xs">XY</div>
+                        <div class="pt-3 border-t border-slate-800/60 flex items-center space-x-2.5">
+                            <div class="w-7 h-7 rounded-lg bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-xs border border-rose-500/30">XY</div>
                             <div>
-                                <span class="block text-xs font-bold text-white">XynovPlayer</span>
-                                <span class="block text-[10px] text-green-400">Online</span>
+                                <span class="block text-xs font-medium text-slate-200">XynovPlayer</span>
+                                <span class="block text-[9px] text-emerald-400">● Çevrimiçi</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Main Area -->
-                    <div class="md:col-span-3 p-6 flex flex-col justify-between relative bg-cover bg-center" style="background-image: linear-gradient(to right, rgba(16,16,21,0.95), rgba(16,16,21,0.8)), url('https://images.unsplash.com/photo-1579546929518-9e396f3cc809?q=80&w=1000&auto=format&fit=crop');">
-                        <div>
-                            <span class="px-2 py-1 bg-red-950 text-red-400 text-xs font-bold rounded">Java Edition 1.20.1</span>
-                            <h3 class="text-2xl font-heading font-bold text-white mt-3">XynovSMP BoxPvP & Survival</h3>
-                            <p class="text-slate-400 text-xs mt-1">Status: Ready to Play • Ping: 18ms</p>
-                        </div>
-                        <div class="flex items-center justify-between pt-6">
-                            <div class="text-xs text-slate-400">
-                                <span>Version: 1.0.4-release</span>
+                    <!-- Main Dynamic Area -->
+                    <div class="md:col-span-3 p-6 flex flex-col justify-between relative bg-dark/20">
+                        <!-- Tab Content: Home -->
+                        <div id="content-home" class="launcher-content space-y-4">
+                            <div>
+                                <span class="px-2 py-0.5 bg-rose-500/10 text-rose-400 text-[10px] font-medium rounded border border-rose-500/20">Java Edition 1.20.1</span>
+                                <h3 class="text-xl font-heading font-bold text-white mt-2">XynovSMP BoxPvP & Survival</h3>
+                                <p class="text-slate-400 text-xs mt-1">Durum: Oynamaya Hazır • Ping: 16ms</p>
                             </div>
-                            <button onclick="copyIP()" class="px-8 py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg shadow-lg shadow-red-600/30 text-sm transition">
-                                PLAY
-                            </button>
+                            <div class="flex items-center justify-between pt-4">
+                                <span class="text-[11px] text-slate-500">Optifine & FPS Boost Aktif</span>
+                                <button onclick="copyIP()" class="px-6 py-2.5 bg-rose-500 hover:bg-rose-600 text-white font-medium rounded-xl shadow-md text-xs transition">
+                                    OYNA
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Tab Content: Servers -->
+                        <div id="content-servers" class="launcher-content hidden space-y-3">
+                            <h3 class="text-sm font-heading font-bold text-white">Kayıtlı Sunucular</h3>
+                            <div class="bg-card p-3 rounded-xl border border-slate-800 flex justify-between items-center">
+                                <div>
+                                    <div class="text-xs font-semibold text-slate-200">XynovSMP Ana Sunucu</div>
+                                    <div class="text-[10px] text-slate-400 font-mono">XynovSmp.aternos.me</div>
+                                </div>
+                                <span class="text-xs font-bold text-emerald-400">42/100</span>
+                            </div>
+                        </div>
+
+                        <!-- Tab Content: News -->
+                        <div id="content-news" class="launcher-content hidden space-y-2">
+                            <h3 class="text-sm font-heading font-bold text-white">Son Güncellemeler</h3>
+                            <p class="text-xs text-slate-400">v1.2.0 sürümü yayınlandı! Performans iyileştirmeleri ve hata giderilmeleri uygulandı.</p>
+                        </div>
+
+                        <!-- Tab Content: Settings -->
+                        <div id="content-settings" class="launcher-content hidden space-y-3">
+                            <h3 class="text-sm font-heading font-bold text-white">Launcher Ayarları</h3>
+                            <div class="text-xs text-slate-400 space-y-1">
+                                <p>• RAM Tahsisi: 4 GB</p>
+                                <p>• Otomatik Güncelleme: Açık</p>
+                                <p>• Tema: Soft Dark</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -847,8 +698,8 @@
 
             <!-- Download Button -->
             <div class="text-center">
-                <a href="#" id="launcher-download-btn" class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white font-bold rounded-xl shadow-xl shadow-red-600/30 transition text-lg">
-                    <i class="fa-solid fa-download mr-3"></i> LAUNCHER'I İNDİR
+                <a href="#" id="launcher-download-btn" class="inline-flex items-center px-7 py-3.5 bg-rose-500 hover:bg-rose-600 text-white font-medium rounded-xl shadow-lg shadow-rose-500/20 transition text-sm">
+                    <i class="fa-solid fa-download mr-2"></i> LAUNCHER'I İNDİR (.EXE)
                 </a>
             </div>
         </div>
@@ -856,30 +707,30 @@
 
     <!-- DISCORD SECTION -->
     <section class="py-20 bg-dark relative overflow-hidden">
-        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
-            <div class="w-16 h-16 bg-[#5865F2]/20 text-[#5865F2] rounded-2xl flex items-center justify-center text-3xl mx-auto mb-6 shadow-lg">
+        <div class="max-w-3xl mx-auto px-4 text-center relative z-10">
+            <div class="w-14 h-14 bg-indigo-500/10 text-indigo-400 rounded-2xl flex items-center justify-center text-2xl mx-auto mb-5 border border-indigo-500/20">
                 <i class="fa-brands fa-discord"></i>
             </div>
-            <h2 class="text-3xl sm:text-4xl font-heading font-bold text-white mb-3">TOPLULUĞUMUZA KATIL</h2>
-            <p class="text-slate-300 max-w-xl mx-auto mb-8 text-sm sm:text-base">Discord sunucumuza katılarak çekilişlerden haberdar ol, destek al ve diğer oyuncularla arkadaş ol.</p>
-            <a href="https://discord.gg/xynovsmp" id="discord-btn" target="_blank" class="inline-flex items-center px-8 py-4 bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold rounded-xl shadow-xl shadow-[#5865F2]/30 transition text-lg">
-                <i class="fa-brands fa-discord mr-3"></i> DISCORD SUNUCUSU
+            <h2 class="text-2xl sm:text-3xl font-heading font-bold text-white mb-3">Topluluğumuza Katıl</h2>
+            <p class="text-slate-400 max-w-lg mx-auto mb-6 text-xs sm:text-sm">Discord sunucumuza katılarak çekilişlerden haberdar ol, destek al ve diğer oyuncularla arkadaş ol.</p>
+            <a href="https://discord.gg/xynovsmp" id="discord-btn" target="_blank" class="inline-flex items-center px-7 py-3.5 bg-[#5865F2] hover:bg-[#4752C4] text-white font-medium rounded-xl shadow-lg shadow-[#5865F2]/20 transition text-sm">
+                <i class="fa-brands fa-discord mr-2"></i> Discord Sunucusu
             </a>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-card border-t border-red-900/30 py-12 text-slate-500 text-xs">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 rounded bg-red-600 flex items-center justify-center text-white font-bold">X</div>
-                <span class="text-sm font-heading font-bold text-white">XYNOV<span class="text-red-500">SMP</span></span>
+    <footer class="bg-card border-t border-slate-800/80 py-8 text-slate-500 text-xs">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center space-x-2">
+                <div class="w-6 h-6 rounded bg-rose-500/20 text-rose-400 flex items-center justify-center font-bold text-[10px]">X</div>
+                <span class="text-xs font-heading font-bold text-slate-300">XYNOV<span class="text-rose-500">SMP</span></span>
             </div>
-            <p>© 2026 XynovSMP. Tüm hakları saklıdır. Mojang AB ile resmi bir bağı yoktur.</p>
-            <div class="flex space-x-4">
-                <a href="#" class="hover:text-red-500 transition">Gizlilik</a>
-                <a href="#" class="hover:text-red-500 transition">Şartlar</a>
-                <a href="#" class="hover:text-red-500 transition">İletişim</a>
+            <p>© 2026 XynovSMP. Tüm hakları saklıdır. Mojang AB ile resmi bağı yoktur.</p>
+            <div class="flex space-x-4 text-slate-400">
+                <a href="#" class="hover:text-rose-400 transition">Gizlilik</a>
+                <a href="#" class="hover:text-rose-400 transition">Şartlar</a>
+                <a href="#" class="hover:text-rose-400 transition">İletişim</a>
             </div>
         </div>
     </footer>
@@ -890,18 +741,12 @@
         document.getElementById('discord-hero-btn').href = DISCORD_LINK;
         document.getElementById('discord-btn').href = DISCORD_LINK;
         document.getElementById('launcher-download-btn').href = LAUNCHER_LINK;
-        document.getElementById('store-btn-1').href = STORE_LINK;
-        document.getElementById('store-btn-2').href = STORE_LINK;
-        document.getElementById('store-btn-3').href = STORE_LINK;
-        document.getElementById('store-btn-4').href = STORE_LINK;
-        document.getElementById('store-btn-5').href = STORE_LINK;
-        document.getElementById('store-btn-6').href = STORE_LINK;
-
+        
         // Loading Screen Remover
         window.addEventListener('load', () => {
             const loader = document.getElementById('loading-screen');
             loader.style.opacity = '0';
-            setTimeout(() => loader.style.visibility = 'hidden', 600);
+            setTimeout(() => loader.style.visibility = 'hidden', 500);
         });
 
         // Mobile Menu Toggle
@@ -918,16 +763,16 @@
             spotlight.style.setProperty('--y', e.clientY + 'px');
         });
 
-        // Embers Generator
+        // Embers Generator (Soft Particles)
         const embersContainer = document.getElementById('embers-container');
-        for (let i = 0; i < 30; i++) {
+        for (let i = 0; i < 20; i++) {
             const ember = document.createElement('div');
             ember.classList.add('ember');
-            const size = Math.random() * 4 + 2;
+            const size = Math.random() * 3 + 1;
             ember.style.width = size + 'px';
             ember.style.height = size + 'px';
             ember.style.left = Math.random() * 100 + '%';
-            ember.style.animationDuration = (Math.random() * 5 + 3) + 's';
+            ember.style.animationDuration = (Math.random() * 6 + 4) + 's';
             ember.style.animationDelay = (Math.random() * 5) + 's';
             embersContainer.appendChild(ember);
         }
@@ -935,7 +780,7 @@
         // IP Copy & Toast Function
         function copyIP() {
             navigator.clipboard.writeText(SERVER_IP).then(() => {
-                showToast("KOPYALANDI ✓");
+                showToast("IP Kopyalandı ✓");
             }).catch(() => {
                 const el = document.createElement('textarea');
                 el.value = SERVER_IP;
@@ -943,7 +788,7 @@
                 el.select();
                 document.execCommand('copy');
                 document.body.removeChild(el);
-                showToast("KOPYALANDI ✓");
+                showToast("IP Kopyalandı ✓");
             });
         }
 
@@ -951,18 +796,36 @@
             const toast = document.getElementById('toast');
             toast.innerText = text;
             toast.className = "show";
-            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+            setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 2500);
         }
 
-        // Wheel of Fortune Dynamic Generation & Logic
+        // Launcher Tab Switcher
+        function switchTab(tabName) {
+            const contents = document.querySelectorAll('.launcher-content');
+            contents.forEach(c => c.classList.add('hidden'));
+
+            const tabs = ['home', 'servers', 'news', 'settings'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                if (t === tabName) {
+                    btn.className = "w-full flex items-center space-x-2.5 px-3 py-2 rounded-xl bg-rose-500/10 text-rose-400 font-medium text-xs transition";
+                } else {
+                    btn.className = "w-full flex items-center space-x-2.5 px-3 py-2 rounded-xl text-slate-400 hover:bg-cardhover hover:text-slate-200 font-medium text-xs transition";
+                }
+            });
+
+            document.getElementById(`content-${tabName}`).classList.remove('hidden');
+        }
+
+        // Wheel of Fortune
         const rewards = [
-            { text: "COIN", color: "#b91c1c" },
-            { text: "KASA ANAHTARI", color: "#c2410c" },
-            { text: "ELMAS", color: "#991b1b" },
-            { text: "ÖZEL KILIÇ", color: "#7f1d1d" },
-            { text: "ÖZEL ÖDÜL", color: "#ea580c" },
-            { text: "XP", color: "#dc2626" },
-            { text: "ALTIN", color: "#f97316" }
+            { text: "COIN", color: "#1e2230" },
+            { text: "KASA ANAHTARI", color: "#24283b" },
+            { text: "ELMAS", color: "#1e2230" },
+            { text: "ÖZEL KILIÇ", color: "#24283b" },
+            { text: "ÖZEL ÖDÜL", color: "#1e2230" },
+            { text: "XP", color: "#24283b" },
+            { text: "ALTIN", color: "#1e2230" }
         ];
 
         const wheel = document.getElementById('wheel');
@@ -975,14 +838,14 @@
             slice.style.transform = `rotate(${rotateDeg}deg) skewY(-${90 - sliceAngle}deg)`;
             slice.style.backgroundColor = reward.color;
             
-            // Text inner container to counter rotation & skew for readability
             const textSpan = document.createElement('span');
             textSpan.innerText = reward.text;
             textSpan.style.position = 'absolute';
-            textSpan.style.left = '32px';
-            textSpan.style.bottom = '18px';
+            textSpan.style.left = '28px';
+            textSpan.style.bottom = '16px';
             textSpan.style.transform = `skewY(${90 - sliceAngle}deg) rotate(${sliceAngle / 2}deg)`;
             textSpan.style.fontSize = '9px';
+            textSpan.style.color = '#cbd5e1';
             textSpan.style.whiteSpace = 'nowrap';
             
             slice.appendChild(textSpan);
@@ -996,7 +859,7 @@
         if (wheelUsed === 'true') {
             spinBtn.disabled = true;
             spinBtn.classList.add('opacity-50', 'cursor-not-allowed');
-            spinBtn.innerText = "ÇARK KULLANILDI ✓";
+            spinBtn.innerText = "Çark Kullanıldı ✓";
             carkMsg.innerText = "Bu çarkı daha önce çevirdiniz.";
         }
 
@@ -1011,15 +874,15 @@
 
             setTimeout(() => {
                 const selectedReward = rewards[Math.floor(Math.random() * rewards.length)].text;
-                carkMsg.innerHTML = `<span class="text-red-500 text-xl">Tebrikler! Kazandığın Ödül: ${selectedReward}</span>`;
+                carkMsg.innerHTML = `<span class="text-rose-400 font-semibold">Tebrikler! Kazandığın Ödül: ${selectedReward}</span>`;
                 
                 localStorage.setItem('xynov_wheel_used', 'true');
-                spinBtn.innerText = "ÇARK KULLANILDI ✓";
+                spinBtn.innerText = "Çark Kullanıldı ✓";
                 spinBtn.classList.add('opacity-50', 'cursor-not-allowed');
 
                 confetti({
-                    particleCount: 150,
-                    spread: 80,
+                    particleCount: 100,
+                    spread: 70,
                     origin: { y: 0.6 }
                 });
             }, 4000);
