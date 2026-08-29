@@ -17,8 +17,9 @@ function toggleModal() {
 function saveUser() {
     const user = document.getElementById("mcUser").value;
     if(user.trim()) {
-        document.querySelector(".user-menu .action-btn").innerHTML = `<i class="fa-solid fa-user-check"></i> ${user}`;
+        document.getElementById("userBtnText").innerText = user;
         toggleModal();
+        alert("Başarıyla giriş yapıldı: " + user);
     } else {
         alert("Lütfen geçerli bir kullanıcı adı girin.");
     }
@@ -56,7 +57,7 @@ function updateCartUI() {
             <div class="cart-row">
                 <div>
                     <strong style="font-size:0.85rem; color:#fff; display:block;">${item.name}</strong>
-                    <small style="color:#f97316; font-size:0.75rem;">${item.price} ₺ x ${item.qty}</small>
+                    <small style="color:var(--primary); font-size:0.75rem;">${item.price} ₺ x ${item.qty}</small>
                 </div>
                 <button onclick="removeItem(${index})" style="background:none; border:none; color:#ef4444; cursor:pointer;"><i class="fa-solid fa-trash"></i></button>
             </div>
@@ -97,8 +98,23 @@ function checkout() {
         alert("Sepetiniz boş!");
         return;
     }
-    alert("Ödeme sistemine yönlendiriliyorsunuz (Tebex Simülasyonu Başarılı).");
+    alert("Ödeme simülasyonu başarılı! Ürünler hesabınıza eklenecektir.");
     cart = [];
     updateCartUI();
     toggleCart();
+}
+
+function sendTicket() {
+    const name = document.getElementById("supName").value;
+    const subject = document.getElementById("supSubject").value;
+    const msg = document.getElementById("supMsg").value;
+
+    if(name.trim() && subject.trim() && msg.trim()) {
+        alert("Destek talebiniz başarıyla oluşturuldu! En kısa sürede Discord üzerinden dönüş yapılacaktır.");
+        document.getElementById("supName").value = '';
+        document.getElementById("supSubject").value = '';
+        document.getElementById("supMsg").value = '';
+    } else {
+        alert("Lütfen tüm alanları eksiksiz doldurun.");
+    }
 }
