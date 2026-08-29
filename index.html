@@ -3,296 +3,210 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XYNOV SMP - Türkiye'nin En İyi Survival Deneyimi</title>
+    <title>XYNOV SMP - Ana Portal & Mağaza</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
-    <!-- ÜST MENÜ (NAVBAR) -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">XYNOV<span>SMP</span></a>
-            <ul class="nav-links">
-                <li><a href="#hero">Ana Sayfa</a></li>
-                <li><a href="#features">Özellikler</a></li>
-                <li><a href="#leaderboard">Sıralama</a></li>
-                <li><a href="#launcher">Launcher</a></li>
-                <li><a href="#store">Mağaza</a></li>
-                <li><a href="#staff">Yönetim</a></li>
-                <li><a href="#faq">S.S.S.</a></li>
-                <li><a href="#rules">Kurallar</a></li>
-                <li><a href="https://discord.gg" target="_blank" class="discord-btn"><i class="fa-brands fa-discord"></i> Discord</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- HERO SECTION (GİRİŞ) -->
-    <header id="hero" class="hero">
-        <div class="hero-content">
-            <span class="badge"><i class="fa-solid fa-crown"></i> SEZON 3 • 1.20 - 1.20.4 HİBRİT SURVIVAL NETWORK</span>
-            <h1>XYNOV<span>SMP</span></h1>
-            <p>Sıradan maceraları unutun. Gelişmiş klan savaşları, özel Nether zindanları, pazar sistemi, bosslar ve eşsiz ekonomisiyle ezber bozan oyun deneyimi.</p>
-
-            <div class="ip-box">
-                <span class="ip-text" id="serverIP">play.xynovsmp.com</span>
-                <button class="copy-btn" onclick="copyIP()"><i class="fa-regular fa-copy"></i> IP KOPYALA</button>
+    <!-- ÜST BİLGİ VE HESAP/SEPET BAR -->
+    <header class="top-bar">
+        <div class="container top-container">
+            <div class="server-ip-mini">
+                <i class="fa-solid fa-server"></i> IP: <span id="serverIP">play.xynovsmp.com</span>
+                <button onclick="copyIP()" class="ip-copy-sm"><i class="fa-regular fa-copy"></i> Kopyala</button>
             </div>
-            
-            <div class="server-stats-bar">
-                <div class="stat-item"><span class="dot"></span> Online Oyuncu: <strong id="playerCount">218</strong> / 1000</div>
-                <div class="stat-item"><i class="fa-solid fa-server"></i> Sürüm: <strong>1.20.X - 1.20.4</strong></div>
-                <div class="stat-item"><i class="fa-solid fa-signal"></i> Durum: <strong style="color: #22c55e;">Aktif (%99.9 Uptime)</strong></div>
+            <div class="user-actions">
+                <button class="login-btn" onclick="toggleLoginModal()"><i class="fa-solid fa-user"></i> Giriş Yap</button>
+                <button class="cart-btn" onclick="toggleCartDrawer()"><i class="fa-solid fa-cart-shopping"></i> Sepet <span id="cartCount">0</span></button>
             </div>
         </div>
     </header>
 
-    <!-- SUNUCU ÖZELLİKLERİ / SİSTEMLER -->
-    <section id="features" class="features-section container">
-        <div class="section-header">
-            <h2><i class="fa-solid fa-cubes"></i> OYUN ÖZELLİKLERİ & SİSTEMLER</h2>
-            <p>XYNOV SMP'yi diğer sunuculardan ayıran devasa mekaniklerimiz.</p>
+    <!-- ANA NAVİGASYON -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">XYNOV<span>SMP</span></a>
+            <ul class="nav-links">
+                <li><a href="#store-section">Mağaza</a></li>
+                <li><a href="#leaderboard-section">Sıralamalar</a></li>
+                <li><a href="#launcher-section">Launcher</a></li>
+                <li><a href="https://discord.gg" target="_blank" class="discord-nav"><i class="fa-brands fa-discord"></i> Discord</a></li>
+            </ul>
         </div>
+    </nav>
 
-        <div class="features-grid">
-            <div class="feature-box">
-                <i class="fa-solid fa-skull-crossbones"></i>
-                <h3>Özel Nether Zindanları</h3>
-                <p>Normal dünyadan çok daha tehlikeli, saatlik yenilenen güçlü bosslar ve özel ganimet dolu zorlu katmanlar.</p>
-            </div>
-            <div class="feature-box">
-                <i class="fa-solid fa-shield-cat"></i>
-                <h3>Gelişmiş Klan Savaşları</h3>
-                <p>Klanını kur, topraklarını claimle, müttefikler edin ve sunucunun en güçlü krallığı olmak için fetihlere başla.</p>
-            </div>
-            <div class="feature-box">
-                <i class="fa-solid fa-coins"></i>
-                <h3>Dinamik Pazar & Çiftçilik</h3>
-                <p>Oyuncular arası serbest ticaret, çiftçi hunileri ile pasif gelir ve devasa açık artırma (AH) sistemi.</p>
-            </div>
-            <div class="feature-box">
-                <i class="fa-solid fa-gift"></i>
-                <h3>Günlük Ödüller & Çark</h3>
-                <p>Her gün oyuna girerek şans çarkını çevir, kasa anahtarları, özel unvanlar ve sürpriz biletler kazan.</p>
-            </div>
-            <div class="feature-box">
-                <i class="fa-solid fa-wand-magic-sparkles"></i>
-                <h3>Özel Eşyalar & Büyüler</h3>
-                <p>Vanilladan farklı olarak oyuna eklenen özel zırh setleri, özel silah yetenekleri ve özel büyü masaları.</p>
-            </div>
-            <div class="feature-box">
-                <i class="fa-solid fa-headset"></i>
-                <h3>7/24 Kesintisiz Destek</h3>
-                <p>Oyun içinden ve Discord üzerinden anında yardım alabileceğiniz profesyonel, deneyimli yetkili kadrosu.</p>
+    <!-- HERO / KARŞILAMA ALANI -->
+    <section class="hero-banner">
+        <div class="container hero-content">
+            <h1>XYNOV SMP DÜNYASINA HOŞ GELDİNİZ</h1>
+            <p>Rekabetin, klan savaşlarının ve kusursuz ekonomi sisteminin kalbi burada atıyor.</p>
+            <div class="hero-buttons">
+                <a href="#store-section" class="btn-primary">Mağazaya Git</a>
+                <a href="#launcher-section" class="btn-secondary">Hemen Oyna / İndir</a>
             </div>
         </div>
     </section>
 
-    <!-- OYUNCU & KLAN SIRALAMASI -->
-    <section id="leaderboard" class="leaderboard-section container">
-        <div class="section-header">
-            <h2><i class="fa-solid fa-trophy"></i> EN İYİLER (LEADERBOARD)</h2>
-            <p>Bu sezonun en çok kasılan ve zirveyi zorlayan oyuncu ve klanları.</p>
-        </div>
+    <!-- ANA İÇERİK DASHBOARD (GRID YAPI) -->
+    <div class="container main-dashboard">
 
-        <div class="leaderboard-grid">
-            <div class="leaderboard-card">
-                <h3><i class="fa-solid fa-medal"></i> En Güçlü Klanlar</h3>
-                <ul class="lb-list">
-                    <li><span>1. <strong>Vortex</strong> (Klan Lideri: durgutemir43)</span> <span class="lb-score">14,250 Puan</span></li>
-                    <li><span>2. <strong>Shadows</strong> (Klan Lideri: XynovAdmin)</span> <span class="lb-score">11,900 Puan</span></li>
-                    <li><span>3. <strong>Ottoman</strong> (Klan Lideri: Mehteran)</span> <span class="lb-score">9,450 Puan</span></li>
-                    <li><span>4. <strong>Anatolia</strong> (Klan Lideri: Bozkurt)</span> <span class="lb-score">8,120 Puan</span></li>
-                </ul>
-            </div>
-
-            <div class="leaderboard-card">
-                <h3><i class="fa-solid fa-fire"></i> En Zengin Oyuncular</h3>
-                <ul class="lb-list">
-                    <li><span>1. <strong>durgutemir43</strong></span> <span class="lb-score">450.000.000 🪙</span></li>
-                    <li><span>2. <strong>ProGamerTR</strong></span> <span class="lb-score">310.500.000 🪙</span></li>
-                    <li><span>3. <strong>ShadowKing</strong></span> <span class="lb-score">280.100.000 🪙</span></li>
-                    <li><span>4. <strong>Creeper Slayer</strong></span> <span class="lb-score">195.000.000 🪙</span></li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- LAUNCHER & OYUNA BAŞLAMA REHBERİ -->
-    <section id="launcher" class="launcher-section container">
-        <div class="section-header">
-            <h2><i class="fa-solid fa-rocket"></i> LAUNCHER & İNDİRME MERKEZİ</h2>
-            <p>Sunucumuza en hızlı, hatasız ve sorunsuz şekilde bağlanman için alternatifler.</p>
-        </div>
-
-        <div class="launcher-grid">
-            <div class="launcher-card">
-                <i class="fa-solid fa-cubes launcher-icon"></i>
-                <h3>TLauncher / LegacyLauncher</h3>
-                <p>Ücretsiz ve tüm sürümleri destekleyen popüler başlatıcı. Hemen indirip 1.20.1 sürümünü seçebilirsin.</p>
-                <ul class="specs-list">
-                    <li><i class="fa-solid fa-check"></i> 1.20.1 & 1.20.4 Tam Uyum</li>
-                    <li><i class="fa-solid fa-check"></i> Düşük Sistem Performansı</li>
-                    <li><i class="fa-solid fa-check"></i> Skin (Dış Görünüm) Yükleme</li>
-                </ul>
-                <a href="https://tlauncher.org/" target="_blank" class="action-btn">Launcher'ı İndir</a>
-            </div>
-
-            <div class="launcher-card featured-launcher">
-                <div class="badge-mini">ÖNERİLEN</div>
-                <i class="fa-solid fa-shield-halved launcher-icon"></i>
-                <h3>Orijinal Minecraft (Java Edition)</h3>
-                <p>En yüksek performans, sıfır kasma ve resmi Mojang/Microsoft hesap güvenliği ile doğrudan bağlan.</p>
-                <ul class="specs-list">
-                    <li><i class="fa-solid fa-check"></i> Yüksek FPS & Akıcı Akış</li>
-                    <li><i class="fa-solid fa-check"></i> Otomatik Hesap Doğrulama</li>
-                    <li><i class="fa-solid fa-check"></i> Doğrudan IP ile Bağlantı</li>
-                </ul>
-                <a href="#hero" class="action-btn orange">IP: play.xynovsmp.com</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- MAĞAZA / VIP VE PAKETLER -->
-    <section id="store" class="store-section container">
-        <div class="section-header">
-            <h2><i class="fa-solid fa-gem"></i> GÜÇLENDİRME MAĞAZASI</h2>
-            <p>Sunucumuzu destekle, özel ayrıcalıkların, rütbelerin ve özel kitlerin sahibi ol.</p>
-        </div>
-
-        <div class="store-grid">
-            <div class="store-item">
-                <div class="item-title">BRONZE VIP</div>
-                <div class="item-price">50 ₺ <span>/ 30 Gün</span></div>
-                <ul class="item-features">
-                    <li><i class="fa-solid fa-check"></i> <strong>[BronzeVIP]</strong> Özel Sohbet Etiketi</li>
-                    <li><i class="fa-solid fa-check"></i> /fly Komutu (Sadece Lobi)</li>
-                    <li><i class="fa-solid fa-check"></i> +3 Sanal Sandık (/pv 3)</li>
-                    <li><i class="fa-solid fa-check"></i> Özel Bronze Başlangıç Kiti</li>
-                    <li><i class="fa-solid fa-check"></i> Renkli Yazı Yazma Özelliği</li>
-                </ul>
-                <a href="https://discord.gg" target="_blank" class="store-btn">Satın Al</a>
-            </div>
-
-            <div class="store-item highlighted">
-                <div class="ribbon">EN ÇOK TERCİH EDİLEN</div>
-                <div class="item-title">XYNOV VIP</div>
-                <div class="item-price">120 ₺ <span>/ 30 Gün</span></div>
-                <ul class="item-features">
-                    <li><i class="fa-solid fa-check"></i> <strong>[XYNOV-VIP]</strong> Renkli & Işıltılı Unvan</li>
-                    <li><i class="fa-solid fa-check"></i> /fly Komutu (Tüm Haritalar)</li>
-                    <li><i class="fa-solid fa-check"></i> +7 Sanal Sandık (/pv 7)</li>
-                    <li><i class="fa-solid fa-check"></i> 3x Efsanevi Boss Anahtarı</li>
-                    <li><i class="fa-solid fa-check"></i> Anında Golem Spawner Hediyesi</li>
-                </ul>
-                <a href="https://discord.gg" target="_blank" class="store-btn orange">Satın Al</a>
-            </div>
-
-            <div class="store-item">
-                <div class="item-title">DEMİR GOLEM SPAWNER</div>
-                <div class="item-price">75 ₺ <span>/ Kalıcı</span></div>
-                <ul class="item-features">
-                    <li><i class="fa-solid fa-check"></i> 2x Demir Golem Spawner</li>
-                    <li><i class="fa-solid fa-check"></i> 1x Cadı Spawner</li>
-                    <li><i class="fa-solid fa-check"></i> 1.000.000 Oyun İçi Para</li>
-                    <li><i class="fa-solid fa-check"></i> Otomatik Satış Hunisi</li>
-                    <li><i class="fa-solid fa-check"></i> Anında Teslimat (Otomatik)</li>
-                </ul>
-                <a href="https://discord.gg" target="_blank" class="store-btn">Satın Al</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- YÖNETİM EKİBİ / STAFF -->
-    <section id="staff" class="staff-section container">
-        <div class="section-header">
-            <h2><i class="fa-solid fa-users-gear"></i> YÖNETİM KADROSU</h2>
-            <p>Sunucunun huzurunu, düzenini ve altyapısını sağlayan profesyonel ekibimiz.</p>
-        </div>
-
-        <div class="staff-grid">
-            <div class="staff-card">
-                <div class="staff-avatar owner">EM</div>
-                <h3>durgutemir43</h3>
-                <span class="role-badge owner-role">Kurucu / Owner</span>
-                <p>Genel sistem yönetimi, harita tasarımı, eklenti (plugin) kodlama ve teknik altyapı sorumlusu.</p>
-            </div>
-            <div class="staff-card">
-                <div class="staff-avatar admin">XY</div>
-                <h3>XynovAdmin</h3>
-                <span class="role-badge admin-role">Yönetici / Admin</span>
-                <p>Oyun içi etkinlikler, klan dengeleri, topluluk yönetimi ve moderasyon baş sorumlusu.</p>
-            </div>
-            <div class="staff-card">
-                <div class="staff-avatar mod">MOD</div>
-                <h3>Moderatör Ekibi</h3>
-                <span class="role-badge mod-role">Moderatör / Helper</span>
-                <p>Sohbet düzeni, hile koruması (Anti-Cheat) denetimi ve oyuncu sorunları ilk başvuru noktası.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- SIKÇA SORULAN SORULAR (S.S.S.) -->
-    <section id="faq" class="faq-section container">
-        <div class="section-header">
-            <h2><i class="fa-solid fa-circle-question"></i> SIKÇA SORULAN SORULAR</h2>
-            <p>Aklına takılan soruların yanıtlarını hemen burada bulabilirsin.</p>
-        </div>
-
-        <div class="faq-container">
-            <div class="faq-item">
-                <h4><i class="fa-solid fa-angle-right"></i> Sunucuya hangi sürümlerle giriş yapabilirim?</h4>
-                <p>Sunucumuza Minecraft 1.20 ile 1.20.4 sürümleri arasındaki tüm istemcilerle (orijinal veya korsan) sorunsuz bağlanabilirsiniz.</p>
-            </div>
-            <div class="faq-item">
-                <h4><i class="fa-solid fa-angle-right"></i> VIP aldığımda ne zaman aktif olur?</h4>
-                <p>Mağazadan yapılan tüm satın alımlar otomatik olarak sistem tarafından algılanır ve oyuna girdiğinizde en geç 1-2 dakika içinde hesabınıza tanımlanır.</p>
-            </div>
-            <div class="faq-item">
-                <h4><i class="fa-solid fa-angle-right"></i> Eşyalarım veya adam sıfırlanıyor mu?</h4>
-                <p>Sezon (Season) geçişleri dışında ana emekleriniz silinmez. Sezon duyuruları haftalar öncesinden Discord üzerinden paylaşılır.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- KURALLAR -->
-    <section id="rules" class="rules-section container">
-        <div class="section-header">
-            <h2><i class="fa-solid fa-scroll"></i> SUNUCU KURALLARI</h2>
-            <p>Adil, nezih ve keyifli bir oyun ortamı için uymamız gereken temel kurallar.</p>
-        </div>
-
-        <div class="rules-container">
-            <div class="rule-row">
-                <i class="fa-solid fa-ban red-icon"></i>
-                <div>
-                    <h4>Hile & X-Ray Kesinlikle Yasaktır</h4>
-                    <p>Her türlü üçüncü parti hile yazılımı, x-ray texture pack veya avantaj sağlayan makrolar kalıcı uzaklaştırma (ban) sebebidir.</p>
+        <!-- SOL BÖLÜM: MAĞAZA VE KATEGORİLER -->
+        <div class="dashboard-left">
+            
+            <section id="store-section" class="content-box">
+                <div class="box-header">
+                    <h2><i class="fa-solid fa-store"></i> Sunucu Mağazası</h2>
+                    <div class="search-box">
+                        <input type="text" id="searchInput" placeholder="Ürün ara..." onkeyup="searchProducts()">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
                 </div>
-            </div>
-            <div class="rule-row">
-                <i class="fa-solid fa-triangle-exclamation yellow-icon"></i>
-                <div>
-                    <h4>Küfür, Hakaret ve Taciz Yasaktır</h4>
-                    <p>Oyunculara yönelik ağır hakaret, ırkçılık, siyasi tartışma ve ailevi değerlere sövmek yasaktır. Mute veya süreli ban uygulanır.</p>
+
+                <!-- Kategori Butonları -->
+                <div class="filter-chips">
+                    <button class="chip active" onclick="filterCategory('all', this)">Tümü</button>
+                    <button class="chip" onclick="filterCategory('rank', this)">VIP</button>
+                    <button class="chip" onclick="filterCategory('spawner', this)">Spawner</button>
+                    <button class="chip" onclick="filterCategory('key', this)">Kasa</button>
                 </div>
-            </div>
-            <div class="rule-row">
-                <i class="fa-solid fa-circle-check green-icon"></i>
-                <div>
-                    <h4>Klan Savaşları ve Yağma Serbesttir</h4>
-                    <p>Claimli bölgeler haricinde dış dünyalarda ve Nether haritasında PvP, tuzak kurma ve klan baskınları tamamen serbesttir.</p>
+
+                <!-- Ürün Kartları -->
+                <div class="products-grid" id="productGrid">
+                    <div class="product-card" data-category="rank" data-name="Bronze VIP">
+                        <span class="badge">POPÜLER</span>
+                        <i class="fa-solid fa-medal"></i>
+                        <h3>Bronze VIP</h3>
+                        <p class="price">50.00 ₺</p>
+                        <ul class="feat">
+                            <li>[BronzeVIP] Özel Tag</li>
+                            <li>/fly Komutu (Lobi)</li>
+                        </ul>
+                        <button class="add-btn" onclick="addToCart('Bronze VIP', 50)">Sepete Ekle</button>
+                    </div>
+
+                    <div class="product-card featured" data-category="rank" data-name="Xynov VIP">
+                        <span class="badge gold">EN ÇOK SATAN</span>
+                        <i class="fa-solid fa-crown"></i>
+                        <h3>Xynov VIP</h3>
+                        <p class="price">120.00 ₺</p>
+                        <ul class="feat">
+                            <li>[XYNOV-VIP] Renkli Unvan</li>
+                            <li>/fly Komutu (Her Yer)</li>
+                        </ul>
+                        <button class="add-btn orange" onclick="addToCart('Xynov VIP', 120)">Sepete Ekle</button>
+                    </div>
+
+                    <div class="product-card" data-category="spawner" data-name="Demir Golem Spawner">
+                        <i class="fa-solid fa-cube"></i>
+                        <h3>Demir Golem Spawner</h3>
+                        <p class="price">75.00 ₺</p>
+                        <ul class="feat">
+                            <li>2x Demir Golem Spawner</li>
+                            <li>Otomatik Satış Hunisi</li>
+                        </ul>
+                        <button class="add-btn" onclick="addToCart('Demir Golem Spawner', 75)">Sepete Ekle</button>
+                    </div>
+
+                    <div class="product-card" data-category="key" data-name="Efsanevi Kasa Anahtarı">
+                        <i class="fa-solid fa-key"></i>
+                        <h3>5x Efsanevi Anahtar</h3>
+                        <p class="price">35.00 ₺</p>
+                        <ul class="feat">
+                            <li>En iyi eşya çıkma şansı</li>
+                            <li>Anında teslimat</li>
+                        </ul>
+                        <button class="add-btn" onclick="addToCart('5x Efsanevi Kasa Anahtarı', 35)">Sepete Ekle</button>
+                    </div>
                 </div>
-            </div>
+            </section>
+
         </div>
-    </section>
+
+        <!-- SAĞ BÖLÜM: LİDERLİK TABLOLARI & LAUNCHER -->
+        <div class="dashboard-right">
+            
+            <!-- LİDERLİK TABLOSU -->
+            <section id="leaderboard-section" class="content-box">
+                <h2><i class="fa-solid fa-trophy"></i> Sunucu Sıralamaları</h2>
+                
+                <!-- Klanlar -->
+                <div.sub-box>
+                    <h4>En Güçlü Klanlar</h4>
+                    <ul class="lb-list">
+                        <li><span class="rk gold">1</span> <div><strong>Vortex</strong> <small>Lider: durgutemir43</small></div> <span class="st">14,250 P</span></li>
+                        <li><span class="rk silver">2</span> <div><strong>Shadows</strong> <small>Lider: XynovAdmin</small></div> <span class="st">11,900 P</span></li>
+                        <li><span class="rk bronze">3</span> <div><strong>Ottoman</strong> <small>Lider: Mehteran</small></div> <span class="st">9,450 P</span></li>
+                        <li><span class="rk">4</span> <div><strong>Anatolia</strong> <small>Lider: Bozkurt</small></div> <span class="st">8,120 P</span></li>
+                    </ul>
+                </div>
+
+                <!-- Zenginler -->
+                <div class="sub-box" style="margin-top: 20px;">
+                    <h4>En Zengin Oyuncular</h4>
+                    <ul class="lb-list">
+                        <li><span class="rk gold">1</span> <div><strong>durgutemir43</strong></div> <span class="st coin">450M 🪙</span></li>
+                        <li><span class="rk silver">2</span> <div><strong>ProGamerTR</strong></div> <span class="st coin">310.5M 🪙</span></li>
+                        <li><span class="rk bronze">3</span> <div><strong>ShadowKing</strong></div> <span class="st coin">280.1M 🪙</span></li>
+                        <li><span class="rk">4</span> <div><strong>Creeper Slayer</strong></div> <span class="st coin">195M 🪙</span></li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- LAUNCHER BÖLÜMÜ -->
+            <section id="launcher-section" class="content-box" style="margin-top: 20px;">
+                <h2><i class="fa-solid fa-rocket"></i> İstemci İndir</h2>
+                <div class="launcher-mini-grid">
+                    <div class="l-mini">
+                        <i class="fa-solid fa-desktop"></i>
+                        <div>
+                            <h4>LegacyLauncher</h4>
+                            <a href="https://tlauncher.org/" target="_blank">İndir</a>
+                        </div>
+                    </div>
+                    <div class="l-mini highlight">
+                        <i class="fa-solid fa-gamepad"></i>
+                        <div>
+                            <h4>Orijinal Launcher</h4>
+                            <a href="https://www.minecraft.net/" target="_blank">Git</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+
+    <!-- SEPET ÇEKMECESİ -->
+    <div id="cartDrawer" class="cart-drawer">
+        <div class="cart-header">
+            <h3>Alışveriş Sepeti</h3>
+            <button class="close-cart" onclick="toggleCartDrawer()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItemsList">
+            <p class="empty-cart-text">Sepetiniz boş.</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">Toplam: <span id="cartTotalPrice">0.00 ₺</span></div>
+            <button class="checkout-btn" onclick="checkout()">Ödemeye Geç</button>
+        </div>
+    </div>
+
+    <!-- GİRİŞ MODALI -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="toggleLoginModal()">&times;</span>
+            <h3>Minecraft Girişi</h3>
+            <p>Oyun içi teslimat için kullanıcı adınızı yazın:</p>
+            <input type="text" id="mcUsername" placeholder="Kullanıcı Adı">
+            <button class="modal-login-btn" onclick="saveUsername()">Kaydet</button>
+        </div>
+    </div>
 
     <!-- FOOTER -->
     <footer>
-        <div class="container footer-content">
-            <p>&copy; 2026 XYNOV SMP. Tüm hakları saklıdır. Minecraft Mojang AB'ye bağlı veya tescilli değildir.</p>
-            <p style="margin-top: 8px; font-size: 0.85rem; color: #71717a;">Geliştirici & Kurucu: <strong>durgutemir43</strong></p>
-        </div>
+        <p>&copy; 2026 XYNOV SMP. Tüm hakları saklıdır.</p>
     </footer>
 
     <script src="script.js"></script>
