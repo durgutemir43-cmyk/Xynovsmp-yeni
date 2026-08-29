@@ -3,29 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XYNOV SMP - Ultimate Minecraft Network & Store</title>
+    <title>XYNOV NETWORK — Türkiye'nin En Gelişmiş SMP Deneyimi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- TOAST BİLDİRİM ALANI -->
     <div id="toastContainer" class="toast-container"></div>
 
-    <!-- DUYURU BANTI -->
     <div class="announcement-bar">
-        <span>🔥 Sezon 3 Yayında! Her Sürümden Giriş Aktif (1.8 - 1.20+) | Kupon Kodu: XYNOV20 (%20 İndirim)</span>
+        <span>⚡️ XYNÓV NETWORK ⚡️ IP: <strong>XynovSmp.aternos.me</strong> ⚡️ Tüm Sürümler (1.8 - Son Sürüm) & Mobil Giriş Aktif! ⭐ Kupon: XYNOV20</span>
     </div>
 
-    <!-- ÜST BİLGİ & SUNUCU DURUMU -->
     <header class="top-bar">
         <div class="container top-container">
             <div class="server-status-info">
                 <span id="statusDot" class="status-dot"></span>
                 <span>Anlık Oyuncu: <strong id="onlinePlayerCount">Yükleniyor...</strong></span>
-                <div class="server-ip">
+                <div class="server-ip" onclick="copyIP()" title="Kopyalamak için tıkla">
                     <i class="fa-solid fa-server"></i> <span id="serverIP">XynovSmp.aternos.me</span>
-                    <button onclick="copyIP()" class="copy-btn"><i class="fa-regular fa-copy"></i> Kopyala</button>
+                    <button class="copy-btn"><i class="fa-regular fa-copy"></i> Kopyala</button>
                 </div>
             </div>
             <div class="user-menu">
@@ -38,46 +35,78 @@
         </div>
     </header>
 
-    <!-- NAVİGASYON -->
     <nav class="navbar">
         <div class="container nav-content">
             <a href="#" class="logo">
                 <div class="logo-icon"><i class="fa-solid fa-cube"></i></div>
-                XYNOV<span>SMP</span>
+                XYNOV<span>NETWORK</span>
             </a>
             <ul class="nav-links">
-                <li><a href="#storeArea" class="active">Mağaza</a></li>
-                <li><a href="#rankingsArea">Liderlik</a></li>
-                <li><a href="#launcherArea">İstemci</a></li>
-                <li><a href="#rulesArea">Kurallar</a></li>
+                <li><a href="#" class="active">Ana Sayfa</a></li>
+                <li><a href="#modesArea">Oyun Modları</a></li>
+                <li><a href="#storeArea">Mağaza</a></li>
+                <li><a href="#cratesArea">Kasa & Sandık</a></li>
+                <li><a href="#rankingsArea">Sıralama</a></li>
                 <li><a href="#supportArea">Destek</a></li>
                 <li><a href="https://discord.gg" target="_blank" class="discord-badge"><i class="fa-brands fa-discord"></i> Discord</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- HERO / BANNER -->
     <section class="hero-banner">
         <div class="hero-glow"></div>
         <div class="container hero-content">
-            <h1>Sınırsız Hayatta Kalma ve Savaş Deneyimi</h1>
-            <p><strong>XynovSmp.aternos.me</strong> adresiyle ister bilgisayardan ister telefondan (ViaVersion desteğiyle tüm sürümlerden) hemen aramıza katılın.</p>
+            <div class="hero-tag">🔥 SEZON 3 BAŞLADI</div>
+            <h1>SINIRSIZ MACERA VE REKABET</h1>
+            <p><strong>XynovSmp.aternos.me</strong> adresiyle ister bilgisayardan, ister telefondan (1.8'den son sürüme kadar tam uyumlu) hemen aramıza katıl ve krallığını kur!</p>
             <div class="hero-buttons">
-                <a href="#storeArea" class="primary-btn"><i class="fa-solid fa-store"></i> Mağazayı İncele</a>
-                <a href="#launcherArea" class="secondary-btn"><i class="fa-solid fa-download"></i> Launcher İndir</a>
+                <button class="primary-btn" onclick="copyIP()"><i class="fa-solid fa-play"></i> Hemen Oyna (IP Kopyala)</button>
+                <a href="#storeArea" class="secondary-btn"><i class="fa-solid fa-store"></i> Mağazayı Keşfet</a>
             </div>
         </div>
     </section>
 
-    <!-- ANA PORTAL GRID -->
-    <div class="container portal-grid">
+    <div class="container" id="modesArea" style="margin-top: 50px;">
+        <div class="section-header">
+            <h2><i class="fa-solid fa-gamepad" style="color:var(--primary)"></i> Sunucu Oyun Modları</h2>
+            <p>Tarzına en uygun modu seç, heyecana ortak ol!</p>
+        </div>
+        <div class="modes-grid">
+            <div class="mode-card active-mode">
+                <div class="mode-badge">EN POPÜLER</div>
+                <div class="mode-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <h3>Xynov Survival (SMP)</h3>
+                <p>Klanını kur, dünyayı fethet, ticaret yap ve hayatta kalma mücadelesinin zirvesine çık.</p>
+                <span class="mode-status online"><i class="fa-solid fa-circle"></i> Aktif (1.8 - 1.20+)</span>
+            </div>
+            <div class="mode-card">
+                <div class="mode-icon"><i class="fa-solid fa-khanda"></i></div>
+                <h3>Box PvP</h3>
+                <p>Hızlı ekipman dizme, özel yetenekler ve sınırsız kapışma alanı seni bekliyor.</p>
+                <span class="mode-status online"><i class="fa-solid fa-circle"></i> Aktif</span>
+            </div>
+            <div class="mode-card">
+                <div class="mode-icon"><i class="fa-solid fa-island-tropical"></i></div>
+                <h3>SkyBlock</h3>
+                <p>Küçük bir ada üzerinde sınırsız kaynak üret, adanı geliştir ve adalar kralı ol.</p>
+                <span class="mode-status online"><i class="fa-solid fa-circle"></i> Aktif</span>
+            </div>
+            <div class="mode-card">
+                <div class="mode-icon"><i class="fa-solid fa-crown"></i></div>
+                <h3>Towny / Şehir</h3>
+                <p>Kendi kasabanı kur, müttefikler edin ve geniş çaplı ekonomi savaşlarına katıl.</p>
+                <span class="mode-status online"><i class="fa-solid fa-circle"></i> Aktif</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container portal-grid" style="margin-top: 40px;">
         
-        <!-- SOL: MAĞAZA -->
         <div class="main-store">
             <div class="card-box" id="storeArea">
                 <div class="store-header">
                     <div class="box-title" style="margin-bottom:0; border:none; padding:0;">
-                        <i class="fa-solid fa-store" style="color:var(--primary)"></i> Sunucu Mağazası
+                        <i class="fa-solid fa-store" style="color:var(--primary)"></i> Xynov Mağaza & VIP Satışı
                     </div>
                     <div class="search-box">
                         <input type="text" id="searchInput" placeholder="Ürün veya rütbe ara..." onkeyup="filterProducts()">
@@ -85,7 +114,6 @@
                     </div>
                 </div>
 
-                <!-- Kategoriler -->
                 <div class="category-tabs">
                     <div class="tab-chip active" onclick="switchCategory('all', this)">Tüm Ürünler</div>
                     <div class="tab-chip" onclick="switchCategory('rank', this)">VIP Rütbeler</div>
@@ -93,7 +121,6 @@
                     <div class="tab-chip" onclick="switchCategory('key', this)">Kasa Anahtarı</div>
                 </div>
 
-                <!-- Ürün Kartları -->
                 <div class="products-grid" id="productGrid">
                     
                     <div class="product-card" data-category="rank" data-name="Bronze VIP">
@@ -147,12 +174,27 @@
 
                 </div>
             </div>
+
+            <div class="card-box" id="cratesArea" style="margin-top: 30px;">
+                <div class="box-title"><i class="fa-solid fa-box-open" style="color: #eab308;"></i> Gizemli Sandıklar & Kasalar</div>
+                <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:20px;">Sunucumuzdaki kasaları açarak en değerli setlere, paraya ve VIP üyeliklere sahip olabilirsiniz.</p>
+                <div class="crates-grid">
+                    <div class="crate-item">
+                        <i class="fa-solid fa-chest"></i>
+                        <h4>Efsanevi Kasa</h4>
+                        <span class="crate-desc">En yüksek değerli ödüller</span>
+                    </div>
+                    <div class="crate-item">
+                        <i class="fa-solid fa-gift"></i>
+                        <h4>Oyuncu Sandığı</h4>
+                        <span class="crate-desc">Günlük ücretsiz ödüller</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- SAĞ: LİDERLİK & LAUNCHER -->
         <div class="sidebar-panels">
             
-            <!-- Liderlik Tablosu -->
             <div class="card-box" id="rankingsArea">
                 <div class="box-title"><i class="fa-solid fa-trophy" style="color: #f59e0b;"></i> Liderlik Tablosu</div>
                 
@@ -185,57 +227,20 @@
                 </ul>
             </div>
 
-            <!-- Launcher Alanı -->
-            <div class="card-box" id="launcherArea">
-                <div class="box-title"><i class="fa-solid fa-download" style="color: var(--primary);"></i> İstemci Portalı</div>
-                <div class="launcher-grid">
-                    <div class="launcher-card">
-                        <i class="fa-solid fa-cube"></i>
-                        <h4>LegacyLauncher</h4>
-                        <a href="#" class="launcher-btn" onclick="showToast('LegacyLauncher bağlantısı hazırlanıyor...', 'info')">İndir</a>
-                    </div>
-                    <div class="launcher-card">
-                        <i class="fa-solid fa-rocket"></i>
-                        <h4>Özel Client</h4>
-                        <a href="#" class="launcher-btn primary" onclick="showToast('XYNOV Client kuruluma hazırlanıyor...', 'success')">İndir</a>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- KURALLAR VE DESTEK -->
-    <div class="container">
-        <div class="extra-sections">
-            <div class="card-box" id="rulesArea">
-                <div class="box-title"><i class="fa-solid fa-book-open" style="color: var(--primary);"></i> Sunucu Kuralları</div>
-                <ul class="rules-list">
-                    <li>
-                        <strong>1. Hile ve 3. Parti Yazılım Yasaktır</strong>
-                        X-Ray, KillAura gibi eklentiler otomatik engellenir; tespit edilenler kalıcı banlanır.
-                    </li>
-                    <li>
-                        <strong>2. Küfür ve Hakaret Kesinlikle Yasaktır</strong>
-                        Sohbette saygı esasdır, uymayanlar susturma cezası alır.
-                    </li>
-                </ul>
-            </div>
-
             <div class="card-box" id="supportArea">
                 <div class="box-title"><i class="fa-solid fa-headset" style="color: var(--primary);"></i> Oyuncu Destek Merkezi</div>
                 <div class="support-form">
                     <input type="text" id="supName" placeholder="Minecraft Kullanıcı Adınız">
-                    <input type="text" id="supSubject" placeholder="Sorun Konusu (Örn: Ödeme / Hata)">
-                    <textarea id="supMsg" placeholder="Detaylı açıklama yazın..."></textarea>
+                    <input type="text" id="supSubject" placeholder="Konu (Örn: Ödeme / Hata)">
+                    <textarea id="supMsg" placeholder="Sorununuzu detaylı yazın..."></textarea>
                     <button onclick="sendTicket()"><i class="fa-solid fa-paper-plane"></i> Destek Talebi Gönder</button>
                 </div>
             </div>
+
         </div>
+
     </div>
 
-    <!-- SEPET ÇEKMECESİ -->
     <div id="cartDrawer" class="cart-drawer">
         <div class="cart-header">
             <h3><i class="fa-solid fa-cart-shopping" style="color:var(--primary)"></i> Alışveriş Sepeti</h3>
@@ -250,7 +255,7 @@
                 <button onclick="applyCoupon()">Uygula</button>
             </div>
             <div class="payment-methods">
-                <label><input type="radio" name="payMethod" checked> Kredi / Banka Kartı</label>
+                <label><input type="radio" name="payMethod" checked> Kredi Kartı</label>
                 <label><input type="radio" name="payMethod"> Papara</label>
                 <label><input type="radio" name="payMethod"> Havale / EFT</label>
             </div>
@@ -262,21 +267,19 @@
         </div>
     </div>
 
-    <!-- GİRİŞ YAP MODALI -->
     <div id="loginModal" class="modal">
         <div class="modal-box">
             <span class="close-modal" onclick="toggleModal()">&times;</span>
             <div class="modal-icon"><i class="fa-solid fa-user-shield"></i></div>
             <h3>Minecraft Girişi</h3>
-            <p>Otomatik ürün teslimatı ve bakiye işlemleri için oyun içi kullanıcı adınızı girin:</p>
-            <input type="text" id="mcUser" placeholder="Kullanıcı Adı (Örn: Notch)">
+            <p>Otomatik ürün teslimatı için oyun içi kullanıcı adınızı girin:</p>
+            <input type="text" id="mcUser" placeholder="Kullanıcı Adı">
             <button class="modal-btn" onclick="saveUser()">Giriş Yap / Bağlan</button>
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer>
-        <p>&copy; 2026 XYNOV SMP. Tüm hakları saklıdır. Mojang AB ile resmi bir bağı yoktur.</p>
+        <p>&copy; 2026 XYNOV NETWORK. Tüm hakları saklıdır. Mojang AB ile resmi bir bağı yoktur.</p>
     </footer>
 
     <script src="script.js"></script>
