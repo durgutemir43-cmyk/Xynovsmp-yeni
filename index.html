@@ -9,12 +9,15 @@
 </head>
 <body>
 
+    <!-- TOAST BİLDİRİM ALANI -->
     <div id="toastContainer" class="toast-container"></div>
 
+    <!-- DUYURU BANTI -->
     <div class="announcement-bar">
-        <span>🔥 Sezon 3 Başladı! Her Sürümden Giriş Aktif (1.8 - Son Sürüm) | Kupon: XYNOV20</span>
+        <span>🔥 Sezon 3 Yayında! Her Sürümden Giriş Aktif (1.8 - 1.20+) | Kupon Kodu: XYNOV20 (%20 İndirim)</span>
     </div>
 
+    <!-- ÜST BİLGİ & SUNUCU DURUMU -->
     <header class="top-bar">
         <div class="container top-container">
             <div class="server-status-info">
@@ -35,6 +38,7 @@
         </div>
     </header>
 
+    <!-- NAVİGASYON -->
     <nav class="navbar">
         <div class="container nav-content">
             <a href="#" class="logo">
@@ -52,11 +56,12 @@
         </div>
     </nav>
 
+    <!-- HERO / BANNER -->
     <section class="hero-banner">
         <div class="hero-glow"></div>
         <div class="container hero-content">
-            <h1>Tüm Sürümlerle Uyumlu Hayatta Kalma Deneyimi</h1>
-            <p><strong>XynovSmp.aternos.me</strong> adresiyle ister telefondan, ister bilgisayardan (1.8 - son sürüm arası tüm sürümlerle) hemen aramıza katıl.</p>
+            <h1>Sınırsız Hayatta Kalma ve Savaş Deneyimi</h1>
+            <p><strong>XynovSmp.aternos.me</strong> adresiyle ister bilgisayardan ister telefondan (ViaVersion desteğiyle tüm sürümlerden) hemen aramıza katılın.</p>
             <div class="hero-buttons">
                 <a href="#storeArea" class="primary-btn"><i class="fa-solid fa-store"></i> Mağazayı İncele</a>
                 <a href="#launcherArea" class="secondary-btn"><i class="fa-solid fa-download"></i> Launcher İndir</a>
@@ -64,7 +69,10 @@
         </div>
     </section>
 
+    <!-- ANA PORTAL GRID -->
     <div class="container portal-grid">
+        
+        <!-- SOL: MAĞAZA -->
         <div class="main-store">
             <div class="card-box" id="storeArea">
                 <div class="store-header">
@@ -77,6 +85,7 @@
                     </div>
                 </div>
 
+                <!-- Kategoriler -->
                 <div class="category-tabs">
                     <div class="tab-chip active" onclick="switchCategory('all', this)">Tüm Ürünler</div>
                     <div class="tab-chip" onclick="switchCategory('rank', this)">VIP Rütbeler</div>
@@ -84,7 +93,9 @@
                     <div class="tab-chip" onclick="switchCategory('key', this)">Kasa Anahtarı</div>
                 </div>
 
+                <!-- Ürün Kartları -->
                 <div class="products-grid" id="productGrid">
+                    
                     <div class="product-card" data-category="rank" data-name="Bronze VIP">
                         <span class="badge">POPÜLER</span>
                         <div class="product-icon-wrap"><i class="fa-solid fa-medal"></i></div>
@@ -133,71 +144,98 @@
                         </ul>
                         <button class="buy-btn" onclick="addToCart('5x Efsanevi Kasa Anahtarı', 35)">Sepete Ekle</button>
                     </div>
+
                 </div>
             </div>
         </div>
 
+        <!-- SAĞ: LİDERLİK & LAUNCHER -->
         <div class="sidebar-panels">
+            
+            <!-- Liderlik Tablosu -->
             <div class="card-box" id="rankingsArea">
                 <div class="box-title"><i class="fa-solid fa-trophy" style="color: #f59e0b;"></i> Liderlik Tablosu</div>
+                
                 <div class="lb-section-title">En Güçlü Klanlar</div>
                 <ul class="lb-list">
                     <li class="lb-item">
                         <span class="rank-badge gold">1</span>
-                        <div class="lb-info"><strong>Vortex</strong> <small>Lider: oyuncu1</small></div>
+                        <div class="lb-info"><strong>Vortex</strong> <small>Lider: xynov_boss</small></div>
                         <span class="lb-stat">14,250 P</span>
                     </li>
+                    <li class="lb-item">
+                        <span class="rank-badge silver">2</span>
+                        <div class="lb-info"><strong>Shadows</strong> <small>Lider: ProGamer</small></div>
+                        <span class="lb-stat">11,900 P</span>
+                    </li>
                 </ul>
+
                 <div class="lb-section-title" style="margin-top: 25px;">En Zengin Oyuncular</div>
                 <ul class="lb-list">
                     <li class="lb-item">
                         <span class="rank-badge gold">1</span>
-                        <div class="lb-info"><strong>ProGamerTR</strong></div>
+                        <div class="lb-info"><strong>xynov_boss</strong></div>
                         <span class="lb-stat coin">450M 🪙</span>
+                    </li>
+                    <li class="lb-item">
+                        <span class="rank-badge silver">2</span>
+                        <div class="lb-info"><strong>KralPlayer</strong></div>
+                        <span class="lb-stat coin">310.5M 🪙</span>
                     </li>
                 </ul>
             </div>
 
+            <!-- Launcher Alanı -->
             <div class="card-box" id="launcherArea">
                 <div class="box-title"><i class="fa-solid fa-download" style="color: var(--primary);"></i> İstemci Portalı</div>
                 <div class="launcher-grid">
                     <div class="launcher-card">
                         <i class="fa-solid fa-cube"></i>
-                        <h4>TL / Legacy</h4>
-                        <a href="#" class="launcher-btn" onclick="showToast('Launcher yönlendiriliyor...', 'info')">İndir</a>
+                        <h4>LegacyLauncher</h4>
+                        <a href="#" class="launcher-btn" onclick="showToast('LegacyLauncher bağlantısı hazırlanıyor...', 'info')">İndir</a>
                     </div>
                     <div class="launcher-card">
                         <i class="fa-solid fa-rocket"></i>
                         <h4>Özel Client</h4>
-                        <a href="#" class="launcher-btn primary" onclick="showToast('Client hazırlanıyor...', 'success')">İndir</a>
+                        <a href="#" class="launcher-btn primary" onclick="showToast('XYNOV Client kuruluma hazırlanıyor...', 'success')">İndir</a>
                     </div>
                 </div>
             </div>
+
         </div>
+
     </div>
 
+    <!-- KURALLAR VE DESTEK -->
     <div class="container">
         <div class="extra-sections">
             <div class="card-box" id="rulesArea">
                 <div class="box-title"><i class="fa-solid fa-book-open" style="color: var(--primary);"></i> Sunucu Kuralları</div>
                 <ul class="rules-list">
-                    <li><strong>1. Hile ve X-Ray Yasaktır</strong>Her sürümde hile koruması aktiftir, tespit edilenler yasaklanır.</li>
-                    <li><strong>2. Küfür ve Hakaret Yoktur</strong>Sohbet güvenliği moderatörler tarafından sağlanır.</li>
+                    <li>
+                        <strong>1. Hile ve 3. Parti Yazılım Yasaktır</strong>
+                        X-Ray, KillAura gibi eklentiler otomatik engellenir; tespit edilenler kalıcı banlanır.
+                    </li>
+                    <li>
+                        <strong>2. Küfür ve Hakaret Kesinlikle Yasaktır</strong>
+                        Sohbette saygı esasdır, uymayanlar susturma cezası alır.
+                    </li>
                 </ul>
             </div>
 
             <div class="card-box" id="supportArea">
-                <div class="box-title"><i class="fa-solid fa-headset" style="color: var(--primary);"></i> Destek Merkezi</div>
+                <div class="box-title"><i class="fa-solid fa-headset" style="color: var(--primary);"></i> Oyuncu Destek Merkezi</div>
                 <div class="support-form">
                     <input type="text" id="supName" placeholder="Minecraft Kullanıcı Adınız">
-                    <input type="text" id="supSubject" placeholder="Sorun Konusu (Örn: Ödeme / Giriş)">
-                    <textarea id="supMsg" placeholder="Sorununuzu detaylı yazın..."></textarea>
+                    <input type="text" id="supSubject" placeholder="Sorun Konusu (Örn: Ödeme / Hata)">
+                    <textarea id="supMsg" placeholder="Detaylı açıklama yazın..."></textarea>
                     <button onclick="sendTicket()"><i class="fa-solid fa-paper-plane"></i> Destek Talebi Gönder</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- SEPET ÇEKMECESİ -->
     <div id="cartDrawer" class="cart-drawer">
         <div class="cart-header">
             <h3><i class="fa-solid fa-cart-shopping" style="color:var(--primary)"></i> Alışveriş Sepeti</h3>
@@ -212,7 +250,7 @@
                 <button onclick="applyCoupon()">Uygula</button>
             </div>
             <div class="payment-methods">
-                <label><input type="radio" name="payMethod" checked> Kredi Kartı</label>
+                <label><input type="radio" name="payMethod" checked> Kredi / Banka Kartı</label>
                 <label><input type="radio" name="payMethod"> Papara</label>
                 <label><input type="radio" name="payMethod"> Havale / EFT</label>
             </div>
@@ -224,17 +262,19 @@
         </div>
     </div>
 
+    <!-- GİRİŞ YAP MODALI -->
     <div id="loginModal" class="modal">
         <div class="modal-box">
             <span class="close-modal" onclick="toggleModal()">&times;</span>
             <div class="modal-icon"><i class="fa-solid fa-user-shield"></i></div>
             <h3>Minecraft Girişi</h3>
-            <p>Otomatik ürün teslimatı için oyun içi kullanıcı adınızı girin:</p>
-            <input type="text" id="mcUser" placeholder="Kullanıcı Adı">
+            <p>Otomatik ürün teslimatı ve bakiye işlemleri için oyun içi kullanıcı adınızı girin:</p>
+            <input type="text" id="mcUser" placeholder="Kullanıcı Adı (Örn: Notch)">
             <button class="modal-btn" onclick="saveUser()">Giriş Yap / Bağlan</button>
         </div>
     </div>
 
+    <!-- FOOTER -->
     <footer>
         <p>&copy; 2026 XYNOV SMP. Tüm hakları saklıdır. Mojang AB ile resmi bir bağı yoktur.</p>
     </footer>
