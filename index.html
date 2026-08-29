@@ -8,7 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-theme="orange">
+
+    <!-- ARKA PLAN PARÇACIK CANVAS -->
+    <canvas id="particleCanvas"></canvas>
 
     <!-- BİLDİRİM ALANI -->
     <div id="toastContainer" class="toast-container"></div>
@@ -26,7 +29,7 @@
             <div class="server-status-pill">
                 <span id="statusDot" class="pulse-dot"></span>
                 <span class="status-text">Anlık Oyuncu: <strong id="onlinePlayerCount">Yükleniyor...</strong></span>
-                <div class="ip-box" onclick="copyIP()">
+                <div class="ip-box" onclick="copyIP()" title="Kopyalamak için tıkla">
                     <i class="fa-solid fa-server"></i>
                     <span id="serverIP">XynovSmp.aternos.me</span>
                     <span class="copy-hint">Kopyala</span>
@@ -34,6 +37,13 @@
             </div>
 
             <div class="header-actions">
+                <!-- TEMA SEÇİCİ -->
+                <div class="theme-picker">
+                    <span class="dot-theme orange" onclick="setTheme('orange')" title="Turuncu Tema"></span>
+                    <span class="dot-theme purple" onclick="setTheme('purple')" title="Mor Tema"></span>
+                    <span class="dot-theme green" onclick="setTheme('green')" title="Yeşil Tema"></span>
+                    <span class="dot-theme blue" onclick="setTheme('blue')" title="Mavi Tema"></span>
+                </div>
                 <button class="btn-glass" onclick="toggleModal()"><i class="fa-solid fa-user-shield"></i> <span id="userBtnText">Giriş Yap</span></button>
                 <button class="btn-glow" onclick="toggleCart()">
                     <i class="fa-solid fa-cart-shopping"></i> Sepet
@@ -50,7 +60,7 @@
                 <div class="logo-badge"><i class="fa-solid fa-cube"></i></div>
                 XYNOV<span>NET</span>
             </a>
-            <ul class="nav-menu">
+            <ul class="nav-menu" id="navMenu">
                 <li><a href="#" class="nav-link active">Ana Sayfa</a></li>
                 <li><a href="#modesSection" class="nav-link">Oyun Modları</a></li>
                 <li><a href="#storeSection" class="nav-link">Mağaza</a></li>
@@ -58,6 +68,9 @@
                 <li><a href="#leaderboardSection" class="nav-link">Sıralama</a></li>
                 <li><a href="https://discord.gg" target="_blank" class="nav-discord"><i class="fa-brands fa-discord"></i> Discord</a></li>
             </ul>
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <i class="fa-solid fa-bars"></i>
+            </div>
         </div>
     </nav>
 
@@ -75,7 +88,7 @@
         </div>
     </section>
 
-    <!-- OYUN MODLARI (CHICKENNW / CRAFTRISE TARZI) -->
+    <!-- OYUN MODLARI -->
     <section class="container section-pad" id="modesSection">
         <div class="section-title-wrap">
             <h2>Aktif Oyun Modları</h2>
@@ -234,7 +247,7 @@
         </div>
     </section>
 
-    <!-- SEPET ÇEKMECESİ (DRAWER) -->
+    <!-- SEPET ÇEKMECESİ -->
     <div id="cartDrawer" class="cart-drawer">
         <div class="cart-drawer-header">
             <h3><i class="fa-solid fa-cart-shopping" style="color:var(--accent)"></i> Alışveriş Sepeti</h3>
@@ -264,7 +277,9 @@
     <div id="loginModal" class="modal-overlay">
         <div class="modal-card">
             <span class="modal-close" onclick="toggleModal()">&times;</span>
-            <div class="modal-icon-wrap"><i class="fa-solid fa-user-gear"></i></div>
+            <div class="modal-icon-wrap" id="modalIconContainer">
+                <i class="fa-solid fa-user-gear"></i>
+            </div>
             <h3>Minecraft Girişi</h3>
             <p>Otomatik teslimat ve bakiye işlemleri için oyun içi kullanıcı adınızı yazın:</p>
             <input type="text" id="mcUser" placeholder="Kullanıcı Adı (Örn: Notch)">
