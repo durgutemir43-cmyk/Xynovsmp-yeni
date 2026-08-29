@@ -9,26 +9,38 @@
 </head>
 <body>
 
+    <div id="toastContainer" class="toast-container"></div>
+
     <div class="announcement-bar">
-        🔥 XYNOV SMP v2.2 Güncellemesi Aktif! Haftalık Klan Turnuvaları ve Ödüllü Etkinlikler Başladı!
+        <span>🔥 XYNOV SMP v2.5 Güncellemesi Yayınlandı! Haftalık Klan Savaşları Başladı!</span>
     </div>
 
     <header class="top-bar">
         <div class="container top-container">
-            <div class="server-ip">
-                <i class="fa-solid fa-server"></i> Sunucu IP: <span id="serverIP">play.xynovsmp.com</span>
-                <button onclick="copyIP()" class="copy-btn"><i class="fa-regular fa-copy"></i> Kopyala</button>
+            <div class="server-status-info">
+                <span class="status-dot"></span>
+                <span>Aktif Oyuncu: <strong>142/250</strong></span>
+                <div class="server-ip">
+                    <i class="fa-solid fa-server"></i> <span id="serverIP">play.xynovsmp.com</span>
+                    <button onclick="copyIP()" class="copy-btn"><i class="fa-regular fa-copy"></i> Kopyala</button>
+                </div>
             </div>
             <div class="user-menu">
                 <button class="action-btn" onclick="toggleModal()"><i class="fa-solid fa-user"></i> <span id="userBtnText">Giriş Yap</span></button>
-                <button class="action-btn" onclick="toggleCart()"><i class="fa-solid fa-cart-shopping"></i> Sepet <span id="cartBadge">0</span></button>
+                <button class="action-btn cart-action-btn" onclick="toggleCart()">
+                    <i class="fa-solid fa-cart-shopping"></i> Sepet 
+                    <span id="cartBadge" class="badge-count">0</span>
+                </button>
             </div>
         </div>
     </header>
 
     <nav class="navbar">
         <div class="container nav-content">
-            <a href="#" class="logo"><i class="fa-solid fa-cube" style="color:var(--primary)"></i> XYNOV<span>SMP</span></a>
+            <a href="#" class="logo">
+                <div class="logo-icon"><i class="fa-solid fa-cube"></i></div>
+                XYNOV<span>SMP</span>
+            </a>
             <ul class="nav-links">
                 <li><a href="#storeArea" class="active">Mağaza</a></li>
                 <li><a href="#rankingsArea">Liderlik</a></li>
@@ -41,9 +53,14 @@
     </nav>
 
     <section class="hero-banner">
-        <div class="container">
-            <h1>Profesyonel Hayatta Kalma Deneyimi</h1>
-            <p>Eşsiz klan savaşları, özel yetenekler, kasa sistemleri ve adil ticaret ekonomisiyle hemen maceraya atıl!</p>
+        <div class="hero-glow"></div>
+        <div class="container hero-content">
+            <h1>Sınırları Zorlayan Hayatta Kalma Deneyimi</h1>
+            <p>Eşsiz klan savaşları, özel yetenekler, gelişmiş kasa sistemleri ve tamamen adil bir ekonomi yapısıyla hemen maceraya katıl!</p>
+            <div class="hero-buttons">
+                <a href="#storeArea" class="primary-btn"><i class="fa-solid fa-store"></i> Mağazayı Keşfet</a>
+                <a href="#launcherArea" class="secondary-btn"><i class="fa-solid fa-download"></i> İstemciyi İndir</a>
+            </div>
         </div>
     </section>
 
@@ -52,7 +69,9 @@
         <div class="main-store">
             <div class="card-box" id="storeArea">
                 <div class="store-header">
-                    <div class="box-title" style="margin-bottom:0; border:none; padding:0;"><i class="fa-solid fa-store" style="color:var(--primary)"></i> Sunucu Mağazası</div>
+                    <div class="box-title" style="margin-bottom:0; border:none; padding:0;">
+                        <i class="fa-solid fa-store" style="color:var(--primary)"></i> Sunucu Mağazası
+                    </div>
                     <div class="search-box">
                         <input type="text" id="searchInput" placeholder="Ürün veya rütbe ara..." onkeyup="filterProducts()">
                         <i class="fa-solid fa-magnifying-glass"></i>
@@ -70,7 +89,7 @@
                     
                     <div class="product-card" data-category="rank" data-name="Bronze VIP">
                         <span class="badge">POPÜLER</span>
-                        <i class="fa-solid fa-medal icon"></i>
+                        <div class="product-icon-wrap"><i class="fa-solid fa-medal"></i></div>
                         <h3>Bronze VIP</h3>
                         <p class="price">50.00 ₺</p>
                         <ul class="feat-list">
@@ -83,7 +102,7 @@
 
                     <div class="product-card featured" data-category="rank" data-name="Xynov VIP">
                         <span class="badge gold">EN ÇOK SATAN</span>
-                        <i class="fa-solid fa-crown icon"></i>
+                        <div class="product-icon-wrap"><i class="fa-solid fa-crown"></i></div>
                         <h3>Xynov VIP</h3>
                         <p class="price">120.00 ₺</p>
                         <ul class="feat-list">
@@ -95,7 +114,7 @@
                     </div>
 
                     <div class="product-card" data-category="spawner" data-name="Demir Golem Spawner">
-                        <i class="fa-solid fa-cube icon"></i>
+                        <div class="product-icon-wrap"><i class="fa-solid fa-cube"></i></div>
                         <h3>Demir Golem Spawner</h3>
                         <p class="price">75.00 ₺</p>
                         <ul class="feat-list">
@@ -107,7 +126,7 @@
                     </div>
 
                     <div class="product-card" data-category="key" data-name="Efsanevi Kasa Anahtarı">
-                        <i class="fa-solid fa-key icon"></i>
+                        <div class="product-icon-wrap"><i class="fa-solid fa-key"></i></div>
                         <h3>5x Efsanevi Anahtar</h3>
                         <p class="price">35.00 ₺</p>
                         <ul class="feat-list">
@@ -171,12 +190,12 @@
                     <div class="launcher-card">
                         <i class="fa-solid fa-cube"></i>
                         <h4>LegacyLauncher</h4>
-                        <a href="#" class="launcher-btn" onclick="alert('LegacyLauncher indirmesi başlatılıyor...')">İndir</a>
+                        <a href="#" class="launcher-btn" onclick="showToast('LegacyLauncher indirmesi başlatılıyor...', 'info')">İndir</a>
                     </div>
                     <div class="launcher-card">
                         <i class="fa-solid fa-rocket"></i>
                         <h4>Özel Launcher</h4>
-                        <a href="#" class="launcher-btn" onclick="alert('Özel XYNOV Client indirmesi başlatılıyor...')">Git / İndir</a>
+                        <a href="#" class="launcher-btn primary" onclick="showToast('Özel XYNOV Client kuruluma hazırlanıyor...', 'success')">Git / İndir</a>
                     </div>
                 </div>
             </div>
@@ -221,24 +240,32 @@
 
     <div id="cartDrawer" class="cart-drawer">
         <div class="cart-header">
-            <h3>Alışveriş Sepeti</h3>
+            <h3><i class="fa-solid fa-cart-shopping" style="color:var(--primary)"></i> Alışveriş Sepeti</h3>
             <button class="close-cart" onclick="toggleCart()">&times;</button>
         </div>
         <div class="cart-body" id="cartItemsList">
             <p class="empty-cart">Sepetiniz şu an boş.</p>
         </div>
         <div class="cart-footer">
-            <div class="cart-total">Toplam Tutar: <span id="cartTotalPrice">0.00 ₺</span></div>
-            <button class="checkout-btn" onclick="checkout()">Ödemeye Geç</button>
+            <div class="coupon-box">
+                <input type="text" id="couponInput" placeholder="İndirim Kodu (örn: XYNOV20)">
+                <button onclick="applyCoupon()">Uygula</button>
+            </div>
+            <div class="cart-total">
+                <span>Toplam Tutar:</span> 
+                <span id="cartTotalPrice">0.00 ₺</span>
+            </div>
+            <button class="checkout-btn" onclick="checkout()">Güvenli Ödemeye Geç</button>
         </div>
     </div>
 
     <div id="loginModal" class="modal">
         <div class="modal-box">
             <span class="close-modal" onclick="toggleModal()">&times;</span>
+            <div class="modal-icon"><i class="fa-solid fa-user-shield"></i></div>
             <h3>Minecraft Girişi</h3>
-            <p>Mağaza otomasyonu için sunucu kullanıcı adınızı girin:</p>
-            <input type="text" id="mcUser" placeholder="Kullanıcı Adı">
+            <p>Mağaza entegrasyonu ve otomatik ürün teslimatı için oyun içi kullanıcı adınızı girin:</p>
+            <input type="text" id="mcUser" placeholder="Kullanıcı Adı (Örn: Notch)">
             <button class="modal-btn" onclick="saveUser()">Giriş Yap</button>
         </div>
     </div>
